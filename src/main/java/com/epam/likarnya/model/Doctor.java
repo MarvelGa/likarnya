@@ -25,6 +25,10 @@ public class Doctor {
     @Column(name = "last_name", length = 25, nullable = false)
     private String lastName;
 
+    @JoinColumn(name="staff_id")
+    @OneToOne
+    private Staff staff;
+
     @NotNull
     @ManyToOne
     @EqualsAndHashCode.Exclude

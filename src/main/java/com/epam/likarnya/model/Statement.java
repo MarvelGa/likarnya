@@ -4,6 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -34,4 +36,8 @@ public class Statement {
 
     @Column(name = "created_at")
     private LocalDate createdAt;
+
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "statement", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY )
+    private List<MedicalCard> medicalCards = new ArrayList<>();
 }
