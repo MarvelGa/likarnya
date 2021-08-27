@@ -7,15 +7,23 @@
 </head>
 <body>
 <center>
+    <h2>Login Form</h2>
     <form th:action="@{/login}" th:object="${loginUser}" method="post">
+
+        <p>Not registered yet?<a
+                href="/registration"> Go to registration!</a></p>
+
+        <!--        <div th:if="${registrationSuccess}">-->
+
+        <div style="color: forestgreen; font-size: medium" th:text="${registrationSuccess}"></div>
+
         <table>
             <tr>
                 <th>
                     <label>Email</label>
                 </th>
                 <td>
-                    <!--            <input th:type="text" name="email" th:field="*{email}" id="email" th:value="${loginUser.email}"/>-->
-                    <input type="text" th:field="*{email}" id="email"/>
+                    <input th:type="text" name="email" th:field="*{email}" id="email" th:value="${loginUser.email}"/>
                 </td>
                 <td th:style="'color: #ff6347'">
                     <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
@@ -27,8 +35,8 @@
                     <label>Password</label>
                 </th>
                 <td>
-                    <!--            <input th:type="password" th:field="*{password}"/>-->
-                    <input type="password"/>
+                    <input th:type="password" name="password" th:field="*{password}" id="password"
+                           th:value="${loginUser.password}"/>
                 </td>
                 <td th:style="'color: #ff6347'">
                     <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>

@@ -6,8 +6,11 @@
     <link th:href="@{/style.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
-<h2>Nurse Cabinet</h2>
 
+<h1>Ooops, Something wrong</h1>
+<p></p>
+<h1>Error info:</h1>
+<div style="color: red; font-size: xx-large" th:text="${info}"></div>
 
 <div id="footer" th:insert="~{fragments/footer :: footer}"></div>
 </body>

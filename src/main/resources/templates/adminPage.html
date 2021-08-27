@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Error Page</title>
+    <link th:href="@{/style.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
 
+<div id="footer" th:insert="~{fragments/footer :: footer}"></div>
 </body>
 </html>

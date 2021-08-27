@@ -7,6 +7,12 @@
 </head>
 <body>
 <center>
+    <h2>Registration Form</h2>
+
+    <p>Have already registered?<a
+            href="/login"> To Log In!</a></p>
+
+
     <form th:action="@{/registration}" th:object="${registrationUser}" method="post">
 
         <table th:object="${errorMessages}" border="0">
@@ -14,6 +20,7 @@
                 <td th:text="${elem}"></td>
             </tr>
         </table>
+        </br> </br>
 
         <table>
             <tr>
@@ -59,7 +66,7 @@
                 <th>
                 </th>
                 <td colspan="0">
-                    <input type="submit" value="Enter"/>
+                    <input type="submit" value="Registration"/>
                     <input type="reset" value="Clear">
                 </td>
             </tr>
