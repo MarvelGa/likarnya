@@ -4,9 +4,12 @@ import lombok.*;
 import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Builder
@@ -26,18 +29,27 @@ public class User {
     @EqualsAndHashCode.Exclude
     private Long id;
 
-    @NotNull
-    @Column (length = 100)
+    @Column(name = "first_name", length = 50, nullable = false)
+    private String firstName;
+
+    @Column(name = "last_name", length = 50, nullable = false)
+    private String lastName;
+
+    @Column(length = 50, nullable = false)
     private String email;
 
-    @NotNull
-    @Column (length = 100)
+    @Column(length = 50, nullable = false)
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    @ToString.Exclude
+    @JoinColumn(name="category_id")
+    @ManyToOne
+    private Category category;
 
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<Staff> staff = new ArrayList<>();
+    private Set<Statement> statements = new LinkedHashSet<>();
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }

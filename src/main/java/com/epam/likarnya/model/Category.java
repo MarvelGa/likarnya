@@ -21,8 +21,8 @@ public class Category {
     @Column(length = 50, unique = true, nullable = false)
     private String title;
 
-    @ToString.Exclude
-    @OneToMany(mappedBy = "category")
     @EqualsAndHashCode.Exclude
-    private List<Doctor> doctors = new ArrayList<>();
+    @ToString.Exclude
+    @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<User> users = new ArrayList<>();
 }

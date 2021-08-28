@@ -1,0 +1,35 @@
+
+<th:block xmlns:th="http://www.thymeleaf.org" th:fragment="admin-panel">
+<div class="topnav">
+    <a class="active" href="#home">Home</a>
+    <a href="/admin/patient">List of Patient</a>
+    <a href="/admin/doctors">List of Doctors</a>
+    <a href="/registration">Registration Medical Personal</a>
+    <a href="/registration">Registration Person</a>
+    <span th:text="${session.user.getRole()}"></span>
+    <form th:action="@{/perform-logout}" method="post">
+        <button style="position: absolute; right: 0px; top: 20px; width: 80px; height: 30px" type="submit">
+            Log Out
+        </button>
+    </form>
+
+<!--    <div class="topnav" th:if="${session.user!=null}">-->
+<!--        <b> <span th:text="${session.user.getRole()}"></span> </b>-->
+
+
+
+<!--    </div>-->
+
+<!--        <div class="topnav" th:if="${session.user!=null}">-->
+<!--                    <b> <span th:text="${session.user.getRole()}"></span> </b>-->
+
+
+<!--            <form th:action="@{/perform-logout}" method="post">-->
+<!--                <button style="position: absolute; right: 0px; top: 10px;" class='btn btn-secondary pull-right' type="submit">-->
+<!--                    Log Out-->
+<!--                </button>-->
+<!--            </form>-->
+<!--        </div>-->
+
+</div>
+</th:block>

@@ -14,9 +14,18 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class RegistrationRequestDto {
     @NotBlank(message = "The field is required")
+    private String firstName;
+
+    @NotBlank(message = "The field is required")
+    private String lastName;
+
+    @NotBlank(message = "The field is required")
     private String email;
 
     @NotBlank (message = "The field is required")
     private String password;
+
     private User.Role role;
+
+    private Long category;
 }

@@ -23,6 +23,34 @@
         </br> </br>
 
         <table>
+
+            <tr>
+                <th>
+                    <label>First Name</label>
+                </th>
+                <td>
+                    <input th:type="text" name="firstName" th:field="*{firstName}" id="firstName"
+                           th:value="${registrationUser.firstName}"/>
+                </td>
+                <td th:style="'color: #ff6347'">
+                    <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+                </td>
+            </tr>
+
+
+            <tr>
+                <th>
+                    <label>Last Name</label>
+                </th>
+                <td>
+                    <input th:type="text" name="lastName" th:field="*{lastName}" id="lastName"
+                           th:value="${registrationUser.lastName}"/>
+                </td>
+                <td th:style="'color: #ff6347'">
+                    <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+                </td>
+            </tr>
+
             <tr>
                 <th>
                     <label>Email</label>
@@ -51,16 +79,35 @@
 
             <tr>
                 <th>
-                    <label>Role</label>
+                    <label for="role">Role</label>
                 </th>
                 <td>
-                    <select th:field="*{role}" id="quantity">
-                        <!--                        <option value="ADMIN" selected="selected">ADMIN</option>-->
+                    <select th:field="*{role}" id="role">
                         <option value="DOCTOR">DOCTOR</option>
                         <option value="NURSE">NURSE</option>
                     </select>
                 </td>
             </tr>
+
+            <tr>
+            <th>
+                <label for="category">Category</label>
+            </th>
+            <td>
+                <select th:field="*{category}" id="category">
+                    <option value=0>NONE</option>
+                    <option value=1>THERAPIST</option>
+                    <option value=2>SURGEON</option>
+                    <option value=3>TRAUMATOLOGIST</option>
+                    <option value=4>DERMATOLOGIST</option>
+                    <option value=5>NEUROPATHOLOGIST</option>
+                    <option value=6>OTOLARYNGOLOGIST</option>
+                    <option value=7>OPHTHALMOLOGIST</option>
+                </select>
+            </td>
+            </tr>
+
+
 
             <tr>
                 <th>
@@ -74,5 +121,6 @@
     </form>
     <div id="footer" th:insert="~{fragments/footer :: footer}"></div>
 </center>
+
 </body>
 </html>

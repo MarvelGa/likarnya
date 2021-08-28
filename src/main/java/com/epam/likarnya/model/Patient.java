@@ -25,6 +25,7 @@ public class Patient {
     @EqualsAndHashCode.Exclude
     private Long id;
 
+
     @Column(name = "first_name", length = 25, nullable = false)
     private String firstName;
 

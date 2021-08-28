@@ -24,9 +24,9 @@ public class Statement {
     private Long id;
 
     @ToString.Exclude
-    @JoinColumn(name="doctor_id")
+    @JoinColumn(name="user_id")
     @ManyToOne
-    private Doctor doctor;
+    private User user;
 
     @Enumerated(EnumType.STRING)
     private PatientStatus patientStatus = PatientStatus.NEW;

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Error Page</title>
+    <link th:href="@{/topstyle.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<center>
+    <div id="admin-panel" th:insert="~{fragments/admin-panel :: admin-panel}"></div>
+    <h2>Admin Cabinet</h2>
+    <h2>List of Orders</h2>
+
+    <form action="#" th:action="@{/registration}" method="get">
+        <input type="submit" value="Add new Dorctor">
+    </form>
+    </br>
+    <p>Sort by (quantity): <a href="/orders/sort=asc">category</a> | <a href="/orders/sort=asc">ascending</a> | <a href="/orders/sort=desc">descending</a> | <a
+            href="/admin/doctors">non sorting</a></p>
+    <table border="1">
+        <tr>
+            <th>No.</th>
+            <th>Doctor ID</th>
+            <th>Doctor Name</th>
+            <th>Doctor LastName</th>
+<!--            <th>Category</th>-->
+<!--            <th>Patient Quantity</th>-->
+            <th colspan="5">Operations</th>
+        </tr>
+        <tr th:each="doctor, iStat: ${doctors}">
+            <td th:text="${iStat.index + 1}"/>
+            <td th:text="${doctor.id}"/>
+            <td th:text="${doctor.firstName}"/>
+            <td th:text="${doctor.lastName}"/>
+<!--            <td th:text="${}"/>-->
+<!--            <td th:text="${}"/>-->
+
+            <td>
+<!--                <a th:href="@{|/orders/${orderItem.order.id}/edit/${orderItem.product.id}|}">Edit this Product</a>-->
+            </td>
+
+            <td>
+<!--                <a th:href="@{|/orders/${orderItem.order.id}|}">Open/Edit Order</a>-->
+            </td>
+
+            <td>
+<!--                <a th:href="@{|/orders/delete/${orderItem.id}|}">Delete this Product from Order</a>-->
+            </td>
+
+            <td>
+<!--                <a th:href="@{|/orders/${orderItem.id}/delete/${orderItem.order.id}|}">Delete Particular Order</a>-->
+            </td>
+            <td>
+<!--                <a th:href="@{|/order/${orderItem.order.id}/add/${orderItem.product.id}|}">Add one more product to Order</a>-->
+            </td>
+        </tr>
+
+
+    <div id="footer" th:insert="~{fragments/footer :: footer}"></div>
+</center>
+</body>
+</html>

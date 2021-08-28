@@ -44,7 +44,6 @@ public class LoginController {
         User user = userService.findByEmail(loginRequestDto.getEmail());
         log.trace("Found in DB: user --> " + user);
 
-        //  if (user==null || !(loginRequestDto.getPassword().equals())){
         if (user == null || !(encryptPassword(loginRequestDto.getPassword()).equals(user.getPassword()))) {
             errorMessage = "Wrong login or password";
             model.addAttribute("errorMessage", errorMessage);
@@ -68,9 +67,17 @@ public class LoginController {
             session.setAttribute("user", user);
             log.trace("Set the session attribute: user --> " + user);
             log.debug(String.format("redirect --> %s", "/adminPage"));
-            return "adminPage";
+            return "redirect:/admin";
         }
     }
+
+    @PostMapping("/perform-logout")
+    public String doLogout(Model theModel, final HttpSession session, @ModelAttribute("loginUser") LoginRequestDto loginRequestDto) {
+        session.invalidate();
+        theModel.addAttribute("loginUser", new LoginRequestDto());
+        return "loginPage";
+    }
+
 
     private String encryptPassword(final String password) throws EncryptException {
         if (Objects.isNull(password) || password.isEmpty()) {

@@ -2,11 +2,11 @@ package com.epam.likarnya.controller;
 
 import com.epam.likarnya.dto.RegistrationRequestDto;
 import com.epam.likarnya.model.User;
+import com.epam.likarnya.service.CategoryService;
 import com.epam.likarnya.service.UserService;
 import com.epam.likarnya.validator.DataValidator;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -27,8 +26,9 @@ import java.util.List;
 @Data
 @Controller
 @RequiredArgsConstructor
-public class RegistrationController {
+public class RegistrationUserController {
     private final UserService userService;
+    private final CategoryService categoryService;
 
     @GetMapping("/registration")
     public String registrationForm(Model model) {
@@ -37,7 +37,7 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String handleRegistration(Model model, HttpSession session, @Valid @ModelAttribute("registrationUser") RegistrationRequestDto requestDto,
+    public String handleRegistration(Model model, @Valid @ModelAttribute("registrationUser") RegistrationRequestDto requestDto,
                                      BindingResult bindingResult) {
         log.debug("Registration starts");
         List<String> errorMessages = new ArrayList<>();
@@ -57,6 +57,18 @@ public class RegistrationController {
             errorMessages.add(errorMessage);
         }
 
+        if (!DataValidator.isNameValid(requestDto.getFirstName())) {
+            errorMessage = "First Name is not valid";
+            log.error(errorMessage);
+            errorMessages.add(errorMessage);
+        }
+
+        if (!DataValidator.isSurnameValid(requestDto.getFirstName())) {
+            errorMessage = "Last Name is not valid";
+            log.error(errorMessage);
+            errorMessages.add(errorMessage);
+        }
+
         if (userService.findByEmail(requestDto.getEmail()) != null) {
             errorMessage = "This email is already exist";
             log.error(errorMessage);
@@ -65,18 +77,34 @@ public class RegistrationController {
 
         if (!errorMessages.isEmpty()) {
             model.addAttribute("errorMessages", errorMessages);
-            log.debug(String.format("forward --> %s", "/registration" ));
+            log.debug(String.format("forward --> %s", "/registration"));
             return "registrationPage";
         } else {
-            User newUser = User.builder()
-                    .email(requestDto.getEmail())
-                    .password(encryptPassword(requestDto.getPassword()))
-                    .role(requestDto.getRole())
-                    .build();
-            log.trace("Saving new user: "+ newUser);
+            User newUser;
+            if (requestDto.getCategory() != 0) {
+                newUser = User.builder()
+                        .firstName(requestDto.getFirstName())
+                        .lastName(requestDto.getLastName())
+                        .email(requestDto.getEmail())
+                        .password(encryptPassword(requestDto.getPassword()))
+                        .role(requestDto.getRole())
+                        .category(categoryService.findById(requestDto.getCategory()))
+                        .build();
+
+            } else {
+                newUser = User.builder()
+                        .firstName(requestDto.getFirstName())
+                        .lastName(requestDto.getLastName())
+                        .email(requestDto.getEmail())
+                        .password(encryptPassword(requestDto.getPassword()))
+                        .role(requestDto.getRole())
+                        .build();
+            }
+
+            log.trace("Saving new user: " + newUser);
             userService.createOrUpdate(newUser);
             log.debug(String.format("redirect --> %s", "/login"));
-            model.addAttribute("registrationSuccess","Registration completed successfully! Please, Log In!");
+            model.addAttribute("registrationSuccess", "Registration completed successfully! Please, Log In!");
             return "redirect:/login";
         }
     }
