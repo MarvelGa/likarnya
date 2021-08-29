@@ -2,10 +2,11 @@
 <th:block xmlns:th="http://www.thymeleaf.org" th:fragment="admin-panel">
 <div class="topnav">
     <a class="active" href="#home">Home</a>
-    <a href="/admin/patient">List of Patient</a>
+    <a href="/admin/nurses">List of Nurse</a>
+    <a href="/admin/patients">List of Patient</a>
     <a href="/admin/doctors">List of Doctors</a>
-    <a href="/registration">Registration Medical Personal</a>
-    <a href="/registration">Registration Person</a>
+    <a href="/admin/medical-registration">Registration Medical Personal</a>
+    <a href="/admin/patient-registration">Registration Person</a>
     <span th:text="${session.user.getRole()}"></span>
     <form th:action="@{/perform-logout}" method="post">
         <button style="position: absolute; right: 0px; top: 20px; width: 80px; height: 30px" type="submit">

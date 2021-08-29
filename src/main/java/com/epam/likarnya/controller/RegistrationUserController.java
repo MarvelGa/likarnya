@@ -30,16 +30,16 @@ public class RegistrationUserController {
     private final UserService userService;
     private final CategoryService categoryService;
 
-    @GetMapping("/registration")
+    @GetMapping("/admin/medical-registration")
     public String registrationForm(Model model) {
         model.addAttribute("registrationUser", new RegistrationRequestDto());
-        return "registrationPage";
+        return "medicalRegistrationPage";
     }
 
-    @PostMapping("/registration")
+    @PostMapping("/admin/medical-registration")
     public String handleRegistration(Model model, @Valid @ModelAttribute("registrationUser") RegistrationRequestDto requestDto,
                                      BindingResult bindingResult) {
-        log.debug("Registration starts");
+        log.debug("Registration medical personal starts");
         List<String> errorMessages = new ArrayList<>();
         String errorMessage;
 
@@ -63,7 +63,7 @@ public class RegistrationUserController {
             errorMessages.add(errorMessage);
         }
 
-        if (!DataValidator.isSurnameValid(requestDto.getFirstName())) {
+        if (!DataValidator.isSurnameValid(requestDto.getLastName())) {
             errorMessage = "Last Name is not valid";
             log.error(errorMessage);
             errorMessages.add(errorMessage);
@@ -78,7 +78,7 @@ public class RegistrationUserController {
         if (!errorMessages.isEmpty()) {
             model.addAttribute("errorMessages", errorMessages);
             log.debug(String.format("forward --> %s", "/registration"));
-            return "registrationPage";
+            return "medicalRegistrationPage";
         } else {
             User newUser;
             if (requestDto.getCategory() != 0) {
@@ -101,11 +101,19 @@ public class RegistrationUserController {
                         .build();
             }
 
+            if (newUser.getRole()== User.Role.NURSE){
+                log.trace("Saving new user: " + newUser);
+                userService.createOrUpdate(newUser);
+                log.debug(String.format("redirect --> %s", "/admin/nurses"));
+                model.addAttribute("registrationSuccess", "The nurse added successfully");
+                return "redirect:/admin/nurses";
+            }
+
             log.trace("Saving new user: " + newUser);
             userService.createOrUpdate(newUser);
-            log.debug(String.format("redirect --> %s", "/login"));
-            model.addAttribute("registrationSuccess", "Registration completed successfully! Please, Log In!");
-            return "redirect:/login";
+            log.debug(String.format("redirect --> %s", "/admin/doctors"));
+            model.addAttribute("registrationSuccess", "The doctor added successfully");
+            return "redirect:/admin/doctors";
         }
     }
 

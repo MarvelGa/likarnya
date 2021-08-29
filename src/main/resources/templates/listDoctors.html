@@ -9,9 +9,11 @@
 <center>
     <div id="admin-panel" th:insert="~{fragments/admin-panel :: admin-panel}"></div>
     <h2>Admin Cabinet</h2>
-    <h2>List of Orders</h2>
+    <h2>List of Doctors</h2>
 
-    <form action="#" th:action="@{/registration}" method="get">
+    <div style="color: forestgreen; font-size: medium" th:text="${registrationSuccess}"></div>
+
+    <form action="#" th:action="@{/admin/medical-registration}" method="get">
         <input type="submit" value="Add new Dorctor">
     </form>
     </br>
@@ -51,7 +53,9 @@
 <!--                <a th:href="@{|/orders/${orderItem.id}/delete/${orderItem.order.id}|}">Delete Particular Order</a>-->
             </td>
             <td>
-<!--                <a th:href="@{|/order/${orderItem.order.id}/add/${orderItem.product.id}|}">Add one more product to Order</a>-->
+                <form action="#" th:action="@{/admin/doctors/add-patient/{doctor_id}(doctor_id=${doctor.id})}" method="get">
+                    <input type="submit" value="Add Patient">
+                </form>
             </td>
         </tr>
 

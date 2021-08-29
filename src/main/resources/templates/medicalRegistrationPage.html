@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Registration Page</title>
-    <link th:href="@{/style.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/topstyle.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
 <center>
-    <h2>Registration Form</h2>
+    <div id="admin-panel" th:insert="~{fragments/admin-panel :: admin-panel}"></div>
+    <h2>Admin Cabinet</h2>
+    <h2>Medical Workers Registration Form</h2>
 
-    <p>Have already registered?<a
-            href="/login"> To Log In!</a></p>
-
-
-    <form th:action="@{/registration}" th:object="${registrationUser}" method="post">
+    <form th:action="@{/admin/medical-registration}" th:object="${registrationUser}" method="post">
 
         <table th:object="${errorMessages}" border="0">
             <tr th:style="'color: #ff6347'" th:each="elem :${errorMessages}">
