@@ -10,7 +10,66 @@
     <div id="admin-panel" th:insert="~{fragments/admin-panel :: admin-panel}"></div>
     <h2>Admin Cabinet</h2>
 
-    <div id="footer" th:insert="~{fragments/footer :: footer}"></div>
+    <p>Sort by (quantity): <a href="/patients/sort=asc">category</a> | <a href="/patients/sort=asc">ascending</a> | <a
+            href="/orders/sort=desc">descending</a> | <a
+            href="/admin/patients">non sorting</a></p>
+    <table border="1">
+        <tr>
+            <th>No.</th>
+            <th>Patient ID</th>
+            <th>Patient Name</th>
+            <th>Patient LastName</th>
+            <th>Date Of Birth</th>
+            <th>Patient Gender</th>
+            <th colspan="5">Operations</th>
+        </tr>
+        <tr th:each="patient, iStat: ${page.content}">
+            <td th:text="${iStat.index + 1}"/>
+            <td th:text="${patient.id}"/>
+            <td th:text="${patient.firstName}"/>
+            <td th:text="${patient.lastName}"/>
+            <td th:text="${patient.dateOfBirth}"/>
+            <td th:text="${patient.gender}"/>
+            <td>
+                <!--                <a th:href="@{|/orders/${orderItem.order.id}/edit/${orderItem.product.id}|}">Edit this Product</a>-->
+            </td>
+
+            <td>
+                <!--                <a th:href="@{|/orders/${orderItem.order.id}|}">Open/Edit Order</a>-->
+            </td>
+
+            <td>
+                <!--                <a th:href="@{|/orders/delete/${orderItem.id}|}">Delete this Product from Order</a>-->
+            </td>
+
+            <td>
+                <!--                <a th:href="@{|/orders/${orderItem.id}/delete/${orderItem.order.id}|}">Delete Particular Order</a>-->
+            </td>
+            <td>
+<!--                <form action="#" th:action="@{/admin/doctors/add-patient/{doctor_id}(doctor_id=${doctor.id})}"-->
+<!--                      method="get">-->
+<!--                    <input type="submit" value="Add Patient">-->
+<!--                </form>-->
+            </td>
+        </tr>
+    </table>
+
+    <div class="pagination-div">
+    <span th:if="${page.hasPrevious()}">
+        <a th:href="@{/admin/patients(page=${page.number-1},size=${page.size})}">Previous</a>
+    </span>
+        <th:block th:each="i: ${#numbers.sequence(0, page.totalPages - 1)}">
+            <span th:if="${page.number == i}" class="selected">[[${i}+1]]</span>
+            <span th:unless="${page.number == i}">
+             <a th:href="@{/admin/patients(page=${i},size=${page.size})}">[[${i}+1]]</a>
+        </span>
+        </th:block>
+        <span th:if="${page.hasNext()}">
+        <a th:href="@{/admin/patients(page=${page.number+1},size=${page.size})}">Next</a>
+    </span>
+    </div>
+
+        <div id="footer" th:insert="~{fragments/footer :: footer}"></div>
 </center>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.epam.likarnya.controller;
 
 import com.epam.likarnya.dto.LoginRequestDto;
+import com.epam.likarnya.model.Patient;
 import com.epam.likarnya.model.User;
 import com.epam.likarnya.service.UserService;
 import lombok.Data;
@@ -32,11 +33,7 @@ public class AdminController {
         return "listDoctors";
     }
 
-    @GetMapping(value = "/admin/patient")
-    public String listPatients(Model model) {
-        model.addAttribute("loginUser", new LoginRequestDto());
-        return "listPatient";
-    }
+
 
 
 

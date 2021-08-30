@@ -13,8 +13,11 @@ import java.util.Optional;
 public interface UserRepository extends CrudRepository<User, Long> {
 //    Optional<User> findUserByEmail(String email);
     User findUserByEmail (String email);
+//
+//    @Query(value = "SELECT * from users u WHERE u.role='DOCTOR'", nativeQuery = true)
+//    List<User> getUserByRole(@Param("role") User.Role role);
 
-    @Query(value = "SELECT * from users u WHERE u.role='DOCTOR'", nativeQuery = true)
-    List<User> getUserByRole(@Param("role") User.Role role);
+    @Query(value = "SELECT * from users u WHERE u.role=?1", nativeQuery = true)
+    List<User> getUserByRole(User.Role role);
 
 }
