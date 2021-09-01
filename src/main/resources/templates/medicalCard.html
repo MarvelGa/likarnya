@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Medical Card Page</title>
+    <link th:href="@{/topstyle.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<center>
+    <div id="admin-panel" th:insert="~{fragments/admin-panel :: admin-panel}"></div>
+    <h2>Admin Cabinet</h2>
+    <h2>Medical Card Form</h2>
+
+    <form th:action="@{/admin/create-medical-card/{patient_id}(patient_id=${patient.id})}" th:object="${medicalCard}"
+          method="post">
+        <table border="1">
+            <tr>
+                <th>Patient Name</th>
+                <th>Patient Last Name</th>
+            </tr>
+            <tr th:each="patient, iStat: ${patient}">
+                <td>
+                    <a th:text="${patient.firstName}"/>
+                </td>
+                <td>
+                    <a th:text="${patient.lastName}"/>
+                </td>
+            </tr>
+
+            <table>
+
+                <tr>
+                    <th>
+                        <label>Enter the Complaints of Patient</label>
+                    </th>
+                    <td>
+                        <input th:type="text" name="email" th:field="*{complaints}" id="email" required/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <!--                    <td>-->
+                    <!--                        <label for="quantity">Doctor</label>-->
+                    <!--                    </td>-->
+
+                    <td>
+                        <!--                        <label for="quantity">Doctor</label>-->
+                    </td>
+                    <td>
+                        <!--                        <select th:field="${medicalCard.user.category.id}" id="quantity">-->
+                        <!--                            <option value="1" selected="selected">1</option>-->
+                        <!--                            <option value="2"><a href="/admin/create-medical-card/55/{patient_id}(patient_id=${patient.id})">ascending</a></option>-->
+                        <!--                            <option value="3">3</option>-->
+                        <!--                            <option value="4">4</option>-->
+                        <!--                            <option value="5">5</option>-->
+                        <!--                            <option value="6">6</option>-->
+                        <!--                            <option value="7">7</option>-->
+                        <!--                        </select>-->
+
+<!--                                                <select th:onchange="'window.location.href = \'' + @{/admin/create-medical-card/{patient_id}(patient_id=${patient.id})} + '?cat=\' + this.value ' ">-->
+<!--                                                    <option th:each="category : ${categories}" th:text="${category.title}">-->
+<!--                                                    </option>-->
+<!--                                                </select>-->
+
+<!--                        <select th:onchange="'window.location.href = \'' + @{/admin/create-medical-card/{patient_id}(patient_id=${patient.id})} + '?cat=\' + this.value ' ">-->
+<!--                            <option th:each="category : ${categories}" th:text="${category.title}">-->
+<!--                            </option>-->
+<!--                        </select>-->
+
+<!--                        <select th:onchange="'window.location.href = \'' + @{/admin/create-medical-card/{patient_id}(patient_id=${patient.id})/} + '?{cat}=\' + this.value ' ">-->
+<!--                            <option th:each="category : ${categories}" th:text="${category.title}">-->
+<!--                            </option>-->
+<!--                        </select>-->
+
+
+                        <select th:onchange="'window.location.href = \'' + @{/admin/create-medical-card/{patient_id}(patient_id=${patient.id})/} + '\' + this.value ' ">
+                            <option th:each="category : ${categories}" th:text="${category.title}">
+                            </option>
+                        </select>
+
+<!--                        <select   th:onchange="'window.location.href =this.value '" >-->
+<!--                            <option th:value=" @{/admin/create-medical-card/{cat}(cat=${category.title})" th:each="category : ${categories}" th:text="${category.title}">-->
+<!--                            </option>-->
+<!--                        </select>-->
+
+
+                        <!--                        <select th:onchange="'window.location.href = \'' + @{/admin/create-medical-card/{patient_id}(patient_id=${patient.id})} + '?category=\' + this.value ' ">-->
+                        <!--                            <option th:each="category : ${categories}" th:text="${category.title}" >-->
+                        <!--                            <input type="hidden" th:value="ddd" name="cat">-->
+                        <!--                            </option>-->
+                        <!--                        </select>-->
+
+                        <!--                        <select th:onchange="'window.location.href = \'' + @{/admin/create-medical-card/{patient_id}(patient_id=${patient.id})} + '?category=\' + this.value ' ">-->
+                        <!--                            <option value="0">select operator </option>-->
+                        <!--                            <option th:each="category : ${categories}" th:text="${category.title}"  th:attr="choiceid=${category.title}" >-->
+                        <!--                            </option>-->
+                        <!--                        </select>-->
+
+                        <!--                        <select>-->
+                        <!--&lt;!&ndash;                            <option th:each="category : ${categories}" th:text="${category.title}" th:href="|/admin/create-medical-card/{patient_id}(patient_id=${patient.id})/cat=${category.title}|" >&ndash;&gt;-->
+                        <!--                            <option th:each="category : ${categories}" th:text="${category.title}" th:href="|/cat?cat=${category.title}|" >-->
+                        <!--                            </option>-->
+                        <!--                        </select>-->
+
+
+
+                    </td>
+                </tr>
+
+            </table>
+
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Create order"/>
+                </td>
+            </tr>
+
+        </table>
+    </form>
+
+
+    <div id="footer" th:insert="~{fragments/footer :: footer}"></div>
+</center>
+>
+</body>
+</html>

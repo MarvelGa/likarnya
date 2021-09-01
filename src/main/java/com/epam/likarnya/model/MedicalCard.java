@@ -9,20 +9,30 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name="medical_card")
+@Table(name = "medical_card")
 public class MedicalCard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Exclude
     private Long id;
 
-    @ToString.Exclude
-    @ManyToOne
-    @JoinColumn(name = "patient_id")
-    private Patient patient;
+//    @ToString.Exclude
+//    @ManyToOne
+//    @JoinColumn(name = "patient_id")
+//    private Patient patient;
 
     @ToString.Exclude
     @ManyToOne
-    @JoinColumn(name="statement_id")
+    @JoinColumn(name = "doctor_id")
+    private User user;
+
+    @ToString.Exclude
+    @ManyToOne
+    @JoinColumn(name = "statement_id")
     private Statement statement;
+
+
+    private String complaints;
+
+    private String diagnosis;
 }

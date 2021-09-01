@@ -17,16 +17,28 @@
         <input type="submit" value="Add new Dorctor">
     </form>
     </br>
-    <p>Sort by (quantity): <a href="/orders/sort=asc">category</a> | <a href="/orders/sort=asc">ascending</a> | <a href="/orders/sort=desc">descending</a> | <a
+    <p>Sort by (quantity): <a href="/orders/sort=asc">category</a> | <a href="/orders/sort=asc">ascending</a> | <a
+            href="/orders/sort=desc">descending</a> | <a
             href="/admin/doctors">non sorting</a></p>
+
+
+        <select name="category" th:onchange="'window.location.href = \'' + @{/admin/doctors/} + '\' + this.value ' ">
+            <option value="">--Please choose an option--</option>
+            <option th:each="category : ${categories}"
+                                th:value="${category.title}"
+                                th:selected="${category.title==(categ)}"
+                                th:text="${category.title} ">
+            </option>
+        </select>
+
     <table border="1">
         <tr>
             <th>No.</th>
             <th>Doctor ID</th>
             <th>Doctor Name</th>
             <th>Doctor LastName</th>
-<!--            <th>Category</th>-->
-<!--            <th>Patient Quantity</th>-->
+            <!--            <th>Category</th>-->
+            <!--            <th>Patient Quantity</th>-->
             <th colspan="5">Operations</th>
         </tr>
         <tr th:each="doctor, iStat: ${doctors}">
@@ -34,33 +46,34 @@
             <td th:text="${doctor.id}"/>
             <td th:text="${doctor.firstName}"/>
             <td th:text="${doctor.lastName}"/>
-<!--            <td th:text="${}"/>-->
-<!--            <td th:text="${}"/>-->
+            <!--            <td th:text="${}"/>-->
+            <!--            <td th:text="${}"/>-->
 
             <td>
-<!--                <a th:href="@{|/orders/${orderItem.order.id}/edit/${orderItem.product.id}|}">Edit this Product</a>-->
+                <!--                <a th:href="@{|/orders/${orderItem.order.id}/edit/${orderItem.product.id}|}">Edit this Product</a>-->
             </td>
 
             <td>
-<!--                <a th:href="@{|/orders/${orderItem.order.id}|}">Open/Edit Order</a>-->
+                <!--                <a th:href="@{|/orders/${orderItem.order.id}|}">Open/Edit Order</a>-->
             </td>
 
             <td>
-<!--                <a th:href="@{|/orders/delete/${orderItem.id}|}">Delete this Product from Order</a>-->
+                <!--                <a th:href="@{|/orders/delete/${orderItem.id}|}">Delete this Product from Order</a>-->
             </td>
 
             <td>
-<!--                <a th:href="@{|/orders/${orderItem.id}/delete/${orderItem.order.id}|}">Delete Particular Order</a>-->
+                <!--                <a th:href="@{|/orders/${orderItem.id}/delete/${orderItem.order.id}|}">Delete Particular Order</a>-->
             </td>
             <td>
-                <form action="#" th:action="@{/admin/doctors/add-patient/{doctor_id}(doctor_id=${doctor.id})}" method="get">
+                <form action="#" th:action="@{/admin/doctors/add-patient/{doctor_id}(doctor_id=${doctor.id})}"
+                      method="get">
                     <input type="submit" value="Add Patient">
                 </form>
             </td>
         </tr>
 
 
-    <div id="footer" th:insert="~{fragments/footer :: footer}"></div>
+        <div id="footer" th:insert="~{fragments/footer :: footer}"></div>
 </center>
 </body>
 </html>

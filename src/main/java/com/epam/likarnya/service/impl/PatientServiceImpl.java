@@ -1,5 +1,6 @@
 package com.epam.likarnya.service.impl;
 
+import com.epam.likarnya.exception.EntityNotFoundException;
 import com.epam.likarnya.model.Patient;
 import com.epam.likarnya.repository.PatientRepository;
 import com.epam.likarnya.service.PatientService;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -15,12 +17,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PatientServiceImpl implements PatientService {
     private final PatientRepository repository;
+
     @Override
     public Patient createOrUpdate(Patient patient) {
-        if (patient.getId()!=null){
+        if (patient.getId() != null) {
             Optional<Patient> patientOptional = repository.findById(patient.getId());
-            if (patientOptional.isPresent()){
-              Patient newPatient = patientOptional.get();
+            if (patientOptional.isPresent()) {
+                Patient newPatient = patientOptional.get();
 
             }
         }
@@ -35,5 +38,10 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public Page<Patient> getPatients(Pageable pageable) {
         return repository.findAll(pageable);
+    }
+
+    @Override
+    public Patient findById(Long id) {
+        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("Patient by id = %s was not found", id)));
     }
 }

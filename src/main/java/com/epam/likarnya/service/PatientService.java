@@ -11,4 +11,6 @@ public interface PatientService {
     Patient createOrUpdate(Patient patient);
 //    List<Patient> getPatients();
     Page<Patient> getPatients(Pageable pageable);
+
+    Patient findById(Long id);
 }

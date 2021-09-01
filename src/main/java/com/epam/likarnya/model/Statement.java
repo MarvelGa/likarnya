@@ -23,10 +23,15 @@ public class Statement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+//    @ToString.Exclude
+//    @JoinColumn(name="user_id")
+//    @ManyToOne
+//    private User user;
+
     @ToString.Exclude
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="patient_id")
     @ManyToOne
-    private User user;
+    private Patient patient;
 
     @Enumerated(EnumType.STRING)
     private PatientStatus patientStatus = PatientStatus.NEW;

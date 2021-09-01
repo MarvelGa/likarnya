@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Error Page</title>
+    <title>List of Patient</title>
     <link th:href="@{/topstyle.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -10,9 +10,16 @@
     <div id="admin-panel" th:insert="~{fragments/admin-panel :: admin-panel}"></div>
     <h2>Admin Cabinet</h2>
 
+    <form action="#" th:action="@{/admin/patient-registration}" method="get">
+        <input type="submit" value="Add new Patient">
+    </form>
+
+    <div th:if="${totalElements}>=1">
+
     <p>Sort by (quantity): <a href="/patients/sort=asc">category</a> | <a href="/patients/sort=asc">ascending</a> | <a
             href="/orders/sort=desc">descending</a> | <a
             href="/admin/patients">non sorting</a></p>
+
     <table border="1">
         <tr>
             <th>No.</th>
@@ -31,7 +38,10 @@
             <td th:text="${patient.dateOfBirth}"/>
             <td th:text="${patient.gender}"/>
             <td>
-                <!--                <a th:href="@{|/orders/${orderItem.order.id}/edit/${orderItem.product.id}|}">Edit this Product</a>-->
+                                <form action="#" th:action="@{/admin/create-medical-card/{patient_id}(patient_id=${patient.id})}"
+                                      method="get">
+                                    <input type="submit" value="Open medical card">
+                                </form>
             </td>
 
             <td>
@@ -52,6 +62,7 @@
 <!--                </form>-->
             </td>
         </tr>
+
     </table>
 
     <div class="pagination-div">
@@ -68,7 +79,10 @@
         <a th:href="@{/admin/patients(page=${page.number+1},size=${page.size})}">Next</a>
     </span>
     </div>
-
+    </div>
+    <div th:unless="${totalElements}>=1">
+        <h3 style="color: deeppink">No registered patients yet!</h3>
+    </div>
         <div id="footer" th:insert="~{fragments/footer :: footer}"></div>
 </center>
 </body>
