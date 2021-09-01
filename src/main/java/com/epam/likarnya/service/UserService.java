@@ -8,4 +8,5 @@ public interface UserService {
     User findByEmail(String email);
     User createOrUpdate(User user);
     List<User> findUsersByRole(User.Role role);
+    User findById(Long id);
 }

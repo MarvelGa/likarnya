@@ -4,6 +4,7 @@ import com.epam.likarnya.dto.LoginRequestDto;
 import com.epam.likarnya.model.Category;
 import com.epam.likarnya.model.Patient;
 import com.epam.likarnya.model.User;
+import com.epam.likarnya.repository.UserRepository;
 import com.epam.likarnya.service.CategoryService;
 import com.epam.likarnya.service.UserService;
 import lombok.Data;
@@ -21,6 +22,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class AdminController {
+    private final UserRepository userRepository;
     private final UserService userService;
     private final CategoryService categoryService;
 
@@ -43,7 +45,11 @@ public class AdminController {
     public String listDoctorskk(Model model, @PathVariable(value = "cat", required = false) String catjjj) {
         String hhh=catjjj;
         List<Category> categories = categoryService.getAll();
-        List<User> doctors = userService.findUsersByRole(User.Role.DOCTOR);
+      var doctors=  userRepository.getDoctorsByCategory(catjjj);
+//      var doctors=  userRepository.getDoctorsByCategory(1L);
+
+
+        //List<User> doctors = userService.findUsersByRole(User.Role.DOCTOR);
         model.addAttribute("categ", catjjj);
         model.addAttribute("doctors", doctors);
         model.addAttribute("categories", categories);

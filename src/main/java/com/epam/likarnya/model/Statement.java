@@ -1,9 +1,12 @@
 package com.epam.likarnya.model;
 
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,11 +39,18 @@ public class Statement {
     @Enumerated(EnumType.STRING)
     private PatientStatus patientStatus = PatientStatus.NEW;
 
-    @Column(name = "diagnosis", length = 50, nullable = false)
-    private String  provisionalDiagnosis;
+//    @Column(name = "diagnosis", length = 50, nullable = false)
+//    private String  provisionalDiagnosis;
 
+    @EqualsAndHashCode.Exclude
+    @CreatedDate
     @Column(name = "created_at")
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
+
+    @EqualsAndHashCode.Exclude
+    @LastModifiedDate
+    @Column(name = "changed")
+    private LocalDateTime changed;
 
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "statement", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY )
