@@ -44,4 +44,9 @@ public class PatientServiceImpl implements PatientService {
     public Patient findById(Long id) {
         return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("Patient by id = %s was not found", id)));
     }
+
+    @Override
+    public List<Patient> getPatientForDiagnosis(Long doctorId) {
+        return repository.getPatientsForDiagnosis(doctorId);
+    }
 }

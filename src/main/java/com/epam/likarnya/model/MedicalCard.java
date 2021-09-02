@@ -31,8 +31,12 @@ public class MedicalCard {
     @JoinColumn(name = "statement_id")
     private Statement statement;
 
-
     private String complaints;
 
     private String diagnosis;
+
+    @ToString.Exclude
+    @ManyToOne
+    @JoinColumn(name="treatment_id")
+    private Treatment treatment;
 }

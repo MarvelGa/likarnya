@@ -53,13 +53,13 @@ public class LoginController {
         } else {
             log.trace("Found in DB: user --> " + user);
             if (user.getRole() == User.Role.DOCTOR) {
-                session.setAttribute("user", user);
+                session.setAttribute("doctor", user);
                 log.trace("Set the session attribute: user --> " + user);
                 log.debug(String.format("redirect --> %s", "/doctorPage"));
-                return "doctorPage";
+                return "redirect:/doctor-cabinet";
             }
             if (user.getRole() == User.Role.NURSE) {
-                session.setAttribute("user", user);
+                session.setAttribute("nurse", user);
                 log.trace("Set the session attribute: user --> " + user);
                 log.debug(String.format("redirect --> %s", "/doctorPage"));
                 return "nursePage";

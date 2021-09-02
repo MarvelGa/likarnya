@@ -2,13 +2,65 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Error Page</title>
-    <link th:href="@{/style.css}" rel="stylesheet" type="text/css">
+    <title>Doctor Page</title>
+    <link th:href="@{/topstyle.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
-<h2>Doctor Cabinet</h2>
+<center>
+    <div id="doctor-panel" th:insert="~{fragments/doctor-panel :: doctor-panel}"></div>
+    <h2>Doctor Cabinet</h2>
 
 
-<div id="footer" th:insert="~{fragments/footer :: footer}"></div>
+    <form action="#" th:action="@{/doctor-cabinet}" method="get">
+        <input type="submit" value="Add new Patient">
+    </form>
+
+    <table border="1">
+        <tr>
+            <th>No.</th>
+            <th>Patient ID</th>
+            <th>Patient Name</th>
+            <th>Patient LastName</th>
+            <th>Date Of Birth</th>
+            <th>Patient Gender</th>
+            <th colspan="5">Operations</th>
+        </tr>
+        <tr th:each="patient, iStat: ${patients}">
+            <td th:text="${iStat.index + 1}"/>
+            <td th:text="${patient.id}"/>
+            <td th:text="${patient.firstName}"/>
+            <td th:text="${patient.lastName}"/>
+            <td th:text="${patient.dateOfBirth}"/>
+            <td th:text="${patient.gender}"/>
+            <td>
+<!--                <form action="#" th:action="@{/admin/create-medical-card/{patient_id}(patient_id=${patient.id})}"-->
+<!--                      method="get">-->
+<!--                    <input type="submit" value="Open medical card">-->
+<!--                </form>-->
+            </td>
+
+            <td>
+                <!--                <a th:href="@{|/orders/${orderItem.order.id}|}">Open/Edit Order</a>-->
+            </td>
+
+            <td>
+                <!--                <a th:href="@{|/orders/delete/${orderItem.id}|}">Delete this Product from Order</a>-->
+            </td>
+
+            <td>
+                <!--                <a th:href="@{|/orders/${orderItem.id}/delete/${orderItem.order.id}|}">Delete Particular Order</a>-->
+            </td>
+            <td>
+                <!--                <form action="#" th:action="@{/admin/doctors/add-patient/{doctor_id}(doctor_id=${doctor.id})}"-->
+                <!--                      method="get">-->
+                <!--                    <input type="submit" value="Add Patient">-->
+                <!--                </form>-->
+            </td>
+        </tr>
+
+    </table>
+
+    <div id="footer" th:insert="~{fragments/footer :: footer}"></div>
+</center>
 </body>
 </html>

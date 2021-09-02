@@ -13,4 +13,6 @@ public interface PatientService {
     Page<Patient> getPatients(Pageable pageable);
 
     Patient findById(Long id);
+
+    List<Patient> getPatientForDiagnosis(Long doctorId);
 }

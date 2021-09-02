@@ -3,6 +3,7 @@ package com.epam.likarnya.model;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,15 +11,17 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Table(name ="statements")
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Statement {
     public enum PatientStatus {
-        NEW, DISCHARGED
+        NEW, DIAGNOSED ,DISCHARGED
     }
 
     @Id
@@ -36,6 +39,7 @@ public class Statement {
     @ManyToOne
     private Patient patient;
 
+    @Column(name="patient_status")
     @Enumerated(EnumType.STRING)
     private PatientStatus patientStatus = PatientStatus.NEW;
 

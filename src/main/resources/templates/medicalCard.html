@@ -65,7 +65,7 @@
                     <!--                        </select>-->
 
 
-                    <select th:onchange="'window.location.href = \'' + @{/admin/create-medical-card/{patient_id}(patient_id=${patient.id})} + '/\' + this.value ' ">
+                    <select th:onchange="'window.location.href = \'' + @{/admin/create-medical-card/{patient_id}(patient_id=${patient.id})} + '/\' + this.value ' "  required>
                         <option value="">--Please choose an option--</option>
                         <option th:each="category : ${categories}"
                                 th:value="${category.title}"
