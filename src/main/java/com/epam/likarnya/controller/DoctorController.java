@@ -2,6 +2,7 @@ package com.epam.likarnya.controller;
 
 import com.epam.likarnya.model.*;
 import com.epam.likarnya.repository.MedicalCardRepository;
+import com.epam.likarnya.repository.PatientRepository;
 import com.epam.likarnya.service.MedicalCardService;
 import com.epam.likarnya.service.PatientService;
 import com.epam.likarnya.service.TreatmentService;
@@ -23,6 +24,7 @@ import java.util.List;
 @Slf4j
 @Controller
 public class DoctorController {
+    private final PatientRepository patientRepository;
     private final TreatmentService treatmentService;
     private final PatientService patientService;
     private final MedicalCardService medicalCardService;
@@ -31,24 +33,26 @@ public class DoctorController {
     @GetMapping(value = "/doctor-cabinet")
     public String handleDoctorPage(HttpSession session, Model model) {
         User doctor = (User) session.getAttribute("doctor");
-        List<Patient> patients = patientService.getPatientForDiagnosis(doctor.getId());
-        model.addAttribute("patients",patients);
+        // List<Patient> patients = patientService.getPatientForDiagnosis(doctor.getId());
+        var patients = patientRepository.getPatientsForDiagnosis2(doctor.getId());
+
+        model.addAttribute("patients", patients);
         return "doctorPage";
     }
 
 
-    @GetMapping(value =  "/doctor-cabinet/add-treatment/{patient_id}")
-    public String addingTreatment(@PathVariable("patient_id") long patientId,  HttpSession session, Model model){
-         Patient patient = patientService.findById(patientId);
-         MedicalCard medicalCard = medicalCardService.getMedicalCardForDiagnosis(patientId);
-         model.addAttribute("patient", patient);
-         model.addAttribute("medicalCard", medicalCard);
+    @GetMapping(value = "/doctor-cabinet/add-treatment/{patient_id}")
+    public String addingTreatment(@PathVariable("patient_id") long patientId, HttpSession session, Model model) {
+        Patient patient = patientService.findById(patientId);
+        MedicalCard medicalCard = medicalCardService.getMedicalCardForDiagnosis(patientId);
+        model.addAttribute("patient", patient);
+        model.addAttribute("medicalCard", medicalCard);
         return "addTreatment";
     }
 
-    @PostMapping(value =  "/doctor-cabinet/add-treatment/{patient_id}")
+    @PostMapping(value = "/doctor-cabinet/add-treatment/{patient_id}")
     public String addingTreatment(@PathVariable("patient_id") long patientId, @ModelAttribute MedicalCard medicalCard,
-                                  @ModelAttribute  Patient patient,  HttpSession session, Model model){
+                                  @ModelAttribute Patient patient, HttpSession session, Model model) {
         Treatment treatment = treatmentService.createOrUpdate(medicalCard.getTreatment());
         MedicalCard patientMedicalCard = medicalCardService.getMedicalCardForDiagnosis(patientId);
         patientMedicalCard.setDiagnosis(medicalCard.getDiagnosis());
@@ -57,5 +61,14 @@ public class DoctorController {
         medicalCardService.createOrUpdate(patientMedicalCard);
         return "redirect:/doctor-cabinet";
     }
+
+    @GetMapping(value = "/doctor-cabinet/treatment-patients")
+    public String handleTreatment(HttpSession session, Model model) {
+        User doctor = (User) session.getAttribute("doctor");
+        var patients = patientService.getPatientsForTreatment(doctor.getId());
+        model.addAttribute("patients", patients);
+        return "treatmentPatients";
+    }
+
 
 }

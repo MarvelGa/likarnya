@@ -22,6 +22,8 @@
                 <th>Date Of Birth</th>
                 <th>Patient Gender</th>
                 <th>Patient's Complaints</th>
+                <th>Patient's Diagnosis</th>
+                <th>Patient's Treatment</th>
                 <th colspan="5">Operations</th>
             </tr>
             <tr th:each="patient, iStat: ${patients}">
@@ -31,11 +33,14 @@
                 <td th:text="${patient.dateOfBirth}"/>
                 <td th:text="${patient.gender}"/>
                 <td th:text="${patient.complaints}"/>
+                <td th:text="${patient.diagnosis}"/>
+                <td th:text="${patient.appointment}"/>
+                <td th:text="${patient.appointmentStatus}"/>
                 <td>
-                    <form action="#" th:action="@{/doctor-cabinet/add-treatment/{patient_id}(patient_id=${patient.id})}"
-                          method="get">
-                        <input type="submit" value="Open medical card">
-                    </form>
+<!--                    <form action="#" th:action="@{/doctor-cabinet/add-treatment/{patient_id}(patient_id=${patient.id})}"-->
+<!--                          method="get">-->
+<!--                        <input type="submit" value="Open medical card">-->
+<!--                    </form>-->
                 </td>
             </tr>
         </table>
