@@ -4,4 +4,5 @@ import com.epam.likarnya.model.MedicalCard;
 
 public interface MedicalCardService {
     MedicalCard createOrUpdate(MedicalCard medicalCard);
+    MedicalCard getMedicalCardForDiagnosis(Long patientId);
 }

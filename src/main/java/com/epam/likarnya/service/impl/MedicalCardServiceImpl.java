@@ -6,6 +6,7 @@ import com.epam.likarnya.service.MedicalCardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -19,10 +20,19 @@ public class MedicalCardServiceImpl implements MedicalCardService {
             Optional<MedicalCard> medicalCardOptional = medicalCardRepository.findById(medicalCard.getId());
             if (medicalCardOptional.isPresent()){
                 MedicalCard newMedicalCard = medicalCardOptional.get();
+                newMedicalCard.setStatement(medicalCard.getStatement());
                 newMedicalCard.setDiagnosis(medicalCard.getDiagnosis());
+                newMedicalCard.setTreatment(medicalCard.getTreatment());
+                newMedicalCard.getTreatment().setChanged(LocalDateTime.now());
+                newMedicalCard.getStatement().setChanged(LocalDateTime.now());
                 return medicalCardRepository.save(newMedicalCard);
             }
         }
         return medicalCardRepository.save(medicalCard);
+    }
+
+    @Override
+    public MedicalCard getMedicalCardForDiagnosis(Long patientId) {
+        return medicalCardRepository.getMedicalCardById(patientId);
     }
 }

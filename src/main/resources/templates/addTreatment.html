@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add treatment Page</title>
+    <link th:href="@{/topstyle.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<center>
+    <div id="doctor-panel" th:insert="~{fragments/doctor-panel :: doctor-panel}"></div>
+    <h2>Doctor Cabinet</h2>
+    <h2>Adding Treatment for Patient</h2>
+
+
+    <form action="#" th:action="@{/doctor-cabinet}" method="get">
+        <input type="submit" value="Add new Patient">
+    </form>
+
+    <form th:action="@{/doctor-cabinet/add-treatment/{patient_id}(patient_id=${patient.id})}"
+          th:object="${medicalCard}"
+          method="post">
+        <table border="1">
+            <tr>
+                <th>Patient Name</th>
+                <th>Patient Last Name</th>
+                <th>Patient Data Of Birth</th>
+            </tr>
+            <tr th:each="patient, iStat: ${patient}">
+                <td>
+                    <a th:text="${patient.firstName}"/>
+                </td>
+                <td>
+                    <a th:text="${patient.lastName}"/>
+                </td>
+                <td>
+                    <a th:text="${patient.dateOfBirth}"/>
+                </td>
+            </tr>
+            </br>
+
+        </table>
+
+        <table>
+            <tr>
+                <th>
+                    <label>Enter the Diagnosis of Patient</label>
+                </th>
+                <td>
+                    <input th:type="text" name="diagnosis" th:field="*{diagnosis}" id="diagnosis" required/>
+                </td>
+            </tr>
+            </br>
+
+            <tr>
+                <th>
+                    <label for="appointment">Choose an Appointment</label>
+                </th>
+
+                <td>
+                    <select th:field="${medicalCard.treatment.appointment}" id="appointment" name="appointment" required>
+                        <option value="">--Please choose an option--</option>
+                        <option th:each="appointment : ${T(com.epam.likarnya.model.Treatment.Appointment).values()}"
+                                th:value="${appointment}"
+                                th:text="${appointment}">
+                        </option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Confirm"/>
+                </td>
+            </tr>
+        </table>
+        <!--        <input type="hidden" name="userId" th:value="*{user.id}">-->
+        <!--        <input type="hidden" name="patientId" th:value="${patient.id}">-->
+    </form>
+
+
+    <div id="footer" th:insert="~{fragments/footer :: footer}"></div>
+</center>
+</body>
+</html>
