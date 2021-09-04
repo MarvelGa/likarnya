@@ -19,6 +19,16 @@ public class PatientServiceImpl implements PatientService {
     private final PatientRepository repository;
 
     @Override
+    public Page<Patient> getPatientsWithOutMedicCard(Pageable pageable) {
+        return repository.patientsWithOutMedicCard(pageable);
+    }
+
+    @Override
+    public Page<Patient> getDischargedPatients(Pageable pageable) {
+        return repository.dischargedPatients(pageable);
+    }
+
+    @Override
     public Patient createOrUpdate(Patient patient) {
         if (patient.getId() != null) {
             Optional<Patient> patientOptional = repository.findById(patient.getId());

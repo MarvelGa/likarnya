@@ -8,7 +8,6 @@
 <body>
 <center>
     <div id="admin-panel" th:insert="~{fragments/admin-panel :: admin-panel}"></div>
-    <h2>Admin Cabinet</h2>
     <h2>Medical Workers Registration Form</h2>
 
     <form th:action="@{/admin/medical-registration}" th:object="${registrationUser}" method="post">
@@ -88,23 +87,22 @@
             </tr>
 
             <tr>
-            <th>
-                <label for="category">Category</label>
-            </th>
-            <td>
-                <select th:field="*{category}" id="category">
-                    <option value=0>NONE</option>
-                    <option value=1>THERAPIST</option>
-                    <option value=2>SURGEON</option>
-                    <option value=3>TRAUMATOLOGIST</option>
-                    <option value=4>DERMATOLOGIST</option>
-                    <option value=5>NEUROPATHOLOGIST</option>
-                    <option value=6>OTOLARYNGOLOGIST</option>
-                    <option value=7>OPHTHALMOLOGIST</option>
-                </select>
-            </td>
+                <th>
+                    <label for="category">Category</label>
+                </th>
+                <td>
+                    <select th:field="*{category}" id="category">
+                        <option value=0>NONE</option>
+                        <option value=1>THERAPIST</option>
+                        <option value=2>SURGEON</option>
+                        <option value=3>TRAUMATOLOGIST</option>
+                        <option value=4>DERMATOLOGIST</option>
+                        <option value=5>NEUROPATHOLOGIST</option>
+                        <option value=6>OTOLARYNGOLOGIST</option>
+                        <option value=7>OPHTHALMOLOGIST</option>
+                    </select>
+                </td>
             </tr>
-
 
 
             <tr>
@@ -117,6 +115,7 @@
             </tr>
         </table>
     </form>
+    </br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
     <div id="footer" th:insert="~{fragments/footer :: footer}"></div>
 </center>
 

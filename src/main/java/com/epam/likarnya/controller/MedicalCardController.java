@@ -6,18 +6,12 @@ import com.epam.likarnya.service.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.checkerframework.framework.qual.RequiresQualifier;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityListeners;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Data
 @Slf4j
@@ -79,7 +73,7 @@ public class MedicalCardController {
                 .build();
 
         medicalCardService.createOrUpdate(medicalCard);
-        return "nursePage";
+        return "redirect:/admin/patients";
     }
 
 }

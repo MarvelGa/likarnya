@@ -9,18 +9,32 @@
 <center>
     <div id="admin-panel" th:insert="~{fragments/admin-panel :: admin-panel}"></div>
     <div id="admin-patients-buttons" th:insert="~{fragments/admin-patients-buttons :: admin-patients-buttons}"></div>
-    </br>
-    <form action="#" th:action="@{/admin/patient-registration}" method="get">
-        <input type="submit" value="Add A New Patient">
-    </form>
 
     <div th:if="${totalElements}>=1">
-        <h2 style="color: cadetblue">New Patients</h2>
+        <h2 style="color: cadetblue">Discharged Patients</h2>
         <p>Sort by (quantity): <a href="/patients/sort=asc">category</a> | <a href="/patients/sort=asc">ascending</a> |
             <a
                     href="/orders/sort=desc">descending</a> | <a
                     href="/admin/patients">non sorting</a></p>
-        <div id="patients-table" th:insert="~{fragments/patients-table :: patients-table}"></div>
+
+        <table border="1">
+            <tr>
+                <th>No.</th>
+                <th>Patient ID</th>
+                <th>Patient Name</th>
+                <th>Patient LastName</th>
+                <th>Date Of Birth</th>
+                <th>Patient Gender</th>
+            </tr>
+            <tr th:each="patient, iStat: ${page.content}">
+                <td th:text="${iStat.index + 1}"/>
+                <td th:text="${patient.id}"/>
+                <td th:text="${patient.firstName}"/>
+                <td th:text="${patient.lastName}"/>
+                <td th:text="${patient.dateOfBirth}"/>
+                <td th:text="${patient.gender}"/>
+            </tr>
+        </table>
 
         <div class="pagination-div">
     <span th:if="${page.hasPrevious()}">
@@ -38,7 +52,7 @@
         </div>
     </div>
     <div th:unless="${totalElements}>=1">
-        <h3 style="color: deeppink">No new registered patients yet!</h3>
+        <h3 style="color: deeppink">No discharged patients yet!</h3>
     </div>
     </br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
     <div id="footer" th:insert="~{fragments/footer :: footer}"></div>

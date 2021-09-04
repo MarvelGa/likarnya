@@ -1,15 +1,9 @@
 package com.epam.likarnya.model;
 
 import lombok.*;
-import org.hibernate.annotations.GeneratorType;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 
 @Builder
@@ -46,17 +40,9 @@ public class User {
     @ManyToOne
     private Category category;
 
-//    @EqualsAndHashCode.Exclude
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-//    private Set<Statement> statements = new LinkedHashSet<>();
-
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<MedicalCard> medicalCards = new ArrayList<>();
-
-//    @EqualsAndHashCode.Exclude
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-//    private Set<Statement> statements = new LinkedHashSet<>();
 
     @Enumerated(EnumType.STRING)
     private Role role;

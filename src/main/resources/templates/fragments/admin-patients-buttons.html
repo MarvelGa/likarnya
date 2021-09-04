@@ -1,0 +1,16 @@
+<th:block xmlns:th="http://www.thymeleaf.org" th:fragment="admin-patients-buttons">
+    <table>
+        <tr>
+            <th>
+                <form action="#" th:action="@{/admin/patients}" method="get">
+                    <input type="submit" value="Patients WithOut Medical Card">
+                </form>
+            </th>
+            <th>
+                <form action="#" th:action="@{/admin/discharged-patients}" method="get">
+                    <input type="submit" value="Discharged Patients">
+                </form>
+            </th>
+        </tr>
+    </table>
+</th:block>

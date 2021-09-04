@@ -1,0 +1,27 @@
+<th:block xmlns:th="http://www.thymeleaf.org" th:fragment="patients-table">
+    <table border="1">
+        <tr>
+            <th>No.</th>
+            <th>Patient ID</th>
+            <th>Patient Name</th>
+            <th>Patient LastName</th>
+            <th>Date Of Birth</th>
+            <th>Patient Gender</th>
+            <th colspan="5">Operations</th>
+        </tr>
+        <tr th:each="patient, iStat: ${page.content}">
+            <td th:text="${iStat.index + 1}"/>
+            <td th:text="${patient.id}"/>
+            <td th:text="${patient.firstName}"/>
+            <td th:text="${patient.lastName}"/>
+            <td th:text="${patient.dateOfBirth}"/>
+            <td th:text="${patient.gender}"/>
+            <td>
+                <form action="#" th:action="@{/admin/create-medical-card/{patient_id}(patient_id=${patient.id})}"
+                      method="get">
+                    <input type="submit" value="Create medical card">
+                </form>
+            </td>
+        </tr>
+    </table>
+</th:block>

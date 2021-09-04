@@ -3,6 +3,7 @@ package com.epam.likarnya.controller;
 import com.epam.likarnya.dto.LoginRequestDto;
 import com.epam.likarnya.dto.PatientDto;
 import com.epam.likarnya.model.Patient;
+import com.epam.likarnya.repository.PatientRepository;
 import com.epam.likarnya.service.PatientService;
 import com.epam.likarnya.validator.DataValidator;
 import lombok.Data;
@@ -29,6 +30,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PatientController {
     private final PatientService patientService;
+    private final PatientRepository patientRepository;
 
 //    @GetMapping(value = "/admin/patients")
 //    public String patientsList(Model model) {
@@ -89,12 +91,30 @@ public class PatientController {
 //        return "listPatient";
 //    }
 
+//    @GetMapping(value = "/admin/patients")
+//    public String listPatients(@PageableDefault(size = 8) Pageable pageable, Model model) {
+//        Page<Patient> page = patientService.getPatients(pageable);
+//        Long totalElements = page.getTotalElements();
+//        model.addAttribute("page", page);
+//        model.addAttribute("totalElements", totalElements);
+//        return "listPatient";
+//    }
+
     @GetMapping(value = "/admin/patients")
     public String listPatients(@PageableDefault(size = 8) Pageable pageable, Model model) {
-        Page<Patient> page = patientService.getPatients(pageable);
+        Page<Patient> page = patientService.getPatientsWithOutMedicCard(pageable);
         Long totalElements = page.getTotalElements();
         model.addAttribute("page", page);
         model.addAttribute("totalElements", totalElements);
         return "listPatient";
+    }
+
+    @GetMapping(value = "/admin/discharged-patients")
+    public String listDischargedPatients(@PageableDefault(size = 8) Pageable pageable, Model model) {
+        Page<Patient> page = patientService.getDischargedPatients(pageable);
+        Long totalElements = page.getTotalElements();
+        model.addAttribute("page", page);
+        model.addAttribute("totalElements", totalElements);
+        return "listdischargedPatients";
     }
 }
