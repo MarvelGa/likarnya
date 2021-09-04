@@ -5,7 +5,6 @@ import com.epam.likarnya.exception.EntityNotFoundException;
 import com.epam.likarnya.model.Patient;
 import com.epam.likarnya.repository.PatientRepository;
 import com.epam.likarnya.service.PatientService;
-import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -54,5 +53,15 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public List<TreatmentPatientDto> getPatientsForTreatment(Long doctorId) {
         return repository.patientsForTreatment(doctorId);
+    }
+
+    @Override
+    public TreatmentPatientDto getPatientForTreatment(Long doctorId, Long patientId) {
+        return repository.patientForTreatment(doctorId, patientId);
+    }
+
+    @Override
+    public List<TreatmentPatientDto> getHistoryByDoctorId(Long doctorId) {
+        return repository.patientsHistoryByDoctorId(doctorId);
     }
 }

@@ -5,25 +5,24 @@ import com.epam.likarnya.repository.MedicalCardRepository;
 import com.epam.likarnya.repository.PatientRepository;
 import com.epam.likarnya.service.MedicalCardService;
 import com.epam.likarnya.service.PatientService;
+import com.epam.likarnya.service.StatementService;
 import com.epam.likarnya.service.TreatmentService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Data
 @RequiredArgsConstructor
 @Slf4j
 @Controller
 public class DoctorController {
+    private final StatementService statementService;
     private final PatientRepository patientRepository;
     private final TreatmentService treatmentService;
     private final PatientService patientService;
@@ -57,6 +56,7 @@ public class DoctorController {
         MedicalCard patientMedicalCard = medicalCardService.getMedicalCardForDiagnosis(patientId);
         patientMedicalCard.setDiagnosis(medicalCard.getDiagnosis());
         patientMedicalCard.getStatement().setPatientStatus(Statement.PatientStatus.DIAGNOSED);
+        patientMedicalCard.getStatement().setCreatedAt(LocalDateTime.now());
         patientMedicalCard.setTreatment(treatment);
         medicalCardService.createOrUpdate(patientMedicalCard);
         return "redirect:/doctor-cabinet";
@@ -68,6 +68,36 @@ public class DoctorController {
         var patients = patientService.getPatientsForTreatment(doctor.getId());
         model.addAttribute("patients", patients);
         return "treatmentPatients";
+    }
+
+    @GetMapping(value = "/doctor-cabinet/execute-treatment/{patient_id}")
+    public String executeTreatment(@PathVariable("patient_id") long patientId, HttpSession session, Model model) {
+        User doctor = (User) session.getAttribute("doctor");
+        var patient = patientService.getPatientForTreatment(doctor.getId(), patientId);
+        model.addAttribute("patientForTreatment", patient);
+        return "executeTreatment";
+    }
+
+
+    @PostMapping(value = "/doctor-cabinet/execute-treatment")
+    public String handleExecuteTreatment(@RequestParam long treatmentId, @RequestParam long statementId, HttpSession session, Model model) {
+        User doctor = (User) session.getAttribute("doctor");
+        Treatment treatment = treatmentService.getById(treatmentId);
+        treatment.setAppointmentStatus(Treatment.AppointmentStatus.EXECUTED);
+        treatment.setExecutorId(doctor.getId());
+        treatmentService.createOrUpdate(treatment);
+        Statement statement = statementService.getById(statementId);
+        statement.setPatientStatus(Statement.PatientStatus.DISCHARGED);
+        statementService.createOrUpdate(statement);
+        return "redirect:/doctor-cabinet/treatment-patients";
+    }
+
+    @GetMapping(value = "/doctor-cabinet/history")
+    public String handlePatientsHistory(HttpSession session, Model model) {
+        User doctor = (User) session.getAttribute("doctor");
+        var patient = patientService.getHistoryByDoctorId(doctor.getId());
+        model.addAttribute("patientsHistory", patient);
+        return "doctorHistory";
     }
 
 

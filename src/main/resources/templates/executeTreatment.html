@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Page</title>
+    <link th:href="@{/topstyle.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<center>
+    <div id="doctor-panel" th:insert="~{fragments/doctor-panel :: doctor-panel}"></div>
+    <h2>Doctor Cabinet</h2>
+    <div id="doctor-buttons" th:insert="~{fragments/doctor-buttons :: doctor-buttons}"></div>
+
+    <h3 style="color: cadetblue">Execute Treatment</h3>
+<!--    <form th:action="@{/doctor-cabinet/execute-treatment/{treatment_id}(treatment_id=${patientForTreatment.treatmentId})/patient/{patient_id}(patient_id=${patientForTreatment.id})}"-->
+    <form th:action="@{/doctor-cabinet/execute-treatment}"
+          th:object="${patientForTreatment}" method="post">
+
+        <table border="1">
+            <tr>
+                <th>Patient</th>
+                <th>Date Of Birth</th>
+                <th>Patient Gender</th>
+                <th>Patient's Complaints</th>
+                <th>Patient's Diagnosis</th>
+                <th>Patient's Treatment</th>
+                <th>Status of Treatment</th>
+                <th>Patient's Doctor</th>
+            </tr>
+
+            <tr>
+                <td th:text="${patientForTreatment.firstName + ' ' + patientForTreatment.lastName}"/>
+                <td th:text="${patientForTreatment.dateOfBirth}"/>
+                <td th:text="${patientForTreatment.gender}"/>
+                <td th:text="${patientForTreatment.complaints}"/>
+                <td th:text="${patientForTreatment.diagnosis}"/>
+                <td th:text="${patientForTreatment.appointment}"/>
+                <td th:text="${patientForTreatment.appointmentStatus}"/>
+                <td th:text="${patientForTreatment.doctorCategory + ' - ' + patientForTreatment.doctorFirstName + ' ' + patientForTreatment.doctorLastName}"/>
+            </tr>
+        </table>
+        </br>
+
+        <td>
+            <tr colspan="2">
+                <b><h3><input type="submit" th:value="${'EXECUTE' + ' - '+ patientForTreatment.appointment}"/></h3></b>
+            </tr>
+        </td>
+        </br>
+
+                <input type="hidden" name="statementId" th:value="${patientForTreatment.statementId}">
+                <input type="hidden" name="treatmentId" th:value="${patientForTreatment.treatmentId}">
+    </form>
+    </br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+    <div id="footer" th:insert="~{fragments/footer :: footer}"></div>
+</center>
+</body>
+</html>

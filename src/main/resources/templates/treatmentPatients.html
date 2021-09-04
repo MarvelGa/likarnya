@@ -8,39 +8,39 @@
 <body>
 <center>
     <div id="doctor-panel" th:insert="~{fragments/doctor-panel :: doctor-panel}"></div>
-    <h2>Doctor Cabinet</h2>
-    <div id="doctor-buttons" th:insert="~{fragments/doctor-buttons :: doctor-buttons}"></div>
 
     <div th:if="${patients.size()}!=0">
-        <h3 style="color: deeppink">Patients at an appointment for diagnosis</h3>
+        <h3 style="color: cadetblue">Patients for Treatment</h3>
 
         <table border="1">
             <tr>
                 <th>No.</th>
-                <th>Patient Name</th>
-                <th>Patient LastName</th>
+                <th>Patient </th>
                 <th>Date Of Birth</th>
                 <th>Patient Gender</th>
                 <th>Patient's Complaints</th>
                 <th>Patient's Diagnosis</th>
                 <th>Patient's Treatment</th>
+                <th>Status of Treatment</th>
+                <th>Patient's Doctor</th>
                 <th colspan="5">Operations</th>
             </tr>
             <tr th:each="patient, iStat: ${patients}">
                 <td th:text="${iStat.index + 1}"/>
-                <td th:text="${patient.firstName}"/>
-                <td th:text="${patient.lastName}"/>
+                <td th:text="${patient.firstName + ' ' + patient.lastName}"/>
                 <td th:text="${patient.dateOfBirth}"/>
                 <td th:text="${patient.gender}"/>
                 <td th:text="${patient.complaints}"/>
                 <td th:text="${patient.diagnosis}"/>
                 <td th:text="${patient.appointment}"/>
                 <td th:text="${patient.appointmentStatus}"/>
+                <td th:text="${patient.doctorCategory + ' - ' + patient.doctorFirstName + ' ' + patient.doctorLastName}"/>
+
                 <td>
-<!--                    <form action="#" th:action="@{/doctor-cabinet/add-treatment/{patient_id}(patient_id=${patient.id})}"-->
-<!--                          method="get">-->
-<!--                        <input type="submit" value="Open medical card">-->
-<!--                    </form>-->
+                    <form action="#" th:action="@{/doctor-cabinet/execute-treatment/{patient_id}(patient_id=${patient.id})}"
+                          method="get">
+                        <input type="submit" value="Execute treatment">
+                    </form>
                 </td>
             </tr>
         </table>
@@ -48,9 +48,9 @@
     </div>
 
     <div th:unless="${patients.size()}!=0">
-        <h3 style="color: deeppink">There are no patients for your appointment yet!</h3>
+        <h3 style="color: deeppink">There are no patients for treatment yet!</h3>
     </div>
-
+    </br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
     <div id="footer" th:insert="~{fragments/footer :: footer}"></div>
 </center>
 </body>

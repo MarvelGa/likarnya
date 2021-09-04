@@ -18,4 +18,14 @@ public interface TreatmentPatientDto {
     String getAppointment();
 
     String getAppointmentStatus();
+
+    String getDoctorFirstName();
+
+    String getDoctorLastName();
+
+    String getDoctorCategory();
+
+    String getTreatmentId();
+
+    String getStatementId();
 }

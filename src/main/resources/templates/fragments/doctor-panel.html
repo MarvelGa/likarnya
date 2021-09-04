@@ -1,32 +1,15 @@
 
 <th:block xmlns:th="http://www.thymeleaf.org" th:fragment="doctor-panel">
     <div class="topnav">
-        <a class="active" href="#home">Home</a>
-        <a href="/admin/patients">List of Patient</a>
-        <span th:text="${session.doctor.getRole()}"></span>
+        <a class="active" href="/doctor-cabinet">Main</a>
+        <a class="active" href="/doctor-cabinet">Patients for Diagnosis</a>
+        <a class="active" href="/doctor-cabinet/treatment-patients">Patients for Treatment</a>
+        <a class="active" href="/doctor-cabinet/history">Treated Patients/History</a>
         <form th:action="@{/perform-logout}" method="post">
             <button style="position: absolute; right: 0px; top: 20px; width: 80px; height: 30px" type="submit">
                 Log Out
             </button>
         </form>
-
-        <!--    <div class="topnav" th:if="${session.user!=null}">-->
-        <!--        <b> <span th:text="${session.user.getRole()}"></span> </b>-->
-
-
-
-        <!--    </div>-->
-
-        <!--        <div class="topnav" th:if="${session.user!=null}">-->
-        <!--                    <b> <span th:text="${session.user.getRole()}"></span> </b>-->
-
-
-        <!--            <form th:action="@{/perform-logout}" method="post">-->
-        <!--                <button style="position: absolute; right: 0px; top: 10px;" class='btn btn-secondary pull-right' type="submit">-->
-        <!--                    Log Out-->
-        <!--                </button>-->
-        <!--            </form>-->
-        <!--        </div>-->
-
     </div>
+    <h2><span style="color: blue" th:text="${'Cabinet Of Doctor ' + ' ' + session.doctor.firstName + ' ' + session.doctor.lastName}"></span></h2>
 </th:block>
