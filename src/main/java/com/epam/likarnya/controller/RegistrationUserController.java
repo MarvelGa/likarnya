@@ -102,7 +102,6 @@ public class RegistrationUserController {
             }
 
             if (newUser.getRole()== User.Role.NURSE){
-                log.trace("Saving new user: " + newUser);
                 userService.createOrUpdate(newUser);
                 log.debug(String.format("redirect --> %s", "/admin/nurses"));
                 model.addAttribute("registrationSuccess", "The nurse added successfully");

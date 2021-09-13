@@ -49,7 +49,7 @@ public class LoginController {
             model.addAttribute("errorMessage", errorMessage);
             log.error("errorMessage --> " + errorMessage);
             log.debug(String.format("forward --> %s", "/login"));
-            return "login";
+            return "loginPage";
         } else {
             log.trace("Found in DB: user --> " + user);
             if (user.getRole() == User.Role.DOCTOR) {

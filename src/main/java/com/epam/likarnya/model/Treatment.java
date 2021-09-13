@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "treatment")
+@Table(name = "treatments")
 public class Treatment {
 
     public enum Appointment {
@@ -49,7 +49,8 @@ public class Treatment {
     @Column(name = "executor_id")
     private Long executorId;
 
-    @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "treatment", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<MedicalCard> medicalCard = new ArrayList<>();
+    @ToString.Exclude
+    @ManyToOne
+    @JoinColumn(name="m_card_id")
+    private MedicalCard medicalCard;
 }

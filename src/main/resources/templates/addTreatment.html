@@ -9,9 +9,6 @@
 <center>
     <div id="doctor-panel" th:insert="~{fragments/doctor-panel :: doctor-panel}"></div>
     <h2>Adding Treatment for Patient</h2>
-    <form action="#" th:action="@{/doctor-cabinet}" method="get">
-        <input type="submit" value="Add new Patient">
-    </form>
 
     <form th:action="@{/doctor-cabinet/add-treatment/{patient_id}(patient_id=${patient.id})}"
           th:object="${medicalCard}"
@@ -54,7 +51,7 @@
                 </th>
 
                 <td>
-                    <select th:field="${medicalCard.treatment.appointment}" id="appointment" name="appointment" required>
+                    <select th:field="${treatment.appointment}" id="appointment" name="appointment" required>
                         <option value="">--Please choose an option--</option>
                         <option th:each="appointment : ${T(com.epam.likarnya.model.Treatment.Appointment).values()}"
                                 th:value="${appointment}"

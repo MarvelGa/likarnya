@@ -1,5 +1,6 @@
 package com.epam.likarnya.controller;
 
+import com.epam.likarnya.dto.LoginRequestDto;
 import com.epam.likarnya.model.*;
 import com.epam.likarnya.repository.MedicalCardRepository;
 import com.epam.likarnya.repository.PatientRepository;
@@ -46,19 +47,29 @@ public class DoctorController {
         MedicalCard medicalCard = medicalCardService.getMedicalCardForDiagnosis(patientId);
         model.addAttribute("patient", patient);
         model.addAttribute("medicalCard", medicalCard);
+        model.addAttribute("treatment", new Treatment());
         return "addTreatment";
     }
 
     @PostMapping(value = "/doctor-cabinet/add-treatment/{patient_id}")
     public String addingTreatment(@PathVariable("patient_id") long patientId, @ModelAttribute MedicalCard medicalCard,
-                                  @ModelAttribute Patient patient, HttpSession session, Model model) {
-        Treatment treatment = treatmentService.createOrUpdate(medicalCard.getTreatment());
+                                  @ModelAttribute Patient patient, @ModelAttribute Treatment treatment, HttpSession session, Model model) {
+
+
         MedicalCard patientMedicalCard = medicalCardService.getMedicalCardForDiagnosis(patientId);
         patientMedicalCard.setDiagnosis(medicalCard.getDiagnosis());
         patientMedicalCard.getStatement().setPatientStatus(Statement.PatientStatus.DIAGNOSED);
-        patientMedicalCard.getStatement().setCreatedAt(LocalDateTime.now());
-        patientMedicalCard.setTreatment(treatment);
-        medicalCardService.createOrUpdate(patientMedicalCard);
+        patientMedicalCard.getStatement().setChanged(LocalDateTime.now());
+
+        MedicalCard updatedMedicalCard=medicalCardService.createOrUpdate(patientMedicalCard);
+
+        Treatment createTreatment = new Treatment();
+        createTreatment.setAppointment(treatment.getAppointment());
+        createTreatment.setAppointmentStatus(Treatment.AppointmentStatus.NOT_EXECUTED);
+        createTreatment.setCreatedAt(LocalDateTime.now());
+        createTreatment.setMedicalCard(updatedMedicalCard);
+
+        treatmentService.createOrUpdate(createTreatment);
         return "redirect:/doctor-cabinet";
     }
 

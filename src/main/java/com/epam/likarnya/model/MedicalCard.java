@@ -3,13 +3,15 @@ package com.epam.likarnya.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "medical_card")
+@Table(name = "medical_cards")
 public class MedicalCard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,8 +37,7 @@ public class MedicalCard {
 
     private String diagnosis;
 
-    @ToString.Exclude
-    @ManyToOne
-    @JoinColumn(name="treatment_id")
-    private Treatment treatment;
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "medicalCard", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Treatment> treatments = new ArrayList<>();
 }

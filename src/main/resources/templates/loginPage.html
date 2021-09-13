@@ -10,10 +10,9 @@
     <h2>Login Form</h2>
     <form th:action="@{/login}" th:object="${loginUser}" method="post">
 
-        <p>Not registered yet?<a
-                href="/registration"> Go to registration!</a></p>
 
         <!--        <div th:if="${registrationSuccess}">-->
+        <h3 style="color: tomato"><p th:text="${errorMessage}"/></h3>
 
         <table>
             <tr>

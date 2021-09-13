@@ -22,9 +22,6 @@ public class MedicalCardServiceImpl implements MedicalCardService {
                 MedicalCard newMedicalCard = medicalCardOptional.get();
                 newMedicalCard.setStatement(medicalCard.getStatement());
                 newMedicalCard.setDiagnosis(medicalCard.getDiagnosis());
-                newMedicalCard.setTreatment(medicalCard.getTreatment());
-                newMedicalCard.getTreatment().setChanged(LocalDateTime.now());
-                newMedicalCard.getStatement().setChanged(LocalDateTime.now());
                 return medicalCardRepository.save(newMedicalCard);
             }
         }
