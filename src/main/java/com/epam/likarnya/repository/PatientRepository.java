@@ -86,6 +86,28 @@ public interface PatientRepository extends CrudRepository<Patient, Long>, Paging
             " AND mc.doctor_id=u.id AND tr.appointment_status='NOT_EXECUTED' AND st.patient_status='DIAGNOSED' AND (tr.appointment='DRUG' OR tr.appointment='PROCEDURE'));", nativeQuery = true)
     List<TreatmentPatientDto> getPatientsForTreatmentByNurse();
 
+
+    @Query(value=" SELECT p.id AS id,\n" +
+            " p.first_name AS firstName,\n" +
+            " p.last_name AS lastName,\n" +
+            " p.birth_day as dateOfBirth,\n" +
+            " p.gender AS gender,\n" +
+            " mc.complaints as complaints,\n" +
+            " mc.diagnosis AS diagnosis,\n" +
+            " tr.appointment AS appointment,\n" +
+            " tr.appointment_status AS appointmentStatus,\n" +
+            " u.first_name AS doctorFirstName,\n" +
+            " u.last_name AS doctorLastName,\n" +
+            " c.title AS doctorCategory,\n" +
+            " tr.id AS treatmentId,\n" +
+            " st.id AS statementId\n" +
+            " FROM patients p, statements st, medical_cards mc, treatments tr, users u, categories c\n" +
+            " WHERE c.id=u.category_id AND u.id=mc.doctor_id AND p.id=st.patient_id AND mc.id=tr.m_card_id\n" +
+            " AND mc.statement_id =st.id AND p.id NOT IN (SELECT st.patient_id FROM statements st WHERE st.patient_status='DISCHARGED') \n" +
+            " AND p.id IN (SELECT st.patient_id FROM statements st, medical_cards mc, users u, treatments tr WHERE mc.id=tr.m_card_id AND st.id=mc.statement_id \n" +
+            " AND mc.doctor_id=u.id AND tr.appointment_status='NOT_EXECUTED' AND st.patient_status='DIAGNOSED' AND (tr.appointment='DRUG' OR tr.appointment='PROCEDURE') AND p.id=:patientId);", nativeQuery = true)
+    TreatmentPatientDto getPatientByIdForTreatmentByNurse(Long patientId);
+
     @Query(value ="SELECT p.id AS id,\n" +
             " p.first_name AS firstName,\n" +
             " p.last_name AS lastName,\n" +

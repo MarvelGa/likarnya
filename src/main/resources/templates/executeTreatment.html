@@ -8,11 +8,10 @@
 <body>
 <center>
     <div id="doctor-panel" th:insert="~{fragments/doctor-panel :: doctor-panel}"></div>
-    <h2>Doctor Cabinet</h2>
-    <div id="doctor-buttons" th:insert="~{fragments/doctor-buttons :: doctor-buttons}"></div>
-
     <h3 style="color: cadetblue">Execute Treatment</h3>
-<!--    <form th:action="@{/doctor-cabinet/execute-treatment/{treatment_id}(treatment_id=${patientForTreatment.treatmentId})/patient/{patient_id}(patient_id=${patientForTreatment.id})}"-->
+    <a th:href="@{/doctor-cabinet}">Back to previous page</a>
+    </br>
+    </br>
     <form th:action="@{/doctor-cabinet/execute-treatment}"
           th:object="${patientForTreatment}" method="post">
 

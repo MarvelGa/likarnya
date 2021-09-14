@@ -40,7 +40,15 @@ public class NurseController {
         return "nursePage";
     }
 
-    @GetMapping(value = "/nurse-cabinet/execute-treatment")
+
+    @GetMapping(value = "/nurse-cabinet/execute-treatment/{patient_id}")
+    public String getHandleTreatmentByNurse(@PathVariable("patient_id") long patientId, Model model) {
+        var patient = patientService.getPatientByIdForTreatmentByNurse(patientId);
+        model.addAttribute("patientForTreatmentByNurse", patient);
+        return "nurseTreatment";
+    }
+
+    @PostMapping(value = "/nurse-cabinet/execute-treatment")
     public String postHandleTreatmentByNurse(@RequestParam long treatmentId, @RequestParam long statementId, HttpSession session, Model model) {
         User nurse = (User) session.getAttribute("nurse");
         Treatment treatment = treatmentService.getById(treatmentId);

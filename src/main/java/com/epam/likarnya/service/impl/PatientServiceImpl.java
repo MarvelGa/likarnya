@@ -84,4 +84,9 @@ public class PatientServiceImpl implements PatientService {
     public List<TreatmentPatientDto> getNurseTreatmentHistoryById(Long id) {
         return repository.getNurseTreatmentHistoryById(id);
     }
+
+    @Override
+    public TreatmentPatientDto getPatientByIdForTreatmentByNurse(Long patientId) {
+        return repository.getPatientByIdForTreatmentByNurse(patientId);
+    }
 }

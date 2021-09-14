@@ -10,6 +10,8 @@
     <div id="doctor-panel" th:insert="~{fragments/doctor-panel :: doctor-panel}"></div>
     <h2>Adding Treatment for Patient</h2>
 
+    <a th:href="@{/doctor-cabinet}">Back to previous page</a>
+    </br>
     <form th:action="@{/doctor-cabinet/add-treatment/{patient_id}(patient_id=${patient.id})}"
           th:object="${medicalCard}"
           method="post">

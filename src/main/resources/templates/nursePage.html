@@ -36,12 +36,20 @@
                 <td th:text="${patient.appointmentStatus}"/>
                 <td th:text="${patient.doctorCategory + ' - ' + patient.doctorFirstName + ' ' + patient.doctorLastName}"/>
                 <td>
-                    <form action="#" th:action="@{/nurse-cabinet/execute-treatment}"
-                          method="get">
-                        <input type="submit" value="Execute treatment">
+<!--                    <form action="#" th:action="@{/nurse-cabinet/execute-treatment}"-->
+<!--                          method="post">-->
+<!--                        <input type="submit" value="Execute treatment">-->
 
-                        <input type="hidden" th:name="statementId" th:value="${patient.statementId}">
-                        <input type="hidden" th:name="treatmentId" th:value="${patient.treatmentId}">
+<!--                        <input type="hidden" th:name="statementId" th:value="${patient.statementId}">-->
+<!--                        <input type="hidden" th:name="treatmentId" th:value="${patient.treatmentId}">-->
+<!--                    </form>-->
+
+                    <form action="#" th:action="@{/nurse-cabinet/execute-treatment/{patient_id}(patient_id=${patient.id})}"
+                          method="get">
+                        <input type="submit" value="Open medical card">
+
+<!--                        <input type="hidden" th:name="statementId" th:value="${patient.statementId}">-->
+<!--                        <input type="hidden" th:name="treatmentId" th:value="${patient.treatmentId}">-->
                     </form>
                 </td>
             </tr>

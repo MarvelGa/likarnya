@@ -23,4 +23,5 @@ public interface PatientService {
     List<TreatmentPatientDto> getHistoryByDoctorId(Long doctorId);
     List<TreatmentPatientDto> getPatientsForTreatmentByNurse();
     List<TreatmentPatientDto> getNurseTreatmentHistoryById(Long id);
+    TreatmentPatientDto getPatientByIdForTreatmentByNurse(Long patientId);
 }
