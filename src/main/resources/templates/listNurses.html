@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link th:href="@{/topstyle.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<center>
+    <div id="admin-panel" th:insert="~{fragments/admin-panel :: admin-panel}"></div>
+
+    <form action="#" th:action="@{/admin/medical-registration}" method="get">
+        <input type="submit" value="Add  a new Nurse">
+    </form>
+
+  <div th:if ="${nurses.size()!=0}">
+      <h3 style="color: cadetblue">List of Nurse</h3>
+    </br>
+    <table border="1">
+        <tr>
+            <th>No.</th>
+            <th>Name</th>
+            <th>LastName</th>
+            <th>Role</th>
+        </tr>
+        <tr th:each="nurse, iStat: ${nurses}">
+            <td th:text="${iStat.index + 1}"/>
+            <td th:text="${nurse.firstName}"/>
+            <td th:text="${nurse.lastName}"/>
+            <td th:text="${nurse.role}"/>
+        </tr>
+    </table>
+  </div>
+    <div th:unless="${nurses.size()!=0}">
+        <h3 style="color: cadetblue">There are not registered nurses</h3>
+    </div>
+    </br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+    <div id="footer" th:insert="~{fragments/footer :: footer}"></div>
+</center>
+</body>
+</html>

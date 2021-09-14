@@ -7,9 +7,9 @@
 </head>
 <body>
 <center>
+    <div id="login-panel" th:insert="~{fragments/login-panel :: login-panel}"></div>
     <h2>Login Form</h2>
     <form th:action="@{/login}" th:object="${loginUser}" method="post">
-
 
         <!--        <div th:if="${registrationSuccess}">-->
         <h3 style="color: tomato"><p th:text="${errorMessage}"/></h3>
@@ -17,7 +17,7 @@
         <table>
             <tr>
                 <th>
-                    <label>Email</label>
+                    <label>${resources.Enter_your_email}Email</label>
                 </th>
                 <td>
                     <input th:type="text" name="email" th:field="*{email}" id="email" th:value="${loginUser.email}"/>

@@ -1,5 +1,7 @@
 package com.epam.likarnya.dto;
 
+import java.time.LocalDateTime;
+
 public interface TreatmentPatientDto {
     Long getId();
 
@@ -28,4 +30,14 @@ public interface TreatmentPatientDto {
     String getTreatmentId();
 
     String getStatementId();
+
+    String getNameOfExecutor();
+
+    String getLastNameOfExecutor();
+
+    String getRoleOfExecutor();
+
+    LocalDateTime getDateOfAdmission();
+
+    LocalDateTime getDateOfDischarge();
 }

@@ -1,6 +1,7 @@
 package com.epam.likarnya.service.impl;
 
 
+import com.epam.likarnya.dto.NurseDTO;
 import com.epam.likarnya.exception.EntityNotFoundException;
 import com.epam.likarnya.model.User;
 import com.epam.likarnya.repository.UserRepository;
@@ -43,9 +44,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findUsersByRole(User.Role role) {
-          return repository.getUserByRole(role);
+    public List<NurseDTO> getNurses() {
+        return repository.getNurses();
     }
+
 
     @Override
     public User findById(Long id) {

@@ -55,14 +55,14 @@ public class LoginController {
             if (user.getRole() == User.Role.DOCTOR) {
                 session.setAttribute("doctor", user);
                 log.trace("Set the session attribute: user --> " + user);
-                log.debug(String.format("redirect --> %s", "/doctorPage"));
+                log.debug(String.format("redirect --> %s", "/doctor-cabinet"));
                 return "redirect:/doctor-cabinet";
             }
             if (user.getRole() == User.Role.NURSE) {
                 session.setAttribute("nurse", user);
                 log.trace("Set the session attribute: user --> " + user);
-                log.debug(String.format("redirect --> %s", "/doctorPage"));
-                return "nursePage";
+                log.debug(String.format("redirect --> %s", "/nurse-cabinet"));
+                return "redirect:/nurse-cabinet";
             }
             session.setAttribute("user", user);
             log.trace("Set the session attribute: user --> " + user);

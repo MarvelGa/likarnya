@@ -1,8 +1,8 @@
 package com.epam.likarnya.controller;
 
 import com.epam.likarnya.dto.LoginRequestDto;
+import com.epam.likarnya.dto.NurseDTO;
 import com.epam.likarnya.model.Category;
-import com.epam.likarnya.model.Patient;
 import com.epam.likarnya.model.User;
 import com.epam.likarnya.repository.UserRepository;
 import com.epam.likarnya.service.CategoryService;
@@ -35,8 +35,8 @@ public class AdminController {
     @GetMapping(value = "/admin/doctors")
     public String listDoctors(Model model) {
         List<Category> categories = categoryService.getAll();
-        List<User> doctors = userService.findUsersByRole(User.Role.DOCTOR);
-        model.addAttribute("doctors", doctors);
+//        List<User> doctors = userService.findUsersByRole(User.Role.DOCTOR);
+//        model.addAttribute("doctors", doctors);
         model.addAttribute("categories", categories);
         return "listDoctors";
     }
@@ -56,5 +56,12 @@ public class AdminController {
         return "listDoctors";
     }
 
+
+    @GetMapping(value = "/admin/nurses")
+    public String listNurses(Model model) {
+        List<NurseDTO> nurses = userService.getNurses();
+        model.addAttribute("nurses", nurses);
+        return "listNurses";
+    }
 
 }

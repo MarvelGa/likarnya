@@ -1,0 +1,14 @@
+
+<th:block xmlns:th="http://www.thymeleaf.org" th:fragment="nurse-panel">
+    <div class="topnav">
+        <a class="active" href="/nurse-cabinet">Main</a>
+        <a class="active" href="/nurse-cabinet">Patients for Treatment</a>
+        <a class="active" href="/nurse-cabinet/history">Treated Patients/History</a>
+        <form th:action="@{/perform-logout}" method="post">
+            <button style="position: absolute; right: 0px; top: 20px; width: 80px; height: 30px" type="submit">
+                Log Out
+            </button>
+        </form>
+    </div>
+    <h2><span style="color: #5cac8c" th:text="${'Cabinet Of Nurse ' + ' ' + session.nurse.firstName + ' ' + session.nurse.lastName}"></span></h2>
+</th:block>

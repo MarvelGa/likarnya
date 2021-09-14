@@ -21,6 +21,9 @@
                 <th>Patient's Treatment</th>
                 <th>Status of Treatment</th>
                 <th>Patient's Doctor</th>
+                <th>Executor</th>
+                <th>Day of Admission</th>
+                <th>Day of Discharge</th>
             </tr>
             <tr th:each="patient, iStat: ${patientsHistory}">
                 <td th:text="${iStat.index + 1}"/>
@@ -32,6 +35,9 @@
                 <td th:text="${patient.appointment}"/>
                 <td th:text="${patient.appointmentStatus}"/>
                 <td th:text="${patient.doctorCategory + ' - ' + patient.doctorFirstName + ' ' + patient.doctorLastName}"/>
+                <td th:text="${patient.roleOfExecutor + ' - ' + patient.getNameOfExecutor() + ' ' + patient.getLastNameOfExecutor()}"/>
+                <td th:text="${patient.dateOfAdmission}"/>
+                <td th:text="${patient.getDateOfDischarge()}"/>
             </tr>
         </table>
     </div>
