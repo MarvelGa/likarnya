@@ -2,6 +2,7 @@ package com.epam.likarnya.service.impl;
 
 
 import com.epam.likarnya.dto.NurseDTO;
+import com.epam.likarnya.dto.UserDTO;
 import com.epam.likarnya.exception.EntityNotFoundException;
 import com.epam.likarnya.model.User;
 import com.epam.likarnya.repository.UserRepository;
@@ -52,6 +53,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(Long id) {
         return repository.findById(id).orElseThrow(()->new EntityNotFoundException(String.format("User by id = %s was not found", id)));
+    }
+
+    @Override
+    public List<UserDTO> findDoctorsWithCountOfPatients() {
+        return repository.getDoctorsWithCountOfPatients();
+    }
+
+    @Override
+    public List<UserDTO> findDoctorsWithCountOfPatientsByCategoryId(Long id) {
+        return repository.getDoctorsWithCountOfPatientsByCategoryId(id);
     }
 
 

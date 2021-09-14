@@ -14,44 +14,98 @@
     <div style="color: forestgreen; font-size: medium" th:text="${registrationSuccess}"></div>
 
     <form action="#" th:action="@{/admin/medical-registration}" method="get">
-        <input type="submit" value="Add new Dorctor">
+        <input type="submit" value="Add a new Dorctor">
     </form>
     </br>
-    <p>Sort by (quantity): <a href="/orders/sort=asc">category</a> | <a href="/orders/sort=asc">ascending</a> | <a
-            href="/orders/sort=desc">descending</a> | <a
-            href="/admin/doctors">non sorting</a></p>
 
 
-        <select name="category" th:onchange="'window.location.href = \'' + @{/admin/doctors/} + '\' + this.value ' ">
-            <option value="">--Please choose an option--</option>
-            <option th:each="category : ${categories}"
-                                th:value="${category.title}"
-                                th:selected="${category.title==(categ)}"
+    <!--    <select name="category" th:onchange="'window.location.href = \'' + @{/admin/doctors/} + '\' + this.value ' ">-->
+    <!--        <option value="">&#45;&#45;Please choose an option&#45;&#45;</option>-->
+    <!--        <option th:each="category : ${categories}"-->
+    <!--                th:value="${category.title}"-->
+    <!--                th:selected="${category.title==(categ)}"-->
+    <!--                th:text="${category.title} ">-->
+    <!--        </option>-->
+    <!--    </select>-->
+    <table>
+        <tr>
+            <td>
+            <th>
+                <label for="category">Choose Category</label>
+            </th>
+            <td>
+
+                <form th:action="@{/admin/doctors}">
+                    <select th:id="category" th:name="category" onchange="this.form.submit();">
+                        <option value="">--choose an option/All--</option>
+                        <option th:each="category : ${categories}"
+                                th:value="${category.id}"
+                                th:selected="${category.id==(catValue)}"
                                 th:text="${category.title} ">
-            </option>
-        </select>
-   </br>
+                        </option>
+                    </select>
+                    <!--                </form>-->
+            </td>
+            </td>
+
+            <td>
+            <th>
+                <label for="sorting">Sort Doctors By</label>
+            </th>
+            <td>
+
+                <select th:id="sorting" th:name="sorting" onchange="this.form.submit();">
+                    <option value="">--Please choose an option/Default--</option>
+                    <option th:value="ASC-NAME" th:selected="${'ASC-NAME'==(sort)}">
+                        Firstname_alphabetically
+                    </option>
+                    <option th:value="DESC-NAME" th:selected="${'DESC-NAME'==(sort)}">
+                        Firstname_reverse
+                    </option>
+                    <option th:value="ASC" th:selected="${'ASC'==(sort)}">
+                        Lastname_alphabetically
+                    </option>
+                    <option th:value="DESC" th:selected="${'DESC'==(sort)}">
+                        Lastname_reverse
+                    </option>
+                    <option th:value="CAT-ASC" th:selected="${'CAT-ASC'==(sort)}">
+                        Category_alphabetically
+                    </option>
+                    <option th:value="CAT-DESC" th:selected="${'CAT-DESC'==(sort)}">
+                        Category_reverse
+                    </option>
+                    <option th:value="INCREASE" th:selected="${'INCREASE'==(sort)}">
+                        Number_of_patients_increase
+                    </option>
+                    <option th:value="DECREASE" th:selected="${'DECREASE'==(sort)}">
+                        Number_of_patients_decrease
+                    </option>
+                </select>
+                </form>
+            </td>
+            </td>
+        </tr>
+    </table>
+
+    </br>
     <table border="1">
         <tr>
             <th>No.</th>
-            <th>Doctor ID</th>
             <th>Doctor Name</th>
             <th>Doctor LastName</th>
             <th>Category</th>
-            <!--            <th>Patient Quantity</th>-->
-            <th colspan="5">Operations</th>
+            <th>Count Of Patients</th>
         </tr>
-        <tr th:each="doctor, iStat: ${doctors}">
+        <tr th:each="doctor, iStat: ${doctorsList}">
             <td th:text="${iStat.index + 1}"/>
-            <td th:text="${doctor.id}"/>
             <td th:text="${doctor.firstName}"/>
             <td th:text="${doctor.lastName}"/>
-                        <td th:text="${doctor.category}"/>
-            <!--            <td th:text="${}"/>-->
+            <td th:text="${doctor.category}"/>
+            <td th:text="${doctor.countOfPatients}"/>
         </tr>
     </table>
-        </br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
-        <div id="footer" th:insert="~{fragments/footer :: footer}"></div>
+    </br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+    <div id="footer" th:insert="~{fragments/footer :: footer}"></div>
 </center>
 </body>
 </html>

@@ -5,5 +5,6 @@ public interface UserDTO {
     String getFirstName();
     String getLastName();
     String getCategory();
-//    String getQuantity();
+    String getRole();
+    Long getCountOfPatients();
 }
