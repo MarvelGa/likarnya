@@ -18,15 +18,6 @@
     </form>
     </br>
 
-
-    <!--    <select name="category" th:onchange="'window.location.href = \'' + @{/admin/doctors/} + '\' + this.value ' ">-->
-    <!--        <option value="">&#45;&#45;Please choose an option&#45;&#45;</option>-->
-    <!--        <option th:each="category : ${categories}"-->
-    <!--                th:value="${category.title}"-->
-    <!--                th:selected="${category.title==(categ)}"-->
-    <!--                th:text="${category.title} ">-->
-    <!--        </option>-->
-    <!--    </select>-->
     <table>
         <tr>
             <td>
@@ -44,7 +35,6 @@
                                 th:text="${category.title} ">
                         </option>
                     </select>
-                    <!--                </form>-->
             </td>
             </td>
 
@@ -87,23 +77,29 @@
         </tr>
     </table>
 
-    </br>
-    <table border="1">
-        <tr>
-            <th>No.</th>
-            <th>Doctor Name</th>
-            <th>Doctor LastName</th>
-            <th>Category</th>
-            <th>Count Of Patients</th>
-        </tr>
-        <tr th:each="doctor, iStat: ${doctorsList}">
-            <td th:text="${iStat.index + 1}"/>
-            <td th:text="${doctor.firstName}"/>
-            <td th:text="${doctor.lastName}"/>
-            <td th:text="${doctor.category}"/>
-            <td th:text="${doctor.countOfPatients}"/>
-        </tr>
-    </table>
+    <div th:if="${doctorsList.size()!=0}">
+        </br>
+        <table border="1">
+            <tr>
+                <th>No.</th>
+                <th>Doctor Name</th>
+                <th>Doctor LastName</th>
+                <th>Category</th>
+                <th>Count Of Patients</th>
+            </tr>
+            <tr th:each="doctor, iStat: ${doctorsList}">
+                <td th:text="${iStat.index + 1}"/>
+                <td th:text="${doctor.firstName}"/>
+                <td th:text="${doctor.lastName}"/>
+                <td th:text="${doctor.category}"/>
+                <td th:text="${doctor.countOfPatients}"/>
+            </tr>
+        </table>
+    </div>
+    <div th:unless="${doctorsList.size()!=0}">
+        <h2 style="color: cadetblue"> There no doctors in this category yet!</h2>
+    </div>
+
     </br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
     <div id="footer" th:insert="~{fragments/footer :: footer}"></div>
 </center>
