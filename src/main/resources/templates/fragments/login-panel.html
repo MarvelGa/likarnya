@@ -1,25 +1,7 @@
-<!--<div  class="topnav"  style="position: absolute; top: 8px; right: 100px;font-size: 14px;">-->
-<!--    <a class="active"  href='changeLocale' class='langstyle'>${resources.EN}</a>-->
-<!--    <strong style='width:2px'>|</strong>-->
-<!--    <a class="active" href='changeLocale?locale=ru' class='langstyle'>${resources.RU}</a>-->
-<!--</div>-->
-
 <th:block xmlns:th="http://www.thymeleaf.org" th:fragment="login-panel">
-<!--<div  class="topnav"  style="position: absolute; top: 8px; right: 100px;font-size: 14px;">-->
-<!--    <a class="active"  href='changeLocale' class='langstyle'>${resources.EN}</a>-->
-<!--    <strong style='width:2px'>|</strong>-->
-<!--    <a class="active" href='changeLocale?locale=ru' class='langstyle'>${resources.RU}</a>-->
-<!--</div>-->
-
-<!--    <span th:text="#{lang.change}"></span>-->
-<!--    <select id="locales" onchange="${pageContext.request.requestURI}">-->
-<!--        <option value="en" th:text="#{lang.eng}"></option>-->
-<!--        <option value="ru" th:text="#{lang.ru}"></option>-->
-<!--    </select>-->
-
+    <div  class="topnav"  style="position: absolute; top: 8px; right: 100px;font-size: 14px;">
+        <a class="active"  href='?lang=en' th:text="#{lang.eng}"></a>
+        <strong style='width:2px'>|</strong>
+        <a class="active" href='?lang=ru' th:text="#{lang.ru}"></a>
+    </div>
 </th:block>
-<!--<span th:text="#{lang.change}"></span>-->
-<!--<select id="locales" onchange="changeEventHandler(event);">-->
-<!--    <option value="en" th:text="#{lang.eng}"></option>-->
-<!--    <option value="ru" th:text="#{lang.ru}"></option>-->
-<!--</select>-->
