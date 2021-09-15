@@ -16,10 +16,44 @@
 
     <div th:if="${totalElements}>=1">
         <h2 style="color: cadetblue">New Patients</h2>
-        <p>Sort by (quantity): <a href="/patients/sort=asc">category</a> | <a href="/patients/sort=asc">ascending</a> |
-            <a
-                    href="/orders/sort=desc">descending</a> | <a
-                    href="/admin/patients">non sorting</a></p>
+
+        <table>
+            <tr>
+                <td>
+                <th>
+                    <label for="sorting">Sort Patients By</label>
+                </th>
+                <td>
+                    <form th:action="@{/admin/patients}">
+                    <select th:id="sorting" th:name="sorting" onchange="this.form.submit();">
+                        <option value="">--Please choose an option/Default--</option>
+                        <option th:value="ASC-NAME" th:selected="${'ASC-NAME'==(sort)}">
+                            Firstname_alphabetically
+                        </option>
+                        <option th:value="DESC-NAME" th:selected="${'DESC-NAME'==(sort)}">
+                            Firstname_reverse
+                        </option>
+                        <option th:value="ASC" th:selected="${'ASC'==(sort)}">
+                            Lastname_alphabetically
+                        </option>
+                        <option th:value="DESC" th:selected="${'DESC'==(sort)}">
+                            Lastname_reverse
+                        </option>
+                        <option th:value="INCREASE" th:selected="${'INCREASE'==(sort)}">
+                            Date_of_birth_increase
+                        </option>
+                        <option th:value="DECREASE" th:selected="${'DECREASE'==(sort)}">
+                            Date_of_birth_decrease
+                        </option>
+                    </select>
+                    </form>
+                </td>
+                </td>
+            </tr>
+        </table>
+        </br></br>
+
+
         <div id="patients-table" th:insert="~{fragments/patients-table :: patients-table}"></div>
 
         <div class="pagination-div">
