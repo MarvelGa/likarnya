@@ -5,6 +5,7 @@ import com.epam.likarnya.dto.TreatmentPatientDto;
 import com.epam.likarnya.model.Patient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -57,8 +58,13 @@ public interface PatientRepository extends CrudRepository<Patient, Long>, Paging
             " WHERE mc.id=tr.m_card_id AND st.id=mc.statement_id AND mc.doctor_id=u.id AND tr.appointment_status='EXECUTED' AND st.patient_status='DISCHARGED' AND u.id=?);", nativeQuery = true)
     List<TreatmentPatientDto> patientsHistoryByDoctorId(Long doctorId);
 
-    @Query(value = " SELECT * FROM patients p WHERE p.id NOT IN (SELECT st.patient_id FROM statements st WHERE st.patient_status='NEW' OR st.patient_status='DISCHARGED' OR st.patient_status='DIAGNOSED') ORDER BY ?#{#pageable}", nativeQuery = true)
+//    @Query(value = "SELECT * FROM patients p WHERE p.id NOT IN (SELECT st.patient_id FROM statements st WHERE st.patient_status='NEW' OR st.patient_status='DISCHARGED' OR st.patient_status='DIAGNOSED') ORDER BY ?#{#pageable}", nativeQuery = true)
+//    Page<Patient> patientsWithOutMedicCard(Pageable pageable);
+
+
+    @Query(value = "SELECT * FROM patients p WHERE p.id NOT IN (SELECT st.patient_id FROM statements st WHERE st.patient_status='NEW' OR st.patient_status='DISCHARGED' OR st.patient_status='DIAGNOSED')",countQuery = "SELECT count(id) FROM patients p WHERE p.id NOT IN (SELECT st.patient_id FROM statements st WHERE st.patient_status='NEW' OR st.patient_status='DISCHARGED' OR st.patient_status='DIAGNOSED')", nativeQuery = true)
     Page<Patient> patientsWithOutMedicCard(Pageable pageable);
+
 
     @Query(value = " SELECT * FROM patients p WHERE p.id NOT IN (SELECT st.patient_id FROM statements st WHERE st.patient_status='NEW' OR st.patient_status='DIAGNOSED') AND p.id IN(SELECT st.patient_id FROM statements st WHERE st.patient_status='DISCHARGED') ORDER BY ?#{#pageable}", nativeQuery = true)
     Page<Patient> dischargedPatients(Pageable pageable);

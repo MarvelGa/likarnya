@@ -107,50 +107,49 @@ public class PatientController {
 
     @GetMapping(value = "/admin/patients")
     public String listPatients(@PageableDefault(size = 8) Pageable pageable, @RequestParam(value = "sorting", required = false) String sort, Model model) {
-        int size = pageable.getPageSize();
         Page<Patient> page = patientService.getPatientsWithOutMedicCard(pageable);
         if (sort != null && page.getTotalElements() != 0) {
             if (!sort.isEmpty()) {
+                int sizeO = pageable.getPageSize();
                 if (sort.equals("ASC-NAME")) {
                     page = new PageImpl<>(page.stream()
                             .filter(c -> c != null)
                             .sorted(Comparator.comparing(Patient::getFirstName))
-                            .collect(Collectors.toList()), pageable, size);
+                            .collect(Collectors.toList()), pageable, sizeO);
                 }
                 if (sort.equals("DESC-NAME")) {
                     page = new PageImpl<>(page.stream()
                             .filter(c -> c != null)
                             .sorted(Comparator.comparing(Patient::getFirstName).reversed())
-                            .collect(Collectors.toList()), pageable, size);
+                            .collect(Collectors.toList()), pageable, sizeO);
                 }
                 if (sort.equals("ASC")) {
                     page = new PageImpl<>(page.stream()
                             .filter(c -> c != null)
                             .sorted(Comparator.comparing(Patient::getLastName))
-                            .collect(Collectors.toList()), pageable, size);
+                            .collect(Collectors.toList()), pageable, sizeO);
                 }
                 if (sort.equals("DESC")) {
                     page = new PageImpl<>(page.stream()
                             .filter(c -> c != null)
                             .sorted(Comparator.comparing(Patient::getLastName).reversed())
-                            .collect(Collectors.toList()), pageable, size);
+                            .collect(Collectors.toList()), pageable, sizeO);
                 }
                 if (sort.equals("DECREASE")) {
                     page = new PageImpl<>(page.stream()
                             .filter(c -> c != null)
                             .sorted(Comparator.comparing(Patient::getDateOfBirth).reversed())
-                            .collect(Collectors.toList()), pageable, size);
+                            .collect(Collectors.toList()), pageable, sizeO);
                 }
                 if (sort.equals("INCREASE")) {
                     page = new PageImpl<>(page.stream()
                             .filter(c -> c != null)
                             .sorted(Comparator.comparing(Patient::getDateOfBirth))
-                            .collect(Collectors.toList()), pageable, size);
+                            .collect(Collectors.toList()), pageable, sizeO);
                 }
                 model.addAttribute("sort", sort);
             }
         }
-
         Long totalElements = page.getTotalElements();
         model.addAttribute("page", page);
         model.addAttribute("totalElements", totalElements);
@@ -158,7 +157,7 @@ public class PatientController {
     }
 
     @GetMapping(value = "/admin/discharged-patients")
-    public String listDischargedPatients(@PageableDefault(size = 8) Pageable pageable, Model model) {
+    public String listDischargedPatients(@PageableDefault(size = 1) Pageable pageable, Model model) {
         Page<Patient> page = patientService.getDischargedPatients(pageable);
         Long totalElements = page.getTotalElements();
         model.addAttribute("page", page);
