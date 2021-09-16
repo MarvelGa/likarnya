@@ -10,11 +10,11 @@
     <div id="admin-panel" th:insert="~{fragments/admin-panel :: admin-panel}"></div>
     <div id="admin-patients-buttons" th:insert="~{fragments/admin-patients-buttons :: admin-patients-buttons}"></div>
     </br>
-    <form action="#" th:action="@{/admin/patient-registration}" method="get">
-        <input type="submit" value="Add A New Patient">
-    </form>
+<!--    <form action="#" th:action="@{/admin/patient-registration}" method="get">-->
+<!--        <input type="submit" value="Add A New Patient">-->
+<!--    </form>-->
 
-    <div th:if="${totalElements}>=1">
+    <div th:if="${listPatients.size()}>=1">
         <h2 style="color: cadetblue">New Patients</h2>
 
         <table>
@@ -24,7 +24,7 @@
                     <label for="sorting">Sort Patients By</label>
                 </th>
                 <td>
-                    <form th:action="@{/admin/patients}">
+                    <form th:action="@{/admin}">
                     <select th:id="sorting" th:name="sorting" onchange="this.form.submit();">
                         <option value="">--Please choose an option/Default--</option>
                         <option th:value="ASC-NAME" th:selected="${'ASC-NAME'==(sort)}">
@@ -53,25 +53,34 @@
         </table>
         </br></br>
 
+        <table border="1">
+            <tr>
+                <th>No.</th>
+                <th>Patient ID</th>
+                <th>Patient Name</th>
+                <th>Patient LastName</th>
+                <th>Date Of Birth</th>
+                <th>Patient Gender</th>
+                <th colspan="5">Operations</th>
+            </tr>
+            <tr th:each="patient, iStat: ${listPatients}">
+                <td th:text="${iStat.index + 1}"/>
+                <td th:text="${patient.id}"/>
+                <td th:text="${patient.firstName}"/>
+                <td th:text="${patient.lastName}"/>
+                <td th:text="${patient.dateOfBirth}"/>
+                <td th:text="${patient.gender}"/>
+                <td>
+                    <form action="#" th:action="@{/admin/create-medical-card/{patient_id}(patient_id=${patient.id})}"
+                          method="get">
+                        <input type="submit" value="Create medical card">
+                    </form>
+                </td>
+            </tr>
+        </table>
 
-        <div id="patients-table" th:insert="~{fragments/patients-table :: patients-table}"></div>
-
-        <div class="pagination-div">
-    <span th:if="${page.hasPrevious()}">
-        <a th:href="@{/admin/patients(page=${page.number-1},size=${page.size})}">Previous</a>
-    </span>
-            <th:block th:each="i: ${#numbers.sequence(0, page.totalPages - 1)}">
-                <span th:if="${page.number == i}" class="selected">[[${i}+1]]</span>
-                <span th:unless="${page.number == i}">
-             <a th:href="@{/admin/patients(page=${i},size=${page.size})}">[[${i}+1]]</a>
-        </span>
-            </th:block>
-            <span th:if="${page.hasNext()}">
-        <a th:href="@{/admin/patients(page=${page.number+1},size=${page.size})}">Next</a>
-    </span>
-        </div>
     </div>
-    <div th:unless="${totalElements}>=1">
+    <div th:unless="${listPatients.size()}>=1">
         <h3 style="color: deeppink">No new registered patients yet!</h3>
     </div>
     </br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>

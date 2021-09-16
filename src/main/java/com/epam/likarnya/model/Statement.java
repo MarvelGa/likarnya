@@ -28,11 +28,6 @@ public class Statement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @ToString.Exclude
-//    @JoinColumn(name="user_id")
-//    @ManyToOne
-//    private User user;
-
     @ToString.Exclude
     @JoinColumn(name="patient_id")
     @ManyToOne
@@ -41,9 +36,6 @@ public class Statement {
     @Column(name="patient_status")
     @Enumerated(EnumType.STRING)
     private PatientStatus patientStatus = PatientStatus.NEW;
-
-//    @Column(name = "diagnosis", length = 50, nullable = false)
-//    private String  provisionalDiagnosis;
 
     @EqualsAndHashCode.Exclude
     @CreatedDate

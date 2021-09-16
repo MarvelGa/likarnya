@@ -8,99 +8,89 @@
 <body>
 <center>
     <div id="admin-panel" th:insert="~{fragments/admin-panel :: admin-panel}"></div>
-    <h2>Admin Cabinet</h2>
-    <h2>Medical Card Form</h2>
+    <h2 style="color: cadetblue" th:text="#{Medic_registration_form}"></h2>
+    <a th:href="@{/admin}" th:text="#{Back_to_previously_page}"></a>
+    </br> </br>
 
-    <!--    <form th:action="@{/admin/create-medical-card/{patient_id}(patient_id=${patient.id})/add/{doctor_id}(doctor_id=${medicalCard.user.id})}" th:object="${medicalCard}"-->
-<!--    <form th:action="@{/admin/create-medical-card/{patient_id}(patient_id=${patient.id})}"-->
-    <form th:action="@{/admin/create-medical-card/add/{patient_id}(patient_id=${patient.id})}"
-          th:object="${medicalCard}"
-          method="post">
-        <table border="1">
-            <tr>
-                <th>Patient Name</th>
-                <th>Patient Last Name</th>
-                <th>Patient Data Of Birth</th>
-            </tr>
-            <tr th:each="patient, iStat: ${patient}">
-                <td>
-                    <a th:text="${patient.firstName}"/>
-                </td>
-                <td>
-                    <a th:text="${patient.lastName}"/>
-                </td>
-                <td>
-                    <a th:text="${patient.dateOfBirth}"/>
-                </td>
-            </tr>
-            </br>
+    <table border="1">
+        <tr>
+            <th>Patient Name</th>
+            <th>Patient Last Name</th>
+            <th>Patient Data Of Birth</th>
+        </tr>
+        <tr th:each="patient, iStat: ${patient}">
+            <td>
+                <a th:text="${patient.firstName}"/>
+            </td>
+            <td>
+                <a th:text="${patient.lastName}"/>
+            </td>
+            <td>
+                <a th:text="${patient.dateOfBirth}"/>
+            </td>
+        </tr>
+    </table>
+    </br> </br>
 
-        </table>
+    <table>
 
-        <table>
-            <tr>
-                <th>
-                    <label>Enter the Complaints of Patient</label>
-                </th>
-                <td>
-                    <input th:type="text" name="complaints" th:field="*{complaints}" id="complaints" required/>
-                </td>
-            </tr>
-            </br>
+        <tr>
+            <th>
+                <label for="category">Choose Category of Doctor</label>
+            </th>
 
-            <tr>
-                <th>
-                    <label for="category">Choose Category of Doctor</label>
-                </th>
-
-                <td>
-                    <!--                        <select th:field="${medicalCard.user.category.id}" id="quantity">-->
-                    <!--                            <option value="1" selected="selected">1</option>-->
-                    <!--                            <option value="2"><a href="/admin/create-medical-card/55/{patient_id}(patient_id=${patient.id})">ascending</a></option>-->
-                    <!--                            <option value="3">3</option>-->
-                    <!--                            <option value="4">4</option>-->
-                    <!--                            <option value="5">5</option>-->
-                    <!--                            <option value="6">6</option>-->
-                    <!--                            <option value="7">7</option>-->
-                    <!--                        </select>-->
-
-
-                    <select th:onchange="'window.location.href = \'' + @{/admin/create-medical-card/{patient_id}(patient_id=${patient.id})} + '/\' + this.value ' "  required>
-                        <option value="">--Please choose an option--</option>
-                        <option th:each="category : ${categories}"
-                                th:value="${category.title}"
-                                th:selected="${category.title==(categ)}"
-                                th:text="${category.title}">
-                        </option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-
-                <th>
-                    <label for="user">Choose Doctor</label>
-                </th>
-                <td>
-                    <!--                        <select th:field="${medicalCard.user}" id="user">-->
-                    <!--                        <select id="user">-->
-                    <!--                        <select th:field="*{user}" id="user" th:name="user">-->
-                    <select th:field="*{user.id}" id="user">
-                    <option th:each="doctor : ${doctors}"
-                            th:value="${doctor.id}"
-                            th:text="${doctor.firstName + ' ' + doctor.lastName}">
+            <td>
+                <select th:onchange="'window.location.href = \'' + @{/admin/create-medical-card/{patient_id}(patient_id=${patient.id})} + '/\' + this.value ' "
+                        required>
+                    <option value="">--Please choose an option--</option>
+                    <option th:each="category : ${categories}"
+                            th:value="${category.title}"
+                            th:selected="${category.title==(categ)}"
+                            th:text="${category.title}">
                     </option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <input type="submit" value="Create Medical Card"/>
-                </td>
-            </tr>
-        </table>
-<!--        <input type="hidden" name="userId" th:value="*{user.id}">-->
-<!--        <input type="hidden" name="patientId" th:value="${patient.id}">-->
-    </form>
+                </select>
+            </td>
+        </tr>
+    </table>
+    <div th:if="${doctors!=null}">
+        <div th:if="${doctors.size()>=1}">
+            <form th:action="@{/admin/create-medical-card/add/{patient_id}(patient_id=${patient.id})}"
+                  th:object="${medicalCard}"
+                  method="post">
+
+                <table>
+                    <tr>
+                        <th>
+                            <label for="user">Choose Doctor</label>
+                        </th>
+                        <td>
+                            <select th:field="*{user.id}" id="user">
+                                <option th:each="doctor : ${doctors}"
+                                        th:value="${doctor.id}"
+                                        th:text="${doctor.firstName + ' ' + doctor.lastName}">
+                                </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label>Enter the Complaints of Patient</label>
+                        </th>
+                        <td>
+                            <input th:type="text" name="complaints" th:field="*{complaints}" id="complaints" required/>
+                        </td>
+
+                    </tr>
+                </table>
+                </br>
+                <input type="submit" th:value="#{Confirm_selected}"/>
+            </form>
+        </div>
+        <div th:unless="${doctors.size()>=1}">
+            <h3 style="color: salmon" th:text="#{No_doctors_by_this_category}"></h3>
+        </div>
+    </div>
+
 
     </br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
     <div id="footer" th:insert="~{fragments/footer :: footer}"></div>

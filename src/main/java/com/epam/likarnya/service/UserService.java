@@ -8,9 +8,14 @@ import java.util.List;
 
 public interface UserService {
     User findByEmail(String email);
+
     User createOrUpdate(User user);
+
     List<NurseDTO> getNurses();
+
     User findById(Long id);
+
     List<UserDTO> findDoctorsWithCountOfPatients();
+
     List<UserDTO> findDoctorsWithCountOfPatientsByCategoryId(Long id);
 }

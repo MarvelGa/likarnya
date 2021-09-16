@@ -2,14 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Nurse History Page</title>
+    <title>Doctor History Page</title>
     <link th:href="@{/topstyle.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
 <center>
-    <div id="nurse-panel" th:insert="~{fragments/nurse-panel :: nurse-panel}"></div>
-    <div th:if="${nurseTreatmentHistory.size()}!=0">
-        <h2 style="color: cadetblue">History</h2>
+    <div id="admin-panel" th:insert="~{fragments/admin-panel :: admin-panel}"></div>
+    <div th:if="${totalElements}>=1">
+        <h2 style="color: cadetblue" th:text="#{History}"></h2>
+
+        <a th:href="@{/admin}" th:text="#{Back_to_previously_page}"></a>
+        </br></br>
         <table border="1">
             <tr>
                 <th>No.</th>
@@ -22,8 +25,10 @@
                 <th>Status of Treatment</th>
                 <th>Patient's Doctor</th>
                 <th>Executor</th>
+                <th>Day of Admission</th>
+                <th>Day of Discharge</th>
             </tr>
-            <tr th:each="patient, iStat: ${nurseTreatmentHistory}">
+            <tr th:each="patient, iStat: ${page.content}">
                 <td th:text="${iStat.index + 1}"/>
                 <td th:text="${patient.firstName + ' ' + patient.lastName}"/>
                 <td th:text="${patient.dateOfBirth}"/>
@@ -34,11 +39,28 @@
                 <td th:text="${patient.appointmentStatus}"/>
                 <td th:text="${patient.doctorCategory + ' - ' + patient.doctorFirstName + ' ' + patient.doctorLastName}"/>
                 <td th:text="${patient.roleOfExecutor + ' - ' + patient.getNameOfExecutor() + ' ' + patient.getLastNameOfExecutor()}"/>
+                <td th:text="${patient.dateOfAdmission}"/>
+                <td th:text="${patient.getDateOfDischarge()}"/>
             </tr>
         </table>
     </div>
 
-    <div th:unless="${nurseTreatmentHistory.size()}!=0">
+    <div class="pagination-div">
+    <span th:if="${page.hasPrevious()}">
+        <a th:href="@{/admin/patients/history(page=${page.number-1},size=${page.size})}">Previous</a>
+    </span>
+        <th:block th:each="i: ${#numbers.sequence(0, page.totalPages - 1)}">
+            <span th:if="${page.number == i}" class="selected">[[${i}+1]]</span>
+            <span th:unless="${page.number == i}">
+             <a th:href="@{/admin/patients(page=${i},size=${page.size})}">[[${i}+1]]</a>
+        </span>
+        </th:block>
+        <span th:if="${page.hasNext()}">
+        <a th:href="@{/admin/patients/history(page=${page.number+1},size=${page.size})}">Next</a>
+    </span>
+    </div>
+
+    <div th:unless="${totalElements}>=1">
         <h3 style="color: deeppink">There are no history yet!</h3>
     </div>
 

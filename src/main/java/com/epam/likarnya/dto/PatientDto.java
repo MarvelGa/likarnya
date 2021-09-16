@@ -3,9 +3,7 @@ package com.epam.likarnya.dto;
 import com.epam.likarnya.model.Patient;
 import lombok.*;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDate;
 
 @Builder
 @Data

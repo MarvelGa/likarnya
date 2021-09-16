@@ -1,6 +1,5 @@
 package com.epam.likarnya.controller;
 
-import com.epam.likarnya.dto.LoginRequestDto;
 import com.epam.likarnya.model.*;
 import com.epam.likarnya.repository.MedicalCardRepository;
 import com.epam.likarnya.repository.PatientRepository;
@@ -33,7 +32,6 @@ public class DoctorController {
     @GetMapping(value = "/doctor-cabinet")
     public String handleDoctorPage(HttpSession session, Model model) {
         User doctor = (User) session.getAttribute("doctor");
-        // List<Patient> patients = patientService.getPatientForDiagnosis(doctor.getId());
         var patients = patientRepository.getPatientsForDiagnosis2(doctor.getId());
 
         model.addAttribute("patients", patients);
@@ -61,7 +59,7 @@ public class DoctorController {
         patientMedicalCard.getStatement().setPatientStatus(Statement.PatientStatus.DIAGNOSED);
         patientMedicalCard.getStatement().setChanged(LocalDateTime.now());
 
-        MedicalCard updatedMedicalCard=medicalCardService.createOrUpdate(patientMedicalCard);
+        MedicalCard updatedMedicalCard = medicalCardService.createOrUpdate(patientMedicalCard);
 
         Treatment createTreatment = new Treatment();
         createTreatment.setAppointment(treatment.getAppointment());
@@ -110,6 +108,4 @@ public class DoctorController {
         model.addAttribute("patientsHistory", patient);
         return "doctorHistory";
     }
-
-
 }

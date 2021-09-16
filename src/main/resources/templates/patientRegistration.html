@@ -8,22 +8,19 @@
 <body>
 <center>
     <div id="admin-panel" th:insert="~{fragments/admin-panel :: admin-panel}"></div>
-    <h2 style="color: blue">Patient Registration Form</h2>
-
+    <h2 style="color: cadetblue" th:text="#{Patient_registration_form}"></h2>
     <form th:action="@{/admin/patient-registration}" th:object="${registrationPatient}" method="post">
-
         <table th:object="${errorMessages}" border="0">
             <tr th:style="'color: #ff6347'" th:each="elem :${errorMessages}">
                 <td th:text="${elem}"></td>
             </tr>
         </table>
         </br> </br>
-
         <table>
 
             <tr>
                 <th>
-                    <label>First Name</label>
+                    <label th:text="#{Enter_your_name}"></label>
                 </th>
                 <td>
                     <input th:type="text" name="firstName" th:field="*{firstName}" id="firstName"
@@ -37,7 +34,7 @@
 
             <tr>
                 <th>
-                    <label>Last Name</label>
+                    <label th:text="#{Enter_your_lastName}"></label>
                 </th>
                 <td>
                     <input th:type="text" name="lastName" th:field="*{lastName}" id="lastName"
@@ -50,13 +47,14 @@
 
             <tr>
                 <th>
-                    <label>Date Of Birth</label>
+                    <label th:text="#{Enter_your_b_day}"></label>
                 </th>
                 <td>
 
-                <input th:type="date" th:min="1900-01-01" th:max="${dateOfToday}" name="dateOfBirth" id="dateOfBirth"
-                       placeholder="MM-DD-YYYY"
-                       th:value="${registrationPatient.dateOfBirth}" required>
+                    <input th:type="date" th:min="1900-01-01" th:max="${dateOfToday}" name="dateOfBirth"
+                           id="dateOfBirth"
+                           placeholder="MM-DD-YYYY"
+                           th:value="${registrationPatient.dateOfBirth}" required>
                 </td>
                 <td th:style="'color: #ff6347'">
                     <span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
@@ -65,7 +63,7 @@
 
             <tr>
                 <th>
-                    <label for="gender">Gender</label>
+                    <label for="gender" th:text="#{Choose_your_gender}"></label>
                 </th>
                 <td>
                     <select th:field="*{gender}" id="gender">

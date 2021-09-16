@@ -89,4 +89,14 @@ public class PatientServiceImpl implements PatientService {
     public TreatmentPatientDto getPatientByIdForTreatmentByNurse(Long patientId) {
         return repository.getPatientByIdForTreatmentByNurse(patientId);
     }
+
+    @Override
+    public Page<TreatmentPatientDto> getHistory(Pageable pageable) {
+        return repository.getHistory(pageable);
+    }
+
+    @Override
+    public List<Patient> patientsWithOutMedicCard() {
+        return repository.patientsWithOutMedicCard();
+    }
 }

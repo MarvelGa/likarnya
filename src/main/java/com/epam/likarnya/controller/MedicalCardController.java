@@ -39,7 +39,6 @@ public class MedicalCardController {
     @GetMapping(value = "/admin/create-medical-card/{patient_id}/{cat}")
     public String openMedicalCard5(@PathVariable("patient_id") long patientId, @PathVariable(value = "cat", required = true) String doctorCategory, Model model) {
         Patient patient2 = (Patient) model.getAttribute("patient");
-//        Long patientId1 = Long.parseLong(patientId);
         model.addAttribute("categ", doctorCategory);
         List<Category> categories = categoryService.getAll();
         Patient patient = patientService.findById(Long.valueOf(patientId));
@@ -73,7 +72,7 @@ public class MedicalCardController {
                 .build();
 
         medicalCardService.createOrUpdate(medicalCard);
-        return "redirect:/admin/patients";
+        return "redirect:/admin";
     }
 
 }

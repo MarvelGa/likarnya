@@ -3,21 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Login Page</title>
-    <link th:href="@{/style.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/topstyle.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
 <center>
     <div id="login-panel" th:insert="~{fragments/login-panel :: login-panel}"></div>
-    <h2>Login Form</h2>
+    </br></br></br></br>
+    <h2 style="color: cadetblue" th:text="#{Login_form}"></h2>
     <form th:action="@{/login}" th:object="${loginUser}" method="post">
-
-        <!--        <div th:if="${registrationSuccess}">-->
         <h3 style="color: tomato"><p th:text="${errorMessage}"/></h3>
-
+        </br></br>
         <table>
             <tr>
                 <th>
-                    <label>${resources.Enter_your_email}Email</label>
+                    <label style="color: cadetblue" th:text="#{Enter_your_email}"></label>
                 </th>
                 <td>
                     <input th:type="text" name="email" th:field="*{email}" id="email" th:value="${loginUser.email}"/>
@@ -29,7 +28,7 @@
 
             <tr>
                 <th>
-                    <label>Password</label>
+                    <label  style="color: cadetblue" th:text="#{Enter_your_password}"></label>
                 </th>
                 <td>
                     <input th:type="password" name="password" th:field="*{password}" id="password"

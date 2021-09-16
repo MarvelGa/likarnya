@@ -18,11 +18,6 @@ public class MedicalCard {
     @EqualsAndHashCode.Exclude
     private Long id;
 
-//    @ToString.Exclude
-//    @ManyToOne
-//    @JoinColumn(name = "patient_id")
-//    private Patient patient;
-
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "doctor_id")

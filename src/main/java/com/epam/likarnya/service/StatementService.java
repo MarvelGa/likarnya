@@ -5,5 +5,6 @@ import com.epam.likarnya.model.User;
 
 public interface StatementService {
     Statement createOrUpdate(Statement statement);
+
     Statement getById(Long id);
 }

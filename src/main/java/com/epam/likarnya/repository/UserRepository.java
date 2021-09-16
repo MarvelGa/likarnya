@@ -28,6 +28,4 @@ public interface UserRepository extends CrudRepository<User, Long> {
             "IFNULL((select count(1) from users us inner join medical_cards mcd on mcd.doctor_id=us.id where us.id=u.id group by mcd.doctor_id),0) as countOfPatients\n" +
             "from  users u JOIN categories c ON u.category_id=c.id where c.id=:id group by u.id;", nativeQuery = true)
     List<UserDTO> getDoctorsWithCountOfPatientsByCategoryId(Long id);
-
-
 }

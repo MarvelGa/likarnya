@@ -37,14 +37,6 @@ public class Patient {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-//    @EqualsAndHashCode.Exclude
-//    @OneToMany(mappedBy = "patient", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-//    private List<MedicalCard> medicalCards = new ArrayList<>();
-
-//    @EqualsAndHashCode.Exclude
-//    @OneToMany(mappedBy = "statement", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY )
-//    private List<MedicalCard> medicalCards = new ArrayList<>();
-
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "patient", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Statement> statements = new ArrayList<>();

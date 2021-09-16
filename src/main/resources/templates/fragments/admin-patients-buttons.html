@@ -2,12 +2,15 @@
     <table>
         <tr>
             <th>
-                <form action="#" th:action="@{/admin/patients}" method="get">
-                    <input type="submit" value="Patients WithOut Medical Card">
+<!--                <form action="#" th:action="@{/admin/patients}" method="get">-->
+<!--                    <input type="submit" value="Patients WithOut Medical Card">-->
+<!--                </form>-->
+                <form action="#" th:action="@{/admin/patient-registration}" method="get">
+                    <input type="submit" value="Add A New Patient">
                 </form>
             </th>
             <th>
-                <form action="#" th:action="@{/admin/discharged-patients}" method="get">
+                <form action="#" th:action="@{/admin/patients/history}" method="get">
                     <input type="submit" value="Discharged Patients">
                 </form>
             </th>

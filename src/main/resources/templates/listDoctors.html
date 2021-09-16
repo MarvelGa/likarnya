@@ -22,13 +22,13 @@
         <tr>
             <td>
             <th>
-                <label for="category">Choose Category</label>
+                <label for="category" th:text="#{Choose_category_of_doctor}"></label>
             </th>
             <td>
 
                 <form th:action="@{/admin/doctors}">
                     <select th:id="category" th:name="category" onchange="this.form.submit();">
-                        <option value="">--choose an option/All--</option>
+                        <option value="" th:text="#{Default_or_choose}"></option>
                         <option th:each="category : ${categories}"
                                 th:value="${category.id}"
                                 th:selected="${category.id==(catValue)}"
@@ -40,35 +40,27 @@
 
             <td>
             <th>
-                <label for="sorting">Sort Doctors By</label>
+                <label for="sorting" th:text="#{Sort_doctors_by}"></label>
             </th>
             <td>
 
                 <select th:id="sorting" th:name="sorting" onchange="this.form.submit();">
-                    <option value="">--Please choose an option/Default--</option>
-                    <option th:value="ASC-NAME" th:selected="${'ASC-NAME'==(sort)}">
-                        Firstname_alphabetically
+                    <option value="" th:text="#{Choose_an_option}"></option>
+                    <option th:value="ASC-NAME" th:selected="${'ASC-NAME'==(sort)}" th:text="#{Firstname_alphabetically}">
                     </option>
-                    <option th:value="DESC-NAME" th:selected="${'DESC-NAME'==(sort)}">
-                        Firstname_reverse
+                    <option th:value="DESC-NAME" th:selected="${'DESC-NAME'==(sort)}" th:text="#{Firstname_reverse}">
                     </option>
-                    <option th:value="ASC" th:selected="${'ASC'==(sort)}">
-                        Lastname_alphabetically
+                    <option th:value="ASC" th:selected="${'ASC'==(sort)}" th:text="#{Lastname_alphabetically}">
                     </option>
-                    <option th:value="DESC" th:selected="${'DESC'==(sort)}">
-                        Lastname_reverse
+                    <option th:value="DESC" th:selected="${'DESC'==(sort)}" th:text="#{Lastname_reverse}">
                     </option>
-                    <option th:value="CAT-ASC" th:selected="${'CAT-ASC'==(sort)}">
-                        Category_alphabetically
+                    <option th:value="CAT-ASC" th:selected="${'CAT-ASC'==(sort)}" th:text="#{Category_alphabetically}">
                     </option>
-                    <option th:value="CAT-DESC" th:selected="${'CAT-DESC'==(sort)}">
-                        Category_reverse
+                    <option th:value="CAT-DESC" th:selected="${'CAT-DESC'==(sort)}" th:text="#{Category_reverse}">
                     </option>
-                    <option th:value="INCREASE" th:selected="${'INCREASE'==(sort)}">
-                        Number_of_patients_increase
+                    <option th:value="INCREASE" th:selected="${'INCREASE'==(sort)}" th:text="#{Number_of_patients_increase}">
                     </option>
-                    <option th:value="DECREASE" th:selected="${'DECREASE'==(sort)}">
-                        Number_of_patients_decrease
+                    <option th:value="DECREASE" th:selected="${'DECREASE'==(sort)}" th:text="#{Number_of_patients_decrease}">
                     </option>
                 </select>
                 </form>

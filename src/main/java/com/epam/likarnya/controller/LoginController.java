@@ -75,7 +75,7 @@ public class LoginController {
     public String doLogout(Model theModel, final HttpSession session, @ModelAttribute("loginUser") LoginRequestDto loginRequestDto) {
         session.invalidate();
         theModel.addAttribute("loginUser", new LoginRequestDto());
-        return "loginPage";
+        return "redirect:/login";
     }
 
 
