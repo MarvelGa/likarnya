@@ -39,7 +39,7 @@ public class AdminController {
     public String listNurses(Model model) {
         List<NurseDTO> nurses = userService.getNurses();
         model.addAttribute("nurses", nurses);
-        return "listNurses";
+        return "/admin/listNurses";
     }
 
     @GetMapping(value = "/admin/doctors")
@@ -120,7 +120,7 @@ public class AdminController {
 
         model.addAttribute("sort", sort);
         model.addAttribute("doctorsList", doctorsList);
-        return "listDoctors";
+        return "/admin/listDoctors";
     }
 
     @GetMapping(value = "/admin/patients/history")
@@ -129,7 +129,7 @@ public class AdminController {
         Long totalElements = page.getTotalElements();
         model.addAttribute("page", page);
         model.addAttribute("totalElements", totalElements);
-        return "patientsHistory";
+        return "/admin/patientsHistory";
     }
 
     @GetMapping(value = "/admin")
@@ -177,7 +177,7 @@ public class AdminController {
             }
         }
         model.addAttribute("listPatients", patients);
-        return "listPatient";
+        return "/admin/listPatient";
     }
 
 }

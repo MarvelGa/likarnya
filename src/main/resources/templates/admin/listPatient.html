@@ -24,7 +24,7 @@
                     <label for="sorting">Sort Patients By</label>
                 </th>
                 <td>
-                    <form th:action="@{/admin}">
+                    <form th:action="@{/templates/admin}">
                     <select th:id="sorting" th:name="sorting" onchange="this.form.submit();">
                         <option value="">--Please choose an option/Default--</option>
                         <option th:value="ASC-NAME" th:selected="${'ASC-NAME'==(sort)}">

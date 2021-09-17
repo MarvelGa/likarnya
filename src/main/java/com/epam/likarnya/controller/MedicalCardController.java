@@ -32,7 +32,7 @@ public class MedicalCardController {
         model.addAttribute("medicalCard", new MedicalCard());
         model.addAttribute("patient", patient);
         model.addAttribute("categories", categories);
-        return "medicalCard";
+        return "/admin/medicalCard";
     }
 
 
@@ -47,7 +47,7 @@ public class MedicalCardController {
         model.addAttribute("patient", patient);
         model.addAttribute("categories", categories);
         model.addAttribute("doctors", doctors);
-        return "medicalCard";
+        return "/admin/medicalCard";
     }
 
     @PostMapping(value = "/admin/create-medical-card/add/{patient_id}")

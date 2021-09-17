@@ -36,13 +36,13 @@ public class PatientController {
     public String patientRegistration(Model model) {
         model.addAttribute("dateOfToday", String.valueOf(LocalDate.now()));
         model.addAttribute("registrationPatient", new PatientDto());
-        return "patientRegistration";
+        return "/admin/patientRegistration";
     }
 
     @PostMapping(value = "/admin/patient-registration")
     public String patientRegistration(Model model, @Valid @ModelAttribute("registrationPatient") PatientDto patient, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "patientRegistration";
+            return "/admin/patientRegistration";
         }
 
         log.debug("Registration patient starts");
@@ -82,6 +82,6 @@ public class PatientController {
         Long totalElements = page.getTotalElements();
         model.addAttribute("page", page);
         model.addAttribute("totalElements", totalElements);
-        return "listdischargedPatients";
+        return "/admin/listdischargedPatients";
     }
 }

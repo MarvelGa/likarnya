@@ -33,7 +33,7 @@ public class RegistrationUserController {
     @GetMapping("/admin/medical-registration")
     public String registrationForm(Model model) {
         model.addAttribute("registrationUser", new RegistrationRequestDto());
-        return "medicalRegistrationPage";
+        return "/admin/medicalRegistrationPage";
     }
 
     @PostMapping("/admin/medical-registration")
@@ -44,7 +44,7 @@ public class RegistrationUserController {
         String errorMessage;
 
         if (bindingResult.hasErrors()) {
-            return "registrationPage";
+            return "/admin/registrationPage";
         }
         if (!DataValidator.isEmailValid(requestDto.getEmail())) {
             errorMessage = "Email is not valid";
@@ -78,7 +78,7 @@ public class RegistrationUserController {
         if (!errorMessages.isEmpty()) {
             model.addAttribute("errorMessages", errorMessages);
             log.debug(String.format("forward --> %s", "/registration"));
-            return "medicalRegistrationPage";
+            return "/admin/medicalRegistrationPage";
         } else {
             User newUser;
             if (requestDto.getCategory() != 0) {

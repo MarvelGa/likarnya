@@ -2,8 +2,10 @@ package com.epam.likarnya.service.impl;
 
 import com.epam.likarnya.dto.PatientDataDTO;
 import com.epam.likarnya.dto.TreatmentPatientDto;
+import com.epam.likarnya.exception.BadRequestException;
 import com.epam.likarnya.exception.EntityNotFoundException;
 import com.epam.likarnya.model.Patient;
+import com.epam.likarnya.model.User;
 import com.epam.likarnya.repository.PatientRepository;
 import com.epam.likarnya.service.PatientService;
 import lombok.RequiredArgsConstructor;
@@ -102,7 +104,10 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public List<PatientDataDTO> getPatientsForDiagnosis(Long doctorId) {
-        return repository.getPatientsForDiagnosis(doctorId);
+    public List<PatientDataDTO> getPatientsForDiagnosis(User user) {
+        if (user!=null){
+            return repository.getPatientsForDiagnosis(user.getId());
+        }
+         throw new BadRequestException("Access not allowed!");
     }
 }

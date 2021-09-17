@@ -17,7 +17,15 @@ public class ApplicationExceptionHandler {
     @ExceptionHandler (EntityNotFoundException.class)
     public ModelAndView handleEntityNotFoundException (EntityNotFoundException ex){
         log.error("EntityNotFoundException : ", ex.getMessage());
-        ModelAndView model = new ModelAndView("errorPage");
+        ModelAndView model = new ModelAndView("error/errorPage");
+        model.addObject("info",ex.getMessage());
+        return model;
+    }
+
+    @ExceptionHandler (BadRequestException.class)
+    public ModelAndView handleBadRequestException (BadRequestException ex){
+        log.error("EntityNotFoundException : ", ex.getMessage());
+        ModelAndView model = new ModelAndView("error/errorPage");
         model.addObject("info",ex.getMessage());
         return model;
     }
@@ -26,7 +34,7 @@ public class ApplicationExceptionHandler {
     @ResponseStatus(value = INTERNAL_SERVER_ERROR)
     public ModelAndView globalException(Exception ex) {
         log.error(GLOBAL_EXCEPTION_MESSAGE, ex);
-        ModelAndView model = new ModelAndView("errorPage");
+        ModelAndView model = new ModelAndView("error/errorPage");
         model.addObject("info",GLOBAL_EXCEPTION_MESSAGE);
         return model;
     }

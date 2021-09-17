@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Error Page</title>
-    <link th:href="@{/style.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/topstyle.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
-
-<h1>Ooops, Something wrong</h1>
+<center>
+<div id="login-panel" th:insert="~{fragments/login-panel :: login-panel}"></div>
+</br></br>
+<a th:href="@{/login}" th:text="#{Go_to_login_page}"></a>
+</br></br></br></br>
 <p></p>
 <h1>Error info:</h1>
 <div style="color: red; font-size: xx-large" th:text="${info}"></div>
 
 </br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
 <div id="footer" th:insert="~{fragments/footer :: footer}"></div>
+</center>
 </body>
 </html>

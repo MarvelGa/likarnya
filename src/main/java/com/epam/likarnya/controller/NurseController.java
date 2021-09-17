@@ -37,7 +37,7 @@ public class NurseController {
     public String handleTreatmentByNurse(Model model) {
         var patientsForTreatingByProcedureOrDrug = patientService.getPatientsForTreatmentByNurse();
         model.addAttribute("patientsForTreatingByProcedureOrDrug", patientsForTreatingByProcedureOrDrug);
-        return "nursePage";
+        return "/nurse/nursePage";
     }
 
 
@@ -45,7 +45,7 @@ public class NurseController {
     public String getHandleTreatmentByNurse(@PathVariable("patient_id") long patientId, Model model) {
         var patient = patientService.getPatientByIdForTreatmentByNurse(patientId);
         model.addAttribute("patientForTreatmentByNurse", patient);
-        return "nurseTreatment";
+        return "/nurse/nurseTreatment";
     }
 
     @PostMapping(value = "/nurse-cabinet/execute-treatment")
@@ -66,7 +66,7 @@ public class NurseController {
         User nurse = (User) session.getAttribute("nurse");
         var nurseTreatmentHistory = patientService.getNurseTreatmentHistoryById(nurse.getId());
         model.addAttribute("nurseTreatmentHistory", nurseTreatmentHistory);
-        return "nurseTreatmentHistory";
+        return "/nurse/nurseTreatmentHistory";
     }
 
 }

@@ -32,9 +32,9 @@ public class DoctorController {
     @GetMapping(value = "/doctor-cabinet")
     public String handleDoctorPage(HttpSession session, Model model) {
         User doctor = (User) session.getAttribute("doctor");
-        var patients = patientService.getPatientsForDiagnosis(doctor.getId());
+        var patients = patientService.getPatientsForDiagnosis(doctor);
         model.addAttribute("patients", patients);
-        return "doctorPage";
+        return "/doctor/doctorPage";
     }
 
 
@@ -45,7 +45,7 @@ public class DoctorController {
         model.addAttribute("patient", patient);
         model.addAttribute("medicalCard", medicalCard);
         model.addAttribute("treatment", new Treatment());
-        return "addTreatment";
+        return "/doctor/addTreatment";
     }
 
     @PostMapping(value = "/doctor-cabinet/add-treatment/{patient_id}")
@@ -75,7 +75,7 @@ public class DoctorController {
         User doctor = (User) session.getAttribute("doctor");
         var patients = patientService.getPatientsForTreatment(doctor.getId());
         model.addAttribute("patients", patients);
-        return "treatmentPatients";
+        return "/doctor/treatmentPatients";
     }
 
     @GetMapping(value = "/doctor-cabinet/execute-treatment/{patient_id}")
@@ -83,7 +83,7 @@ public class DoctorController {
         User doctor = (User) session.getAttribute("doctor");
         var patient = patientService.getPatientForTreatment(doctor.getId(), patientId);
         model.addAttribute("patientForTreatment", patient);
-        return "executeTreatment";
+        return "/doctor/executeTreatment";
     }
 
 
@@ -105,6 +105,6 @@ public class DoctorController {
         User doctor = (User) session.getAttribute("doctor");
         var patient = patientService.getHistoryByDoctorId(doctor.getId());
         model.addAttribute("patientsHistory", patient);
-        return "doctorHistory";
+        return "/doctor/doctorHistory";
     }
 }

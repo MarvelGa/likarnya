@@ -3,6 +3,7 @@ package com.epam.likarnya.service;
 import com.epam.likarnya.dto.PatientDataDTO;
 import com.epam.likarnya.dto.TreatmentPatientDto;
 import com.epam.likarnya.model.Patient;
+import com.epam.likarnya.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -37,5 +38,5 @@ public interface PatientService {
 
     List<Patient> patientsWithOutMedicCard();
 
-    List<PatientDataDTO> getPatientsForDiagnosis(Long doctorId);
+    List<PatientDataDTO> getPatientsForDiagnosis(User user);
 }
