@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Error Page</title>
+    <link th:href="@{/topstyle.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<center>
+    <div id="login-panel" th:insert="~{fragments/login-panel :: login-panel}"></div>
+    </br></br>
+    <a th:href="@{/login}" th:text="#{Go_to_login_page}"></a>
+    </br></br></br>
+    <h1>Error Page</h1>
+    <h1>Oooops, Something wrong.</h1>
+    <h3>But relax, we are working</h3>
+    </br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+    <div id="footer" th:insert="~{fragments/footer :: footer}"></div>
+</center>
+</body>
+</html>

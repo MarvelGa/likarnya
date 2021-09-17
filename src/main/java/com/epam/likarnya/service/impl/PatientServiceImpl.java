@@ -1,5 +1,6 @@
 package com.epam.likarnya.service.impl;
 
+import com.epam.likarnya.dto.PatientDataDTO;
 import com.epam.likarnya.dto.TreatmentPatientDto;
 import com.epam.likarnya.exception.EntityNotFoundException;
 import com.epam.likarnya.model.Patient;
@@ -55,10 +56,10 @@ public class PatientServiceImpl implements PatientService {
         return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("Patient by id = %s was not found", id)));
     }
 
-    @Override
-    public List<Patient> getPatientForDiagnosis(Long doctorId) {
-        return repository.getPatientsForDiagnosis(doctorId);
-    }
+//    @Override
+//    public List<Patient> getPatientForDiagnosis(Long doctorId) {
+//        return repository.getPatientsForDiagnosis(doctorId);
+//    }
 
     @Override
     public List<TreatmentPatientDto> getPatientsForTreatment(Long doctorId) {
@@ -98,5 +99,10 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public List<Patient> patientsWithOutMedicCard() {
         return repository.patientsWithOutMedicCard();
+    }
+
+    @Override
+    public List<PatientDataDTO> getPatientsForDiagnosis(Long doctorId) {
+        return repository.getPatientsForDiagnosis(doctorId);
     }
 }

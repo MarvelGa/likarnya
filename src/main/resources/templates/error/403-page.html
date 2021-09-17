@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>403 Page</title>
+    <link th:href="@{/topstyle.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<center>
+    <div id="login-panel" th:insert="~{fragments/login-panel :: login-panel}"></div>
+    </br></br>
+    <a th:href="@{/login}" th:text="#{Go_to_login_page}"></a>
+    </br></br></br>
+    <h1 style="color: palevioletred">403</h1>
+    <h1 style="color: palevioletred">You don't have permission to access this resource</h1>
+    </br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+    <div id="footer" th:insert="~{fragments/footer :: footer}"></div>
+</center>
+</body>
+</html>
