@@ -1,4 +1,4 @@
-use likarnya202117;
+use likarnya2021177;
 INSERT INTO categories  (title)  VALUES ( 'THERAPIST'),
                                         ('SURGEON'),
                                         ('TRAUMATOLOGIST'),

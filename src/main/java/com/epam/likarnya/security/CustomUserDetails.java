@@ -20,10 +20,9 @@ public class CustomUserDetails implements UserDetails {
         customUserDetails.email = user.getEmail();
         customUserDetails.password = user.getPassword();
         customUserDetails.grantedAuthorities = Collections
-                .singletonList(new SimpleGrantedAuthority(user.getRole().name()));
+                .singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()));
         return customUserDetails;
     }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -42,21 +41,21 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

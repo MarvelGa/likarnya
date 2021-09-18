@@ -35,20 +35,21 @@
                 <td th:text="${patient.gender}"/>
             </tr>
         </table>
-
+        <div th:if="${page.size!=0 }">
         <div class="pagination-div">
     <span th:if="${page.hasPrevious()}">
-        <a th:href="@{/admin/patients(page=${page.number-1},size=${page.size})}">Previous</a>
+        <a th:href="@{/admin/patients/history(page=${page.number-1},size=${page.size})}">Previous</a>
     </span>
             <th:block th:each="i: ${#numbers.sequence(0, page.totalPages - 1)}">
                 <span th:if="${page.number == i}" class="selected">[[${i}+1]]</span>
                 <span th:unless="${page.number == i}">
-             <a th:href="@{/admin/patients(page=${i},size=${page.size})}">[[${i}+1]]</a>
+             <a th:href="@{/admin/patients/history(page=${i},size=${page.size})}">[[${i}+1]]</a>
         </span>
             </th:block>
             <span th:if="${page.hasNext()}">
-        <a th:href="@{/admin/patients(page=${page.number+1},size=${page.size})}">Next</a>
+        <a th:href="@{/admin/patients/history(page=${page.number+1},size=${page.size})}">Next</a>
     </span>
+        </div>
         </div>
     </div>
     <div th:unless="${totalElements}>=1">

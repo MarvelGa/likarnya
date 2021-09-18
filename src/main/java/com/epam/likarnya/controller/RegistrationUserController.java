@@ -8,6 +8,7 @@ import com.epam.likarnya.validator.DataValidator;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +30,7 @@ import java.util.List;
 public class RegistrationUserController {
     private final UserService userService;
     private final CategoryService categoryService;
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/admin/medical-registration")
     public String registrationForm(Model model) {
@@ -86,7 +88,7 @@ public class RegistrationUserController {
                         .firstName(requestDto.getFirstName())
                         .lastName(requestDto.getLastName())
                         .email(requestDto.getEmail())
-                        .password(encryptPassword(requestDto.getPassword()))
+                        .password(passwordEncoder.encode(requestDto.getPassword()))
                         .role(requestDto.getRole())
                         .category(categoryService.findById(requestDto.getCategory()))
                         .build();
@@ -96,7 +98,7 @@ public class RegistrationUserController {
                         .firstName(requestDto.getFirstName())
                         .lastName(requestDto.getLastName())
                         .email(requestDto.getEmail())
-                        .password(encryptPassword(requestDto.getPassword()))
+                        .password(passwordEncoder.encode(requestDto.getPassword()))
                         .role(requestDto.getRole())
                         .build();
             }
@@ -113,18 +115,6 @@ public class RegistrationUserController {
             log.debug(String.format("redirect --> %s", "/admin/doctors"));
             model.addAttribute("registrationSuccess", "The doctor added successfully");
             return "redirect:/admin/doctors";
-        }
-    }
-
-    private String encryptPassword(final String password) {
-        MessageDigest digest;
-        try {
-            digest = MessageDigest.getInstance("MD5");
-            digest.update(password.getBytes(), 0, password.length());
-            return new BigInteger(1, digest.digest()).toString(16);
-        } catch (NoSuchAlgorithmException e) {
-            log.error(e.getMessage());
-            return password.hashCode() + password.hashCode() + "";
         }
     }
 }

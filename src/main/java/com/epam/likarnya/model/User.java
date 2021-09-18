@@ -8,6 +8,8 @@ import java.util.List;
 
 @Builder
 @Data
+//@Getter
+//@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -32,7 +34,7 @@ public class User {
     @Column(length = 50, nullable = false)
     private String email;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 100, nullable = false)
     private String password;
 
     @ToString.Exclude
@@ -40,10 +42,14 @@ public class User {
     @ManyToOne
     private Category category;
 
+    @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<MedicalCard> medicalCards = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+
+
 }
