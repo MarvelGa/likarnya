@@ -7,6 +7,8 @@ import com.epam.likarnya.service.CategoryService;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,11 +17,13 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
 
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     @Override
     public Category findById(Long id) {
         return categoryRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(String.format("Category by id = %s was not found", id)));
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     @Override
     public List<Category> getAll() {
         return Lists.newArrayList (categoryRepository.findAll());

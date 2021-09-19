@@ -5,6 +5,8 @@ import com.epam.likarnya.repository.MedicalCardRepository;
 import com.epam.likarnya.service.MedicalCardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -14,6 +16,7 @@ import java.util.Optional;
 public class MedicalCardServiceImpl implements MedicalCardService {
     private final MedicalCardRepository  medicalCardRepository;
 
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public MedicalCard createOrUpdate(MedicalCard medicalCard) {
         if (medicalCard.getId()!=null){
@@ -28,6 +31,7 @@ public class MedicalCardServiceImpl implements MedicalCardService {
         return medicalCardRepository.save(medicalCard);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     @Override
     public MedicalCard getMedicalCardForDiagnosis(Long patientId) {
         return medicalCardRepository.getMedicalCardById(patientId);

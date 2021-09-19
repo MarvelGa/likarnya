@@ -26,6 +26,7 @@ public class UserServiceImpl implements UserService {
         return repository.findUserByEmail(email);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public User createOrUpdate(User user) {
         if (user.getId()!=null){
@@ -44,22 +45,26 @@ public class UserServiceImpl implements UserService {
         return repository.save(user);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     @Override
     public List<NurseDTO> getNurses() {
         return repository.getNurses();
     }
 
 
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     @Override
     public User findById(Long id) {
         return repository.findById(id).orElseThrow(()->new EntityNotFoundException(String.format("User by id = %s was not found", id)));
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     @Override
     public List<UserDTO> findDoctorsWithCountOfPatients() {
         return repository.getDoctorsWithCountOfPatients();
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     @Override
     public List<UserDTO> findDoctorsWithCountOfPatientsByCategoryId(Long id) {
         return repository.getDoctorsWithCountOfPatientsByCategoryId(id);

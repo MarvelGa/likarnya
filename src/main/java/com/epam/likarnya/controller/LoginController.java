@@ -31,7 +31,7 @@ public class LoginController {
 
     @RequestMapping(value = "/login")
     public String loginForm(Model model) {
-        return "loginPage2";
+        return "loginPage";
     }
 
     @RequestMapping(value = "/login-error")
@@ -41,7 +41,7 @@ public class LoginController {
             String errorMessage = "Wrong login or password";
             model.addAttribute("errorMessage", errorMessage);
         }
-        return "loginPage2";
+        return "loginPage";
     }
 
     @RequestMapping("/success")

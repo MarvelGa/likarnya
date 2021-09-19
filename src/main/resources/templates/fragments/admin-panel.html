@@ -15,5 +15,7 @@
     </form>
 </div>
 
+<!--    <div th:if="${session.user!=null}">-->
     <h2><span style="color: #5cac8c"  th:text="#{Admin_Cabinet_Of} + ' ' + ${session.user.firstName} + ' ' + ${session.user.lastName}"></span></h2>
+<!--    </div>>-->
 </th:block>

@@ -33,6 +33,7 @@ public class StatementServiceImpl implements StatementService {
         return statementRepository.save(statement);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     @Override
     public Statement getById(Long id) {
         return statementRepository.findById(id).orElseThrow(()->new EntityNotFoundException(String.format("Statement with id = %s was not found", id)));
