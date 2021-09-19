@@ -44,8 +44,10 @@ public interface PatientRepository extends CrudRepository<Patient, Long>, Paging
             " FROM patients p, statements st, medical_cards mc, treatments tr, users u, categories c \n" +
             " WHERE c.id=u.category_id AND u.id=mc.doctor_id AND p.id=st.patient_id AND mc.id=tr.m_card_id AND mc.statement_id =st.id\n" +
             " AND p.id IN (SELECT st.patient_id FROM statements st, medical_cards mc, users u, treatments tr \n" +
-            " WHERE mc.id=tr.m_card_id AND st.id=mc.statement_id AND mc.doctor_id=u.id AND tr.appointment_status='EXECUTED' AND st.patient_status='DISCHARGED' AND u.id=?);", nativeQuery = true)
-    List<TreatmentPatientDto> patientsHistoryByDoctorId(Long doctorId);
+            " WHERE mc.id=tr.m_card_id AND st.id=mc.statement_id AND mc.doctor_id=u.id AND tr.appointment_status='EXECUTED' AND st.patient_status='DISCHARGED' AND u.id=?)",
+             countQuery =" SELECT count(id)\n" +
+                     " FROM patients p, statements st, medical_cards mc, treatments tr, users u, categories c ",     nativeQuery = true)
+    Page<TreatmentPatientDto> patientsHistoryByDoctorId(Long doctorId, Pageable pageable);
 
     @Query(value = "SELECT * FROM patients p WHERE p.id NOT IN (SELECT st.patient_id FROM statements st WHERE st.patient_status='NEW' OR st.patient_status='DISCHARGED' OR st.patient_status='DIAGNOSED')",countQuery = "SELECT count(id) FROM patients p WHERE p.id NOT IN (SELECT st.patient_id FROM statements st WHERE st.patient_status='NEW' OR st.patient_status='DISCHARGED' OR st.patient_status='DIAGNOSED')", nativeQuery = true)
     Page<Patient> patientsWithOutMedicCard(Pageable pageable);

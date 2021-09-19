@@ -82,11 +82,16 @@ public class PatientServiceImpl implements PatientService {
         return repository.patientForTreatment(doctorId, patientId);
     }
 
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     @Override
-    public List<TreatmentPatientDto> getHistoryByDoctorId(Long doctorId) {
-        return repository.patientsHistoryByDoctorId(doctorId);
+    public Page<TreatmentPatientDto> getHistoryByDoctorId(Long doctorId, Pageable pageable) {
+        return repository.patientsHistoryByDoctorId(doctorId, pageable);
     }
+
+//    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+//    @Override
+//    public List<TreatmentPatientDto> getHistoryByDoctorId(Long doctorId) {
+//        return repository.patientsHistoryByDoctorId(doctorId);
+//    }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     @Override

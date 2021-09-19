@@ -187,7 +187,6 @@ public class AdminControllerTest {
     @WithMockUser(username = "ivan@gmail.com", roles = {"ADMIN"})
     public void shouldGet200WhenInvokeTheListOfPatientsWithSorting() throws Exception {
         when(patientService.patientsWithOutMedicCard()).thenReturn(List.of(patient));
-        ;
         this.mockMvc
                 .perform(get("/admin")
                         .sessionAttr("user", admin)
@@ -213,7 +212,6 @@ public class AdminControllerTest {
     @WithMockUser(username = "ivan@gmail.com", roles = {"ADMIN"})
     public void shouldGet200WhenInvokeTheListOfPatientsWithOutSorting() throws Exception {
         when(patientService.patientsWithOutMedicCard()).thenReturn(List.of(patient));
-        ;
         this.mockMvc
                 .perform(get("/admin")
                         .sessionAttr("user", admin))
