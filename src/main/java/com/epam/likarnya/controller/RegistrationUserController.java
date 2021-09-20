@@ -44,6 +44,7 @@ public class RegistrationUserController {
         log.debug("Registration medical personal starts");
         List<String> errorMessages = new ArrayList<>();
         String errorMessage;
+        String role = String.valueOf(requestDto.getRole());
 
         if (bindingResult.hasErrors()) {
             return "/admin/registrationPage";
@@ -76,7 +77,11 @@ public class RegistrationUserController {
             log.error(errorMessage);
             errorMessages.add(errorMessage);
         }
-
+        if (requestDto.getCategory() != 0 && role.equals("NURSE")) {
+            errorMessage = "NURSE should not have the category!";
+            log.error(errorMessage);
+            errorMessages.add(errorMessage);
+        }
         if (!errorMessages.isEmpty()) {
             model.addAttribute("errorMessages", errorMessages);
             log.debug(String.format("forward --> %s", "/registration"));
@@ -103,7 +108,7 @@ public class RegistrationUserController {
                         .build();
             }
 
-            if (newUser.getRole()== User.Role.NURSE){
+            if (newUser.getRole() == User.Role.NURSE) {
                 userService.createOrUpdate(newUser);
                 log.debug(String.format("redirect --> %s", "/admin/nurses"));
                 model.addAttribute("registrationSuccess", "The nurse added successfully");

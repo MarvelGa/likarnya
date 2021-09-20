@@ -37,11 +37,6 @@ public class UserServiceImpl implements UserService {
             }
 
         }
-//        User createUser = User.builder()
-//                .email(user.getEmail())
-//                .password(user.getPassword())
-//                .build();
-
         return repository.save(user);
     }
 
