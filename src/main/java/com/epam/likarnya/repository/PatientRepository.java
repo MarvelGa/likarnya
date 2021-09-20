@@ -122,8 +122,13 @@ public interface PatientRepository extends CrudRepository<Patient, Long>, Paging
             " FROM patients p, statements st, medical_cards mc, treatments tr, users u, categories c \n" +
             " WHERE c.id=u.category_id AND u.id=mc.doctor_id AND p.id=st.patient_id AND mc.id=tr.m_card_id AND mc.statement_id =st.id\n" +
             " AND p.id IN (SELECT st.patient_id FROM statements st, medical_cards mc, users u, treatments tr \n" +
-            " WHERE mc.id=tr.m_card_id AND st.id=mc.statement_id AND mc.doctor_id=u.id AND tr.appointment_status='EXECUTED' AND st.patient_status='DISCHARGED' AND tr.executor_id=:nurseId); ", nativeQuery = true)
-    List<TreatmentPatientDto> getNurseTreatmentHistoryById(Long nurseId);
+            " WHERE mc.id=tr.m_card_id AND st.id=mc.statement_id AND mc.doctor_id=u.id AND tr.appointment_status='EXECUTED' AND st.patient_status='DISCHARGED' AND tr.executor_id=:nurseId)",
+            countQuery="SELECT count(id) FROM patients p, statements st, medical_cards mc, treatments tr, users u, categories c \n" +
+                    " WHERE c.id=u.category_id AND u.id=mc.doctor_id AND p.id=st.patient_id AND mc.id=tr.m_card_id AND mc.statement_id =st.id\n" +
+                    " AND p.id IN (SELECT st.patient_id FROM statements st, medical_cards mc, users u, treatments tr \n" +
+                    " WHERE mc.id=tr.m_card_id AND st.id=mc.statement_id AND mc.doctor_id=u.id AND tr.appointment_status='EXECUTED' AND st.patient_status='DISCHARGED' AND tr.executor_id=:nurseId)",
+            nativeQuery = true)
+    Page<TreatmentPatientDto> getNurseTreatmentHistoryById(Long nurseId, Pageable pageable);
 
     @Query(value = " SELECT p.id AS id,\n" +
             " p.first_name AS firstName,\n" +

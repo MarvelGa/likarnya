@@ -31,7 +31,7 @@ public interface PatientService {
 
     List<TreatmentPatientDto> getPatientsForTreatmentByNurse();
 
-    List<TreatmentPatientDto> getNurseTreatmentHistoryById(Long id);
+    Page<TreatmentPatientDto> getNurseTreatmentHistoryById(Long id, Pageable pageable);
 
     TreatmentPatientDto getPatientByIdForTreatmentByNurse(Long patientId);
 

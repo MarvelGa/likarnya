@@ -12,6 +12,8 @@ import com.epam.likarnya.service.TreatmentService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,7 +42,6 @@ public class NurseController {
         return "/nurse/nursePage";
     }
 
-
     @GetMapping(value = "/nurse-cabinet/execute-treatment/{patient_id}")
     public String getHandleTreatmentByNurse(@PathVariable("patient_id") long patientId, Model model) {
         var patient = patientService.getPatientByIdForTreatmentByNurse(patientId);
@@ -62,10 +63,12 @@ public class NurseController {
     }
 
     @GetMapping(value = "/nurse-cabinet/history")
-    public String nurseTreatmentHistory(HttpSession session, Model model) {
+    public String nurseTreatmentHistory(@PageableDefault(size = 3) Pageable pageable, HttpSession session, Model model) {
         User nurse = (User) session.getAttribute("nurse");
-        var nurseTreatmentHistory = patientService.getNurseTreatmentHistoryById(nurse.getId());
-        model.addAttribute("nurseTreatmentHistory", nurseTreatmentHistory);
+        var nurseTreatmentHistory = patientService.getNurseTreatmentHistoryById(nurse.getId(), pageable);
+        model.addAttribute("nurseTreatmentHistory", nurseTreatmentHistory.getContent());
+        model.addAttribute("page", nurseTreatmentHistory);
+        model.addAttribute("totalElements", nurseTreatmentHistory.getTotalElements());
         return "/nurse/nurseTreatmentHistory";
     }
 
