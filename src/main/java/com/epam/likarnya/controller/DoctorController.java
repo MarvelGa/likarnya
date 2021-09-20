@@ -104,14 +104,6 @@ public class DoctorController {
         return "redirect:/doctor-cabinet/treatment-patients";
     }
 
-//    @GetMapping(value = "/doctor-cabinet/history")
-//    public String handlePatientsHistory(HttpSession session, Model model) {
-//        User doctor = (User) session.getAttribute("doctor");
-//        var patient = patientService.getHistoryByDoctorId(doctor.getId(), );
-//        model.addAttribute("patientsHistory", patient);
-//        return "/doctor/doctorHistory";
-//    }
-
     @GetMapping(value = "/doctor-cabinet/history")
     public String handlePatientsHistory(@PageableDefault(size = 3) Pageable pageable,HttpSession session, Model model) {
         User doctor = (User) session.getAttribute("doctor");
@@ -122,12 +114,4 @@ public class DoctorController {
         return "/doctor/doctorHistory";
     }
 
-//    @GetMapping(value = "/admin/patients/history")
-//    public String handleHistory(@PageableDefault(size = 8) Pageable pageable, Model model) {
-//        Page<TreatmentPatientDto> page = patientService.getHistory(pageable);
-//        Long totalElements = page.getTotalElements();
-//        model.addAttribute("page", page);
-//        model.addAttribute("totalElements", totalElements);
-//        return "/admin/patientsHistory";
-//    }
 }

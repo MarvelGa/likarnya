@@ -10,6 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -133,7 +137,7 @@ public class DoctorControllerTest {
         this.mockMvc
                 .perform(get("/doctor-cabinet/add-treatment/1")
                         .sessionAttr("doctor", doctor)
-                .param("patient_id","1"))
+                        .param("patient_id", "1"))
                 .andExpect(view().name("/doctor/addTreatment"))
                 .andExpect(model().attributeExists("patient"))
                 .andExpect(model().attributeExists("medicalCard"))
@@ -154,13 +158,13 @@ public class DoctorControllerTest {
         updatedMedicCard.getStatement().setChanged(LocalDateTime.now());
         when(medicalCardService.getMedicalCardForDiagnosis(patient.getId())).thenReturn(medicalCard);
         when(medicalCardService.createOrUpdate(updatedMedicCard)).thenReturn(updatedMedicCard);
-        var updatedTreatment =treatment;
+        var updatedTreatment = treatment;
         updatedTreatment.setMedicalCard(updatedMedicCard);
         when(treatmentService.createOrUpdate(treatment)).thenReturn(updatedTreatment);
         this.mockMvc
                 .perform(post("/doctor-cabinet/add-treatment/1")
                         .sessionAttr("doctor", doctor)
-                        .param("patient_id","1"))
+                        .param("patient_id", "1"))
                 .andExpect(view().name("redirect:/doctor-cabinet"))
                 .andExpect(status().is3xxRedirection());
     }
@@ -193,7 +197,7 @@ public class DoctorControllerTest {
         this.mockMvc
                 .perform(get("/doctor-cabinet/execute-treatment/1")
                         .sessionAttr("doctor", doctor)
-                        .param("patient_id","1L"))
+                        .param("patient_id", "1L"))
                 .andExpect(view().name("/doctor/executeTreatment"))
                 .andExpect(model().attributeExists("patientForTreatment"))
                 .andExpect(model().attribute("patientForTreatment", hasProperty("id", is(1L))))
@@ -210,7 +214,7 @@ public class DoctorControllerTest {
         updatedTreatment.setExecutorId(doctor.getId());
         when(treatmentService.getById(treatment.getId())).thenReturn(treatment);
         when(treatmentService.createOrUpdate(updatedTreatment)).thenReturn(updatedTreatment);
-        var updatedStatement =statement;
+        var updatedStatement = statement;
         updatedStatement.setPatientStatus(Statement.PatientStatus.DISCHARGED);
         when(statementService.getById(statement.getId())).thenReturn(statement);
         when(statementService.createOrUpdate(statement)).thenReturn(updatedStatement);
@@ -223,8 +227,31 @@ public class DoctorControllerTest {
                 .andExpect(status().is3xxRedirection());
     }
 
+    @Test
+    @WithMockUser(username = "doctor-surgeon@gmail.com", roles = {"DOCTOR"})
+    public void shouldGet200WhenInvokeTheHistoryPage() throws Exception {
+        Pageable pageable = PageRequest.of(0, 3);
+        Page<TreatmentPatientDto> pagedResponse = new PageImpl(List.of(getTreatmentPatientDto()), pageable, 5);
+        when(patientService.getHistoryByDoctorId(doctor.getId(), pageable)).thenReturn(pagedResponse);
+        this.mockMvc
+                .perform(get("/doctor-cabinet/history")
+                        .sessionAttr("doctor", doctor))
+                .andExpect(view().name("/doctor/doctorHistory"))
+                .andExpect(model().attributeExists("page"))
+                .andExpect(model().attribute("page", hasItem(
+                        allOf(
+                                hasProperty("id", is(1L)),
+                                hasProperty("complaints", is("leg pain")),
+                                hasProperty("diagnosis", is("broken leg"))
+                        )
+                )))
+                .andExpect(status().isOk());
 
-    private PatientDataDTO getPatientDataDTO(){
+        verify(patientService, times(1)).getHistoryByDoctorId(doctor.getId(), pageable);
+    }
+
+
+    private PatientDataDTO getPatientDataDTO() {
         PatientDataDTO patientDataDTO = new PatientDataDTO() {
             @Override
             public Long getId() {
@@ -243,7 +270,7 @@ public class DoctorControllerTest {
 
             @Override
             public String getDateOfBirth() {
-                return String.valueOf(LocalDate.of(1990,4,14));
+                return String.valueOf(LocalDate.of(1990, 4, 14));
             }
 
             @Override
