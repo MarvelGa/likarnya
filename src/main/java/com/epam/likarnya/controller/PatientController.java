@@ -44,7 +44,6 @@ public class PatientController {
         if (bindingResult.hasErrors()) {
             return "/admin/patientRegistration";
         }
-
         log.debug("Registration patient starts");
         List<String> errorMessages = new ArrayList<>();
         String errorMessage;
@@ -74,14 +73,5 @@ public class PatientController {
             return "redirect:/admin";
         }
 
-    }
-
-    @GetMapping(value = "/admin/discharged-patients")
-    public String listDischargedPatients(@PageableDefault(size = 1) Pageable pageable, Model model) {
-        Page<Patient> page = patientService.getDischargedPatients(pageable);
-        Long totalElements = page.getTotalElements();
-        model.addAttribute("page", page);
-        model.addAttribute("totalElements", totalElements);
-        return "/admin/listdischargedPatients";
     }
 }
