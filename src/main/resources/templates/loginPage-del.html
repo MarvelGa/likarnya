@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <link th:href="@{/topstyle.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<center>
+    <div id="login-panel" th:insert="~{fragments/login-panel :: login-panel}"></div>
+    </br></br></br></br>
+    <h2 style="color: cadetblue" th:text="#{Login_form}"></h2>
+    <form th:action="@{/login}" th:object="${loginUser}" method="post">
+        <h3 style="color: tomato"><p th:text="${errorMessage}"/></h3>
+        </br></br>
+        <table>
+            <tr>
+                <th>
+                    <label style="color: cadetblue" th:text="#{Enter_your_email}"></label>
+                </th>
+                <td>
+<!--                    th:value="${loginUser.email}"-->
+                    <input th:type="text" name="email" th:field="*{email}" id="email" />
+                </td>
+                <td th:style="'color: #ff6347'">
+                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    <label  style="color: cadetblue" th:text="#{Enter_your_password}"></label>
+                </th>
+                <td>
+                    <input th:type="password" name="password" th:field="*{password}" id="password"/>
+<!--                           th:value="${loginUser.password}"/>-->
+                </td>
+                <td th:style="'color: #ff6347'">
+                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                </th>
+                <td colspan="0">
+                    <input type="submit" value="Enter"/>
+                    <input type="reset" value="Clear">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+
+    </br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+    <div id="footer" th:insert="~{fragments/footer :: footer}"></div>
+</center>
+</body>
+</html>

@@ -70,5 +70,10 @@ public class UserServiceImpl implements UserService {
         return repository.getDoctorsWithCountOfPatientsByCategoryId(id);
     }
 
+    @Override
+    public List<UserDTO> getDoctorsByCategory(String category) {
+        return repository.getDoctorsByCategory(category);
+    }
+
 
 }

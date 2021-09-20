@@ -42,7 +42,7 @@ public class MedicalCardController {
         model.addAttribute("categ", doctorCategory);
         List<Category> categories = categoryService.getAll();
         Patient patient = patientService.findById(Long.valueOf(patientId));
-        var doctors = userRepository.getDoctorsByCategory(doctorCategory);
+        var doctors = userService.getDoctorsByCategory(doctorCategory);
         model.addAttribute("medicalCard", new MedicalCard());
         model.addAttribute("patient", patient);
         model.addAttribute("categories", categories);

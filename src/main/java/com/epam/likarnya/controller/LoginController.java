@@ -36,7 +36,6 @@ public class LoginController {
 
     @RequestMapping(value = "/login-error")
     public String errorLoginForm(Principal principal, Model model) {
-
         if (principal == null) {
             String errorMessage = "Wrong login or password";
             model.addAttribute("errorMessage", errorMessage);

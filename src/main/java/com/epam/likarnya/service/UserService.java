@@ -18,4 +18,5 @@ public interface UserService {
     List<UserDTO> findDoctorsWithCountOfPatients();
 
     List<UserDTO> findDoctorsWithCountOfPatientsByCategoryId(Long id);
+    List<UserDTO> getDoctorsByCategory(String category);
 }
