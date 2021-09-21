@@ -82,6 +82,11 @@ public class RegistrationUserController {
             log.error(errorMessage);
             errorMessages.add(errorMessage);
         }
+        if (requestDto.getCategory() == 0 && role.equals("DOCTOR")) {
+            errorMessage = "DOCTOR should have the category!";
+            log.error(errorMessage);
+            errorMessages.add(errorMessage);
+        }
         if (!errorMessages.isEmpty()) {
             model.addAttribute("errorMessages", errorMessages);
             log.debug(String.format("forward --> %s", "/registration"));
