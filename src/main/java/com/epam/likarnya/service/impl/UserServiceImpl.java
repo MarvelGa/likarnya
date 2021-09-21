@@ -29,14 +29,6 @@ public class UserServiceImpl implements UserService {
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public User createOrUpdate(User user) {
-        if (user.getId()!=null){
-            Optional<User> userOptional = repository.findById(user.getId());
-            if (userOptional.isPresent()){
-                User newUser = userOptional.get();
-//                newUser.setEmail();
-            }
-
-        }
         return repository.save(user);
     }
 

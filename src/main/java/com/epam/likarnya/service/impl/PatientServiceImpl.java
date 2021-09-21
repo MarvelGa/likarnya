@@ -38,13 +38,6 @@ public class PatientServiceImpl implements PatientService {
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public Patient createOrUpdate(Patient patient) {
-        if (patient.getId() != null) {
-            Optional<Patient> patientOptional = repository.findById(patient.getId());
-            if (patientOptional.isPresent()) {
-                Patient newPatient = patientOptional.get();
-
-            }
-        }
         return repository.save(patient);
     }
 

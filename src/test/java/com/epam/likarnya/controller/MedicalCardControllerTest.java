@@ -1,4 +1,4 @@
-package com.epam.likarnya;
+package com.epam.likarnya.controller;
 
 import com.epam.likarnya.dto.UserDTO;
 import com.epam.likarnya.model.*;

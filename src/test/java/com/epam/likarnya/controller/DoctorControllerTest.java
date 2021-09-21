@@ -1,4 +1,4 @@
-package com.epam.likarnya;
+package com.epam.likarnya.controller;
 
 import com.epam.likarnya.dto.PatientDataDTO;
 import com.epam.likarnya.dto.TreatmentPatientDto;

@@ -1,4 +1,4 @@
-package com.epam.likarnya;
+package com.epam.likarnya.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
