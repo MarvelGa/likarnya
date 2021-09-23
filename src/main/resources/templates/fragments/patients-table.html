@@ -17,7 +17,7 @@
             <td th:text="${patient.dateOfBirth}"/>
             <td th:text="${patient.gender}"/>
             <td>
-                <form action="#" th:action="@{/admin/create-medical-card/{patient_id}(patient_id=${patient.id})}"
+                <form action="#" th:action="@{/likarnya/admin/create-medical-card/{patient_id}(patient_id=${patient.id})}"
                       method="get">
                     <input type="submit" value="Create medical card">
                 </form>

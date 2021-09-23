@@ -37,7 +37,7 @@ public class CustomErrorControllerTest {
     @WithMockUser(username = "nurse@gmail.com", roles = {"NURSE"})
     public void shouldGetStatus403whenUserWithNurseRoleTryToGoToAdminPages() throws Exception {
         this.mockMvc
-                .perform(get("/admin"))
+                .perform(get("/likarnya/admin"))
                 .andExpect(status().isForbidden());
     }
 
@@ -59,7 +59,7 @@ public class CustomErrorControllerTest {
     @Test
     public void shouldGetStatus302ToLoginPageWhenNotRegisteredUserTryToGoOnAdminPage() throws Exception {
         this.mockMvc
-                .perform(get("/admin"))
+                .perform(get("/likarnya/admin"))
                 .andExpect(status().isFound());
     }
 

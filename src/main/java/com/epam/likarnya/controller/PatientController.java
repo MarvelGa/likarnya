@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -26,6 +27,7 @@ import java.util.List;
 @Slf4j
 @Data
 @Controller
+@RequestMapping("/likarnya")
 @RequiredArgsConstructor
 public class PatientController {
     private final PatientService patientService;
@@ -62,7 +64,7 @@ public class PatientController {
         if (!errorMessages.isEmpty()) {
             model.addAttribute("errorMessages", errorMessages);
             log.debug(String.format("forward --> %s", "/admin/patient-registration"));
-            return "patientRegistration";
+            return "/admin/patientRegistration";
         } else {
             Patient newPatient = new Patient();
             newPatient.setFirstName(patient.getFirstName());
@@ -70,7 +72,7 @@ public class PatientController {
             newPatient.setDateOfBirth(LocalDate.parse(patient.getDateOfBirth()));
             newPatient.setGender(patient.getGender());
             patientService.createOrUpdate(newPatient);
-            return "redirect:/admin";
+            return "redirect:/likarnya/admin";
         }
 
     }

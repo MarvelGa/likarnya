@@ -134,7 +134,7 @@ public class RegistrationUserControllerTest {
     @WithMockUser(username = "ivan@gmail.com", roles = {"ADMIN"})
     public void shouldGet200WhenAdminOpenPageForRegistrationOfMedicalWorkers() throws Exception {
         this.mockMvc
-                .perform(get("/admin/medical-registration")
+                .perform(get("/likarnya/admin/medical-registration")
                         .sessionAttr("user", admin))
                 .andExpect(view().name("/admin/medicalRegistrationPage"))
                 .andExpect(model().attributeExists("registrationUser"))
@@ -147,7 +147,7 @@ public class RegistrationUserControllerTest {
         when(userService.findByEmail("some@email.com")).thenReturn(null);
         when(userService.createOrUpdate(doctor2)).thenReturn(doctor3);
         this.mockMvc
-                .perform(post("/admin/medical-registration")
+                .perform(post("/likarnya/admin/medical-registration")
                         .sessionAttr("user", admin)
                         .param("firstName", doctor.getFirstName()).param("confirmedFirstName", "")
                         .param("lastName", doctor.getLastName()).param("confirmedLastName", "")
@@ -155,7 +155,7 @@ public class RegistrationUserControllerTest {
                         .param("password", String.valueOf(doctor.getPassword())).param("confirmedPassword", "")
                         .param("role", String.valueOf(doctor.getRole())).param("confirmedRole", "")
                         .param("category", "1").param("confirmedCategory", ""))
-                .andExpect(view().name("redirect:/admin/doctors"))
+                .andExpect(view().name("redirect:/likarnya/admin/doctors"))
                 .andExpect(status().isFound());
         verify(userService, times(1)).findByEmail("doctor@gamil.com");
     }
@@ -166,7 +166,7 @@ public class RegistrationUserControllerTest {
         when(userService.findByEmail(nurse.getEmail())).thenReturn(null);
         when(userService.createOrUpdate(nurse)).thenReturn(nurse);
         this.mockMvc
-                .perform(post("/admin/medical-registration")
+                .perform(post("/likarnya/admin/medical-registration")
                         .sessionAttr("user", admin)
                         .param("firstName", nurse.getFirstName()).param("confirmedFirstName", "")
                         .param("lastName", nurse.getLastName()).param("confirmedLastName", "")
@@ -174,7 +174,7 @@ public class RegistrationUserControllerTest {
                         .param("password", String.valueOf(nurse.getPassword())).param("confirmedPassword", "")
                         .param("role", String.valueOf(nurse.getRole())).param("confirmedRole", "")
                         .param("category", "0").param("confirmedCategory", ""))
-                .andExpect(view().name("redirect:/admin/nurses"))
+                .andExpect(view().name("redirect:/likarnya/admin/nurses"))
                 .andExpect(status().isFound());
         verify(userService, times(1)).findByEmail(nurse.getEmail());
     }
@@ -183,7 +183,7 @@ public class RegistrationUserControllerTest {
     @WithMockUser(username = "ivan@gmail.com", roles = {"ADMIN"})
     public void shouldGet200WhenFirstNameNotValid() throws Exception {
         this.mockMvc
-                .perform(post("/admin/medical-registration")
+                .perform(post("/likarnya/admin/medical-registration")
                         .sessionAttr("user", admin)
                         .param("firstName", "kkkk").param("confirmedFirstName", "")
                         .param("lastName", nurse.getLastName()).param("confirmedLastName", "")
@@ -201,7 +201,7 @@ public class RegistrationUserControllerTest {
     @WithMockUser(username = "ivan@gmail.com", roles = {"ADMIN"})
     public void shouldGet200WhenLastNameNotValid() throws Exception {
         this.mockMvc
-                .perform(post("/admin/medical-registration")
+                .perform(post("/likarnya/admin/medical-registration")
                         .sessionAttr("user", admin)
                         .param("firstName", nurse.getFirstName()).param("confirmedFirstName", "")
                         .param("lastName", "kkkk").param("confirmedLastName", "")
@@ -218,7 +218,7 @@ public class RegistrationUserControllerTest {
     @WithMockUser(username = "ivan@gmail.com", roles = {"ADMIN"})
     public void shouldGet200WhenEmailNotValid() throws Exception {
         this.mockMvc
-                .perform(post("/admin/medical-registration")
+                .perform(post("/likarnya/admin/medical-registration")
                         .sessionAttr("user", admin)
                         .param("firstName", nurse.getFirstName()).param("confirmedFirstName", "")
                         .param("lastName", nurse.getLastName()).param("confirmedLastName", "")
@@ -235,7 +235,7 @@ public class RegistrationUserControllerTest {
     @WithMockUser(username = "ivan@gmail.com", roles = {"ADMIN"})
     public void shouldGet200WhenPasswordNotValid() throws Exception {
         this.mockMvc
-                .perform(post("/admin/medical-registration")
+                .perform(post("/likarnya/admin/medical-registration")
                         .sessionAttr("user", admin)
                         .param("firstName", nurse.getFirstName()).param("confirmedFirstName", "")
                         .param("lastName", nurse.getLastName()).param("confirmedLastName", "")
@@ -252,7 +252,7 @@ public class RegistrationUserControllerTest {
     @WithMockUser(username = "ivan@gmail.com", roles = {"ADMIN"})
     public void shouldGet200WhenNoRoleParam() throws Exception {
         this.mockMvc
-                .perform(post("/admin/medical-registration")
+                .perform(post("/likarnya/admin/medical-registration")
                         .sessionAttr("user", admin)
                         .param("firstName", nurse.getFirstName()).param("confirmedFirstName", "")
                         .param("lastName", nurse.getLastName()).param("confirmedLastName", "")
@@ -269,7 +269,7 @@ public class RegistrationUserControllerTest {
     public void shouldGet200WhenRegisteringNurseAlreadyExist() throws Exception {
         when(userService.findByEmail(nurse.getEmail())).thenReturn(nurse);
         this.mockMvc
-                .perform(post("/admin/medical-registration")
+                .perform(post("/likarnya/admin/medical-registration")
                         .sessionAttr("user", admin)
                         .param("firstName", nurse.getFirstName()).param("confirmedFirstName", "")
                         .param("lastName", nurse.getLastName()).param("confirmedLastName", "")
@@ -286,7 +286,7 @@ public class RegistrationUserControllerTest {
     @WithMockUser(username = "ivan@gmail.com", roles = {"ADMIN"})
     public void shouldGet200WhenChosenTheCategoryForNurse() throws Exception {
         this.mockMvc
-                .perform(post("/admin/medical-registration")
+                .perform(post("/likarnya/admin/medical-registration")
                         .sessionAttr("user", admin)
                         .param("firstName", nurse.getFirstName()).param("confirmedFirstName", "")
                         .param("lastName", nurse.getLastName()).param("confirmedLastName", "")

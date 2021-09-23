@@ -10,7 +10,7 @@
     <div id="admin-panel" th:insert="~{fragments/admin-panel :: admin-panel}"></div>
     <h2 style="color: cadetblue" th:text="#{Medic_registration_form}"></h2>
 
-    <form th:action="@{/admin/medical-registration}" th:object="${registrationUser}" method="post">
+    <form th:action="@{/likarnya/admin/medical-registration}" th:object="${registrationUser}" method="post">
 
         <table th:object="${errorMessages}" border="0">
             <tr th:style="'color: #ff6347'" th:each="elem :${errorMessages}">

@@ -9,7 +9,7 @@
 <center>
     <div id="admin-panel" th:insert="~{fragments/admin-panel :: admin-panel}"></div>
     <h2 style="color: cadetblue" th:text="#{Medic_registration_form}"></h2>
-    <a th:href="@{/templates/admin}" th:text="#{Back_to_previously_page}"></a>
+    <a th:href="@{/likarnya/admin}" th:text="#{Back_to_previously_page}"></a>
     </br> </br>
 
     <table border="1">
@@ -40,7 +40,7 @@
             </th>
 
             <td>
-                <select th:onchange="'window.location.href = \'' + @{/admin/create-medical-card/{patient_id}(patient_id=${patient.id})} + '/\' + this.value ' "
+                <select th:onchange="'window.location.href = \'' + @{/likarnya/admin/create-medical-card/{patient_id}(patient_id=${patient.id})} + '/\' + this.value ' "
                         required>
                     <option value="">--Please choose an option--</option>
                     <option th:each="category : ${categories}"
@@ -54,7 +54,7 @@
     </table>
     <div th:if="${doctors!=null}">
         <div th:if="${doctors.size()>=1}">
-            <form th:action="@{/admin/create-medical-card/add/{patient_id}(patient_id=${patient.id})}"
+            <form th:action="@{/likarnya/admin/create-medical-card/add/{patient_id}(patient_id=${patient.id})}"
                   th:object="${medicalCard}"
                   method="post">
 

@@ -16,16 +16,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
 @Data
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/likarnya")
 @Controller
 public class NurseController {
     private final StatementService statementService;
@@ -59,7 +57,7 @@ public class NurseController {
         Statement statement = statementService.getById(statementId);
         statement.setPatientStatus(Statement.PatientStatus.DISCHARGED);
         statementService.createOrUpdate(statement);
-        return "redirect:/nurse-cabinet";
+        return "redirect:/likarnya/nurse-cabinet";
     }
 
     @GetMapping(value = "/nurse-cabinet/history")

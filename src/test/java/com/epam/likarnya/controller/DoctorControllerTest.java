@@ -108,7 +108,7 @@ public class DoctorControllerTest {
     public void shouldGet200WhenInvokeTheListOfPatientsByDoctor() throws Exception {
         when(patientService.getPatientsForDiagnosis(doctor)).thenReturn(List.of(getPatientDataDTO()));
         this.mockMvc
-                .perform(get("/doctor-cabinet")
+                .perform(get("/likarnya/doctor-cabinet")
                         .sessionAttr("doctor", doctor))
                 .andExpect(view().name("/doctor/doctorPage"))
                 .andExpect(model().attributeExists("patients"))
@@ -131,7 +131,7 @@ public class DoctorControllerTest {
         when(patientService.findById(patient.getId())).thenReturn(patient);
         when(medicalCardService.getMedicalCardForDiagnosis(patient.getId())).thenReturn(medicalCard);
         this.mockMvc
-                .perform(get("/doctor-cabinet/add-treatment/1")
+                .perform(get("/likarnya/doctor-cabinet/add-treatment/1")
                         .sessionAttr("doctor", doctor)
                         .param("patient_id", "1"))
                 .andExpect(view().name("/doctor/addTreatment"))
@@ -158,10 +158,10 @@ public class DoctorControllerTest {
         updatedTreatment.setMedicalCard(updatedMedicCard);
         when(treatmentService.createOrUpdate(treatment)).thenReturn(updatedTreatment);
         this.mockMvc
-                .perform(post("/doctor-cabinet/add-treatment/1")
+                .perform(post("/likarnya/doctor-cabinet/add-treatment/1")
                         .sessionAttr("doctor", doctor)
                         .param("patient_id", "1"))
-                .andExpect(view().name("redirect:/doctor-cabinet"))
+                .andExpect(view().name("redirect:/likarnya/doctor-cabinet"))
                 .andExpect(status().is3xxRedirection());
     }
 
@@ -170,7 +170,7 @@ public class DoctorControllerTest {
     public void shouldGet200WhenDoctorInvokeThePatientTreatmentPage() throws Exception {
         when(patientService.getPatientsForTreatment(doctor.getId())).thenReturn(List.of(getTreatmentPatientDto()));
         this.mockMvc
-                .perform(get("/doctor-cabinet/treatment-patients")
+                .perform(get("/likarnya/doctor-cabinet/treatment-patients")
                         .sessionAttr("doctor", doctor))
                 .andExpect(view().name("/doctor/treatmentPatients"))
                 .andExpect(model().attributeExists("patients"))
@@ -190,7 +190,7 @@ public class DoctorControllerTest {
     public void shouldGet200WhenDoctorInvokeThePatientExecuteTreatmentPage() throws Exception {
         when(patientService.getPatientForTreatment(doctor.getId(), patient.getId())).thenReturn(getTreatmentPatientDto());
         this.mockMvc
-                .perform(get("/doctor-cabinet/execute-treatment/1")
+                .perform(get("/likarnya/doctor-cabinet/execute-treatment/1")
                         .sessionAttr("doctor", doctor)
                         .param("patient_id", "1L"))
                 .andExpect(view().name("/doctor/executeTreatment"))
@@ -214,11 +214,11 @@ public class DoctorControllerTest {
         when(statementService.getById(statement.getId())).thenReturn(statement);
         when(statementService.createOrUpdate(statement)).thenReturn(updatedStatement);
         this.mockMvc
-                .perform(post("/doctor-cabinet/execute-treatment")
+                .perform(post("/likarnya/doctor-cabinet/execute-treatment")
                         .sessionAttr("doctor", doctor)
                         .param("treatmentId", "1")
                         .param("statementId", "1"))
-                .andExpect(view().name("redirect:/doctor-cabinet/treatment-patients"))
+                .andExpect(view().name("redirect:/likarnya/doctor-cabinet/treatment-patients"))
                 .andExpect(status().is3xxRedirection());
     }
 
@@ -229,7 +229,7 @@ public class DoctorControllerTest {
         Page<TreatmentPatientDto> pagedResponse = new PageImpl(List.of(getTreatmentPatientDto()), pageable, 5);
         when(patientService.getHistoryByDoctorId(doctor.getId(), pageable)).thenReturn(pagedResponse);
         this.mockMvc
-                .perform(get("/doctor-cabinet/history")
+                .perform(get("/likarnya/doctor-cabinet/history")
                         .sessionAttr("doctor", doctor))
                 .andExpect(view().name("/doctor/doctorHistory"))
                 .andExpect(model().attributeExists("page"))

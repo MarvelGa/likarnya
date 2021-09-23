@@ -92,7 +92,7 @@ public class AdminControllerTest {
         when(userService.getNurses()).thenReturn(List.of(getNurse()));
 
         this.mockMvc
-                .perform(get("/admin/nurses").sessionAttr("user", admin))
+                .perform(get("/likarnya/admin/nurses").sessionAttr("user", admin))
                 .andExpect(view().name("/admin/listNurses"))
                 .andExpect(model().attributeExists("nurses"))
                 .andExpect(model().attribute("nurses", hasSize(1)))
@@ -112,7 +112,7 @@ public class AdminControllerTest {
         when(categoryService.getAll()).thenReturn(List.of(category));
         when(userService.findDoctorsWithCountOfPatients()).thenReturn(List.of(getDoctors()));
         this.mockMvc
-                .perform(get("/admin/doctors")
+                .perform(get("/likarnya/admin/doctors")
                         .sessionAttr("user", admin))
                 .andExpect(view().name("/admin/listDoctors"))
                 .andExpect(model().attributeExists("doctorsList"))
@@ -136,7 +136,7 @@ public class AdminControllerTest {
         when(userService.findDoctorsWithCountOfPatients()).thenReturn(List.of(getDoctors()));
         when(userService.findDoctorsWithCountOfPatientsByCategoryId(category.getId())).thenReturn(List.of(getDoctors()));
         this.mockMvc
-                .perform(get("/admin/doctors")
+                .perform(get("/likarnya/admin/doctors")
                         .sessionAttr("user", admin)
                         .param("category", String.valueOf(1)))
                 .andExpect(view().name("/admin/listDoctors"))
@@ -161,7 +161,7 @@ public class AdminControllerTest {
         when(userService.findDoctorsWithCountOfPatients()).thenReturn(List.of(getDoctors()));
         when(userService.findDoctorsWithCountOfPatientsByCategoryId(category.getId())).thenReturn(List.of(getDoctors()));
         this.mockMvc
-                .perform(get("/admin/doctors")
+                .perform(get("/likarnya/admin/doctors")
                         .sessionAttr("user", admin)
                         .param("category", String.valueOf(1))
                         .param("sorting", "ASC-NAME"))
@@ -188,7 +188,7 @@ public class AdminControllerTest {
     public void shouldGet200WhenInvokeTheListOfPatientsWithSorting() throws Exception {
         when(patientService.patientsWithOutMedicCard()).thenReturn(List.of(patient));
         this.mockMvc
-                .perform(get("/admin")
+                .perform(get("/likarnya/admin")
                         .sessionAttr("user", admin)
                         .param("sorting", "ASC-NAME"))
                 .andExpect(view().name("/admin/listPatient"))
@@ -213,7 +213,7 @@ public class AdminControllerTest {
     public void shouldGet200WhenInvokeTheListOfPatientsWithOutSorting() throws Exception {
         when(patientService.patientsWithOutMedicCard()).thenReturn(List.of(patient));
         this.mockMvc
-                .perform(get("/admin")
+                .perform(get("/likarnya/admin")
                         .sessionAttr("user", admin))
                 .andExpect(view().name("/admin/listPatient"))
                 .andExpect(model().attributeExists("listPatients"))
@@ -237,7 +237,7 @@ public class AdminControllerTest {
         Page<TreatmentPatientDto> pagedResponse = new PageImpl(List.of(getTreatmentPatientDto()), pageable, 5);
         when(patientService.getHistory(pageable)).thenReturn(pagedResponse);
         this.mockMvc
-                .perform(get("/admin/patients/history")
+                .perform(get("/likarnya/admin/patients/history")
                         .sessionAttr("user", admin))
                 .andExpect(view().name("/admin/patientsHistory"))
                 .andExpect(model().attributeExists("page"))

@@ -13,7 +13,7 @@
 
     <div style="color: forestgreen; font-size: medium" th:text="${registrationSuccess}"></div>
 
-    <form action="#" th:action="@{/admin/medical-registration}" method="get">
+    <form action="#" th:action="@{/likarnya/admin/medical-registration}" method="get">
         <input type="submit" value="Add a new Dorctor">
     </form>
     </br>
@@ -26,7 +26,7 @@
             </th>
             <td>
 
-                <form th:action="@{/admin/doctors}">
+                <form th:action="@{/likarnya/admin/doctors}">
                     <select th:id="category" th:name="category" onchange="this.form.submit();">
                         <option value="" th:text="#{Default_or_choose}"></option>
                         <option th:each="category : ${categories}"

@@ -106,7 +106,7 @@ public class NurseControllerTest {
     public void shouldGet200WhenInvokeTheListOfPatientsForDrugOrProcedureTreatmentByNurse2() throws Exception {
         when(patientService.getPatientsForTreatmentByNurse()).thenReturn(List.of(getTreatmentPatientDto()));
         this.mockMvc
-                .perform(get("/nurse-cabinet")
+                .perform(get("/likarnya/nurse-cabinet")
                         .sessionAttr("nurse", nurse))
                 .andExpect(view().name("/nurse/nursePage"))
                 .andExpect(model().attributeExists("patientsForTreatingByProcedureOrDrug"))
@@ -128,7 +128,7 @@ public class NurseControllerTest {
     public void shouldGet200WhenNurseInvokeThePatientExecuteTreatmentPage() throws Exception {
         when(patientService.getPatientByIdForTreatmentByNurse(patient.getId())).thenReturn(getTreatmentPatientDto());
         this.mockMvc
-                .perform(get("/nurse-cabinet/execute-treatment/1")
+                .perform(get("/likarnya/nurse-cabinet/execute-treatment/1")
                         .sessionAttr("nurse", nurse)
                         .param("patient_id", "1L"))
                 .andExpect(view().name("/nurse/nurseTreatment"))
@@ -152,11 +152,11 @@ public class NurseControllerTest {
         when(statementService.getById(statement.getId())).thenReturn(statement);
         when(statementService.createOrUpdate(statement)).thenReturn(updatedStatement);
         this.mockMvc
-                .perform(post("/nurse-cabinet/execute-treatment")
+                .perform(post("/likarnya/nurse-cabinet/execute-treatment")
                         .sessionAttr("nurse", nurse)
                         .param("treatmentId", "1")
                         .param("statementId", "1"))
-                .andExpect(view().name("redirect:/nurse-cabinet"))
+                .andExpect(view().name("redirect:/likarnya/nurse-cabinet"))
                 .andExpect(status().is3xxRedirection());
     }
 
@@ -167,7 +167,7 @@ public class NurseControllerTest {
         Page<TreatmentPatientDto> pagedResponse = new PageImpl(List.of(getTreatmentPatientDto()), pageable, 5);
         when(patientService.getNurseTreatmentHistoryById(nurse.getId(), pageable)).thenReturn(pagedResponse);
         this.mockMvc
-                .perform(get("/nurse-cabinet/history")
+                .perform(get("/likarnya/nurse-cabinet/history")
                         .sessionAttr("nurse", nurse))
                 .andExpect(view().name("/nurse/nurseTreatmentHistory"))
                 .andExpect(model().attributeExists("page"))

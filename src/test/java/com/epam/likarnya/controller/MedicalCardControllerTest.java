@@ -116,7 +116,7 @@ public class MedicalCardControllerTest {
         when(categoryService.getAll()).thenReturn(List.of(category));
         when(patientService.findById(patient.getId())).thenReturn(patient);
         this.mockMvc
-                .perform(get("/admin/create-medical-card/1")
+                .perform(get("/likarnya/admin/create-medical-card/1")
                         .sessionAttr("user", admin))
                 .andExpect(view().name("/admin/medicalCard"))
                 .andExpect(model().attributeExists("patient"))
@@ -144,7 +144,7 @@ public class MedicalCardControllerTest {
         when(patientService.findById(patient.getId())).thenReturn(patient);
         when(userService.getDoctorsByCategory("SURGEON")).thenReturn(List.of(getDoctors()));
         this.mockMvc
-                .perform(get("/admin/create-medical-card/1/SURGEON")
+                .perform(get("/likarnya/admin/create-medical-card/1/SURGEON")
                         .sessionAttr("user", admin))
                 .andExpect(view().name("/admin/medicalCard"))
                 .andExpect(model().attributeExists("patient"))
@@ -180,7 +180,7 @@ public class MedicalCardControllerTest {
         when(statementService.createOrUpdate(statement)).thenReturn(statement);
         when(medicalCardService.createOrUpdate(medicalCard)).thenReturn(medicalCard);
         this.mockMvc
-                .perform(post("/admin/create-medical-card/add/1")
+                .perform(post("/likarnya/admin/create-medical-card/add/1")
                         .sessionAttr("user", admin)
                         .param("patient_id", "1"))
                 .andExpect(status().isInternalServerError());
@@ -194,11 +194,11 @@ public class MedicalCardControllerTest {
         when(statementService.createOrUpdate(statement)).thenReturn(statement);
         when(medicalCardService.createOrUpdate(medicalCard)).thenReturn(medicalCard);
         this.mockMvc
-                .perform(post("/admin/create-medical-card/add/{patient_id}", 1L, medicalCard.getUser())
+                .perform(post("/likarnya/admin/create-medical-card/add/{patient_id}", 1L, medicalCard.getUser())
                         .sessionAttr("user", admin)
                         .param("user.id", String.valueOf(medicalCard.getUser().getId())).param("confirmedUser", "")
                         .param("complaints", String.valueOf(medicalCard.getComplaints())).param("confirmedComplaints", ""))
-                .andExpect(view().name("redirect:/admin"))
+                .andExpect(view().name("redirect:/likarnya/admin"))
                 .andExpect(status().isFound());
     }
 

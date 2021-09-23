@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,17 +25,18 @@ import java.security.Principal;
 @Slf4j
 @Data
 @Controller
+@RequestMapping("/likarnya")
 @RequiredArgsConstructor
 public class LoginController {
     private final UserService userService;
     private final CustomUserDetailsService customUserDetailsService;
 
-    @RequestMapping(value = "/login")
+    @GetMapping(value = "/login")
     public String loginForm(Model model) {
         return "loginPage";
     }
 
-    @RequestMapping(value = "/login-error")
+    @GetMapping(value = "/login-error")
     public String errorLoginForm(Principal principal, Model model) {
         if (principal == null) {
             String errorMessage = "Wrong login or password";
@@ -43,20 +45,20 @@ public class LoginController {
         return "loginPage";
     }
 
-    @RequestMapping("/success")
+    @GetMapping("/success")
     public void loginPageRedirect(Principal principal, HttpServletRequest request, HttpServletResponse response, Authentication authResult, HttpSession session, Model model) throws IOException {
         var currentUser = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByEmail(principal.getName());
         String role = authResult.getAuthorities().toString();
         if (role.contains("ROLE_ADMIN")) {
             session.setAttribute("user", user);
-            response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/admin"));
+            response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/likarnya/admin"));
         } else if (role.contains("ROLE_DOCTOR")) {
             session.setAttribute("doctor", user);
-            response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/doctor-cabinet"));
+            response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/likarnya/doctor-cabinet"));
         } else if (role.contains("ROLE_NURSE")) {
             session.setAttribute("nurse", user);
-            response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/nurse-cabinet"));
+            response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/likarnya/nurse-cabinet"));
         }
     }
 
@@ -64,6 +66,6 @@ public class LoginController {
     public String doLogout(Model theModel, final HttpSession session, @ModelAttribute("loginUser") LoginRequestDto loginRequestDto) {
         session.invalidate();
         theModel.addAttribute("loginUser", new LoginRequestDto());
-        return "redirect:/login";
+        return "redirect:/likarnya/login";
     }
 }

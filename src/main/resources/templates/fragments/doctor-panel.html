@@ -1,14 +1,14 @@
 
 <th:block xmlns:th="http://www.thymeleaf.org" th:fragment="doctor-panel">
     <div class="topnav">
-        <a class="active" href="/doctor-cabinet" th:text="#{Main}"></a>
-        <a class="active" href="/doctor-cabinet" th:text="#{Patients_for_diagnosis}"></a>
-        <a class="active" href="/doctor-cabinet/treatment-patients" th:text="#{Patients_for_treatment}"></a>
-        <a class="active" href="/doctor-cabinet/history" th:text="#{Treated_patients_or_history}"></a>
+        <a class="active" href="/likarnya/doctor-cabinet" th:text="#{Main}"></a>
+        <a class="active" href="/likarnya/doctor-cabinet" th:text="#{Patients_for_diagnosis}"></a>
+        <a class="active" href="/likarnya/doctor-cabinet/treatment-patients" th:text="#{Patients_for_treatment}"></a>
+        <a class="active" href="/likarnya/doctor-cabinet/history" th:text="#{Treated_patients_or_history}"></a>
         <a class="active"  href='?lang=en' th:text="#{lang.eng}"></a>
         <strong style='width:2px'>|</strong>
         <a class="active" href='?lang=ru' th:text="#{lang.ru}"></a>
-        <form th:action="@{/perform-logout}" method="post">
+        <form th:action="@{/likarnya/perform-logout}" method="post">
             <button style="position: absolute; right: 0px; top: 20px; width: 80px; height: 30px" type="submit">
                 Log Out
             </button>

@@ -16,6 +16,7 @@ import java.util.List;
 @Data
 @Slf4j
 @Controller
+@RequestMapping("/likarnya")
 @RequiredArgsConstructor
 public class MedicalCardController {
     private final MedicalCardService medicalCardService;
@@ -72,7 +73,7 @@ public class MedicalCardController {
                 .build();
 
         medicalCardService.createOrUpdate(medicalCard);
-        return "redirect:/admin";
+        return "redirect:/likarnya/admin";
     }
 
 }

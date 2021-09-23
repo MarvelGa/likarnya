@@ -42,21 +42,38 @@
             </tr>
         </table>
 
+<!--        <div class="pagination-div">-->
+<!--    <span th:if="${page.hasPrevious()}">-->
+<!--        <a th:href="@{/likarnya/doctor-cabinet/history(page=${page.number-1},size=${page.size})}">Previous</a>-->
+<!--    </span>-->
+<!--            <th:block th:each="i: ${#numbers.sequence(0, page.totalPages - 1)}">-->
+<!--                <span th:if="${page.number == i}" class="selected">[[${i}+1]]</span>-->
+<!--                <span th:unless="${page.number == i}">-->
+<!--             <a th:href="@{/likarnya/doctor-cabinet/history(page=${i},size=${page.size})}">[[${i}+1]]</a>-->
+<!--        </span>-->
+<!--            </th:block>-->
+<!--            <span th:if="${page.hasNext()}">-->
+<!--        <a th:href="@{/likarnya/doctor-cabinet/history(page=${page.number+1},size=${page.size})}">Next</a>-->
+<!--    </span>-->
+<!--        </div>-->
+
         <div class="pagination-div">
     <span th:if="${page.hasPrevious()}">
-        <a th:href="@{/doctor-cabinet/history(page=${page.number-1},size=${page.size})}">Previous</a>
+        <a th:href="@{/likarnya/doctor-cabinet/history(page=${page.number-1},size=${page.size})}">Previous</a>
     </span>
             <th:block th:each="i: ${#numbers.sequence(0, page.totalPages - 1)}">
                 <span th:if="${page.number == i}" class="selected">[[${i}+1]]</span>
                 <span th:unless="${page.number == i}">
-             <a th:href="@{/doctor-cabinet/history(page=${i},size=${page.size})}">[[${i}+1]]</a>
+             <a th:href="@{/likarnya/doctor-cabinet/history(page=${i},size=${page.size})}">[[${i}+1]]</a>
         </span>
             </th:block>
             <span th:if="${page.hasNext()}">
-        <a th:href="@{/doctor-cabinet/history(page=${page.number+1},size=${page.size})}">Next</a>
+        <a th:href="@{/likarnya/doctor-cabinet/history(page=${page.number+1},size=${page.size})}">Next</a>
     </span>
         </div>
     </div>
+
+
 
     <div th:unless="${patientsHistory.size()}!=0">
         <h3 style="color: deeppink">There are no history yet!</h3>

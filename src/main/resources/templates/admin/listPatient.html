@@ -24,7 +24,7 @@
                     <label for="sorting">Sort Patients By</label>
                 </th>
                 <td>
-                    <form th:action="@{/templates/admin}">
+                    <form th:action="@{/likarnya/admin}">
                     <select th:id="sorting" th:name="sorting" onchange="this.form.submit();">
                         <option value="">--Please choose an option/Default--</option>
                         <option th:value="ASC-NAME" th:selected="${'ASC-NAME'==(sort)}">
@@ -71,7 +71,7 @@
                 <td th:text="${patient.dateOfBirth}"/>
                 <td th:text="${patient.gender}"/>
                 <td>
-                    <form action="#" th:action="@{/admin/create-medical-card/{patient_id}(patient_id=${patient.id})}"
+                    <form action="#" th:action="@{/likarnya/admin/create-medical-card/{patient_id}(patient_id=${patient.id})}"
                           method="get">
                         <input type="submit" value="Create medical card">
                     </form>

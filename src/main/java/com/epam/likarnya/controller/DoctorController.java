@@ -1,6 +1,5 @@
 package com.epam.likarnya.controller;
 
-import com.epam.likarnya.dto.TreatmentPatientDto;
 import com.epam.likarnya.model.*;
 import com.epam.likarnya.repository.MedicalCardRepository;
 import com.epam.likarnya.repository.PatientRepository;
@@ -11,7 +10,6 @@ import com.epam.likarnya.service.TreatmentService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -24,6 +22,7 @@ import java.time.LocalDateTime;
 @Data
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/likarnya")
 @Controller
 public class DoctorController {
     private final StatementService statementService;
@@ -71,7 +70,7 @@ public class DoctorController {
         createTreatment.setMedicalCard(updatedMedicalCard);
 
         treatmentService.createOrUpdate(createTreatment);
-        return "redirect:/doctor-cabinet";
+        return "redirect:/likarnya/doctor-cabinet";
     }
 
     @GetMapping(value = "/doctor-cabinet/treatment-patients")
@@ -101,16 +100,17 @@ public class DoctorController {
         Statement statement = statementService.getById(statementId);
         statement.setPatientStatus(Statement.PatientStatus.DISCHARGED);
         statementService.createOrUpdate(statement);
-        return "redirect:/doctor-cabinet/treatment-patients";
+        return "redirect:/likarnya/doctor-cabinet/treatment-patients";
     }
 
     @GetMapping(value = "/doctor-cabinet/history")
     public String handlePatientsHistory(@PageableDefault(size = 3) Pageable pageable,HttpSession session, Model model) {
         User doctor = (User) session.getAttribute("doctor");
         var patient = patientService.getHistoryByDoctorId(doctor.getId(), pageable);
+        model.addAttribute("patientsHistory", patient.getContent());
         model.addAttribute("page", patient);
         model.addAttribute("totalElements", patient.getTotalElements());
-        model.addAttribute("patientsHistory", patient.getContent());
+
         return "/doctor/doctorHistory";
     }
 

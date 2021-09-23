@@ -76,7 +76,7 @@ public class PatientControllerTest {
     @WithMockUser(username = "ivan@gmail.com", roles = {"ADMIN"})
     public void shouldGet200WhenOpenPageForPatientRegistration() throws Exception {
         this.mockMvc
-                .perform(get("/admin/patient-registration").sessionAttr("user", admin))
+                .perform(get("/likarnya/admin/patient-registration").sessionAttr("user", admin))
                 .andExpect(view().name("/admin/patientRegistration"))
                 .andExpect(model().attributeExists("registrationPatient"))
                 .andExpect(model().attributeExists("dateOfToday"))
@@ -89,12 +89,12 @@ public class PatientControllerTest {
         when(bindingResult.hasErrors()).thenReturn(false);
         when(patientService.createOrUpdate(patient)).thenReturn(patient);
         this.mockMvc
-                .perform(post("/admin/patient-registration").sessionAttr("user", admin)
+                .perform(post("/likarnya/admin/patient-registration").sessionAttr("user", admin)
                         .param("firstName", patientDto.getFirstName()).param("confirmedFirstName", "")
                         .param("lastName", patientDto.getLastName()).param("confirmedLastName", "")
                         .param("dateOfBirth", patientDto.getDateOfBirth()).param("confirmedDateOfBirth", "")
                         .param("gender", String.valueOf(patientDto.getGender())).param("confirmedGender", ""))
-                .andExpect(view().name("redirect:/admin"))
+                .andExpect(view().name("redirect:/likarnya/admin"))
                 .andExpect(status().isFound());
     }
 
@@ -104,7 +104,7 @@ public class PatientControllerTest {
         when(bindingResult.hasErrors()).thenReturn(false);
         when(patientService.createOrUpdate(patient)).thenReturn(patient);
         this.mockMvc
-                .perform(post("/admin/patient-registration").sessionAttr("user", admin)
+                .perform(post("/likarnya/admin/patient-registration").sessionAttr("user", admin)
                         .param("lastName", patientDto.getLastName()).param("confirmedLastName", "")
                         .param("dateOfBirth", patientDto.getDateOfBirth()).param("confirmedDateOfBirth", "")
                         .param("gender", String.valueOf(patientDto.getGender())).param("confirmedGender", ""))
@@ -118,7 +118,7 @@ public class PatientControllerTest {
         when(bindingResult.hasErrors()).thenReturn(false);
         when(patientService.createOrUpdate(patient)).thenReturn(patient);
         this.mockMvc
-                .perform(post("/admin/patient-registration").sessionAttr("user", admin)
+                .perform(post("/likarnya/admin/patient-registration").sessionAttr("user", admin)
                         .param("lastName", "jdjdj").param("confirmedLastName", "")
                         .param("lastName", patientDto.getLastName()).param("confirmedLastName", "")
                         .param("dateOfBirth", patientDto.getDateOfBirth()).param("confirmedDateOfBirth", "")

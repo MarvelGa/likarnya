@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.math.BigInteger;
@@ -26,6 +27,7 @@ import java.util.List;
 @Slf4j
 @Data
 @Controller
+@RequestMapping("/likarnya")
 @RequiredArgsConstructor
 public class RegistrationUserController {
     private final UserService userService;
@@ -47,7 +49,7 @@ public class RegistrationUserController {
         String role = String.valueOf(requestDto.getRole());
 
         if (bindingResult.hasErrors()) {
-            return "/admin/registrationPage";
+            return "/admin/medicalRegistrationPage";
         }
         if (!DataValidator.isEmailValid(requestDto.getEmail())) {
             errorMessage = "Email is not valid";
@@ -117,14 +119,14 @@ public class RegistrationUserController {
                 userService.createOrUpdate(newUser);
                 log.debug(String.format("redirect --> %s", "/admin/nurses"));
                 model.addAttribute("registrationSuccess", "The nurse added successfully");
-                return "redirect:/admin/nurses";
+                return "redirect:/likarnya/admin/nurses";
             }
 
             log.trace("Saving new user: " + newUser);
             userService.createOrUpdate(newUser);
             log.debug(String.format("redirect --> %s", "/admin/doctors"));
             model.addAttribute("registrationSuccess", "The doctor added successfully");
-            return "redirect:/admin/doctors";
+            return "redirect:/likarnya/admin/doctors";
         }
     }
 }

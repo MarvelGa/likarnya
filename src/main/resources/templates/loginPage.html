@@ -44,18 +44,18 @@
     </style>
 </head>
 <body>
-<div  class="topnav"  style="position: absolute; top: 8px; right: 100px;font-size: 14px;">
-    <a class="active"  href='/login?lang=en' th:text="#{lang.eng}"></a>
-    <strong style='width:2px'>|</strong>
-    <a class="active" href='/login?lang=ru' th:text="#{lang.ru}"></a>
-</div>
+<!--<div  class="topnav"  style="position: absolute; top: 8px; right: 100px;font-size: 14px;">-->
+<!--    <a class="active"  href='/login?lang=en' th:text="#{lang.eng}"></a>-->
+<!--    <strong style='width:2px'>|</strong>-->
+<!--    <a class="active" href='/login?lang=ru' th:text="#{lang.ru}"></a>-->
+<!--</div>-->
 <!--<div id="login-panel" th:insert="~{fragments/login-panel :: login-panel}"></div>-->
 </br>
 <h2 class="text-center"  style="color: cadetblue" th:text="#{Welcome_to_hospital_system}"></h2>
 </br>
 <h3  class="text-center"  style="color: tomato"><p th:text="${errorMessage}"/></h3>
 <div class="container">
-    <form class="form-signin" method="post" action="/login">
+    <form class="form-signin" method="post" action="/likarnya/login">
         <h2 class="text-center"  style="color: cadetblue" th:text="#{Login_form}"></h2>
         </br>
         <p>

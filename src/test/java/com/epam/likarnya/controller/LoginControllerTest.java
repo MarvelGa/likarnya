@@ -51,7 +51,7 @@ public class LoginControllerTest {
     @Test
     public void shouldReturn200AndLoginFormView() throws Exception {
         this.mockMvc
-                .perform(get("/login"))
+                .perform(get("/likarnya/login"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("loginPage"));
     }
@@ -59,7 +59,7 @@ public class LoginControllerTest {
     @Test
     public void shouldReturn200AndLoginFormErrorView() throws Exception {
         this.mockMvc
-                .perform(get("/login-error"))
+                .perform(get("/likarnya/login-error"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("errorMessage"))
                 .andExpect(view().name("loginPage"));
@@ -68,7 +68,7 @@ public class LoginControllerTest {
     @Test
     public void shouldReturn302ToLoginPage() throws Exception {
         this.mockMvc
-                .perform(get("/perform-logout"))
+                .perform(get("/likarnya/perform-logout"))
                 .andExpect(status().isFound());
     }
 
@@ -76,17 +76,17 @@ public class LoginControllerTest {
     @WithMockUser(username = "ivan@gmail.com", roles = {"ADMIN"})
     public void shouldReturn302AndExecutedLogout() throws Exception {
         this.mockMvc
-                .perform(post("/perform-logout")
+                .perform(post("/likarnya/perform-logout")
                         .sessionAttr("user", admin))
                 .andExpect(status().isFound())
-                .andExpect(view().name("redirect:/login"));
+                .andExpect(view().name("redirect:/likarnya/login"));
     }
 
     @Test
     public void shouldReturn302AfterSuccessLogIn() throws Exception {
         when(userService.findByEmail(admin.getEmail())).thenReturn(admin);
         this.mockMvc
-                .perform(get("/success"))
+                .perform(get("/likarnya/success"))
                 .andExpect(status().isFound());
 
     }

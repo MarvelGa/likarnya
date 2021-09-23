@@ -9,10 +9,10 @@
 <center>
     <div id="doctor-panel" th:insert="~{fragments/doctor-panel :: doctor-panel}"></div>
     <h3 style="color: cadetblue">Execute Treatment</h3>
-    <a th:href="@{/doctor-cabinet}">Back to previous page</a>
+    <a th:href="@{/likarnya/doctor-cabinet}">Back to previous page</a>
     </br>
     </br>
-    <form th:action="@{/doctor-cabinet/execute-treatment}"
+    <form th:action="@{/likarnya/doctor-cabinet/execute-treatment}"
           th:object="${patientForTreatment}" method="post">
 
         <table border="1">

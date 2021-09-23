@@ -37,7 +37,7 @@
                 <td th:text="${patient.doctorCategory + ' - ' + patient.doctorFirstName + ' ' + patient.doctorLastName}"/>
                 <td>
                     <form action="#"
-                          th:action="@{/nurse-cabinet/execute-treatment/{patient_id}(patient_id=${patient.id})}"
+                          th:action="@{/likarnya/nurse-cabinet/execute-treatment/{patient_id}(patient_id=${patient.id})}"
                           method="get">
                         <input type="submit" value="Open medical card">
                     </form>
