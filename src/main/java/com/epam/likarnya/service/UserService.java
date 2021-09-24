@@ -1,7 +1,7 @@
 package com.epam.likarnya.service;
 
-import com.epam.likarnya.dto.NurseDTO;
-import com.epam.likarnya.dto.UserDTO;
+import com.epam.likarnya.dto.NurseDto;
+import com.epam.likarnya.dto.UserDto;
 import com.epam.likarnya.model.User;
 
 import java.util.List;
@@ -11,12 +11,13 @@ public interface UserService {
 
     User createOrUpdate(User user);
 
-    List<NurseDTO> getNurses();
+    List<NurseDto> getNurses();
 
     User findById(Long id);
 
-    List<UserDTO> findDoctorsWithCountOfPatients();
+    List<UserDto> findDoctorsWithCountOfPatients();
 
-    List<UserDTO> findDoctorsWithCountOfPatientsByCategoryId(Long id);
-    List<UserDTO> getDoctorsByCategory(String category);
+    List<UserDto> findDoctorsWithCountOfPatientsByCategoryId(Long id);
+
+    List<UserDto> getDoctorsByCategory(String category);
 }

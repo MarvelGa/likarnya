@@ -1,6 +1,6 @@
 package com.epam.likarnya.controller;
 
-import com.epam.likarnya.dto.PatientDataDTO;
+import com.epam.likarnya.dto.PatientDataDto;
 import com.epam.likarnya.dto.TreatmentPatientDto;
 import com.epam.likarnya.model.*;
 import com.epam.likarnya.service.*;
@@ -246,8 +246,8 @@ public class DoctorControllerTest {
     }
 
 
-    private PatientDataDTO getPatientDataDTO() {
-        PatientDataDTO patientDataDTO = new PatientDataDTO() {
+    private PatientDataDto getPatientDataDTO() {
+        PatientDataDto patientDataDTO = new PatientDataDto() {
             @Override
             public Long getId() {
                 return 1L;

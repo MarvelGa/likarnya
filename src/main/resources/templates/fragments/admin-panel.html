@@ -1,4 +1,3 @@
-
 <th:block xmlns:th="http://www.thymeleaf.org" th:fragment="admin-panel">
 <div class="topnav">
     <a class="active" href="/likarnya/admin/nurses" th:text="#{Nurses}"></a>
@@ -15,7 +14,5 @@
     </form>
 </div>
 
-<!--    <div th:if="${session.user!=null}">-->
     <h2><span style="color: #5cac8c"  th:text="#{Admin_Cabinet_Of} + ' ' + ${session.user.firstName} + ' ' + ${session.user.lastName}"></span></h2>
-<!--    </div>>-->
 </th:block>

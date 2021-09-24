@@ -44,7 +44,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/likarnya/perform-logout.html", "POST"))
                 .clearAuthentication(true)
                 .invalidateHttpSession(true)
-//                .deleteCookies("loginUser")
                 .logoutSuccessUrl("/likarnya/login");
     }
 

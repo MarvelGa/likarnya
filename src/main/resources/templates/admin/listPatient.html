@@ -10,9 +10,6 @@
     <div id="admin-panel" th:insert="~{fragments/admin-panel :: admin-panel}"></div>
     <div id="admin-patients-buttons" th:insert="~{fragments/admin-patients-buttons :: admin-patients-buttons}"></div>
     </br>
-<!--    <form action="#" th:action="@{/admin/patient-registration}" method="get">-->
-<!--        <input type="submit" value="Add A New Patient">-->
-<!--    </form>-->
 
     <div th:if="${listPatients.size()}>=1">
         <h2 style="color: cadetblue">New Patients</h2>

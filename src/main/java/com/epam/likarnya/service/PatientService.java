@@ -1,6 +1,6 @@
 package com.epam.likarnya.service;
 
-import com.epam.likarnya.dto.PatientDataDTO;
+import com.epam.likarnya.dto.PatientDataDto;
 import com.epam.likarnya.dto.TreatmentPatientDto;
 import com.epam.likarnya.model.Patient;
 import com.epam.likarnya.model.User;
@@ -20,14 +20,11 @@ public interface PatientService {
 
     Patient findById(Long id);
 
-//    List<Patient> getPatientForDiagnosis(Long doctorId);
-
     List<TreatmentPatientDto> getPatientsForTreatment(Long doctorId);
 
     TreatmentPatientDto getPatientForTreatment(Long doctorId, Long patientId);
 
-//    List<TreatmentPatientDto> getHistoryByDoctorId(Long doctorId);
-  Page<TreatmentPatientDto> getHistoryByDoctorId(Long doctorId, Pageable pageable);
+    Page<TreatmentPatientDto> getHistoryByDoctorId(Long doctorId, Pageable pageable);
 
     List<TreatmentPatientDto> getPatientsForTreatmentByNurse();
 
@@ -39,5 +36,5 @@ public interface PatientService {
 
     List<Patient> patientsWithOutMedicCard();
 
-    List<PatientDataDTO> getPatientsForDiagnosis(User user);
+    List<PatientDataDto> getPatientsForDiagnosis(User user);
 }

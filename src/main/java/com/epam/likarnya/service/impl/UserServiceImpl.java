@@ -1,8 +1,8 @@
 package com.epam.likarnya.service.impl;
 
 
-import com.epam.likarnya.dto.NurseDTO;
-import com.epam.likarnya.dto.UserDTO;
+import com.epam.likarnya.dto.NurseDto;
+import com.epam.likarnya.dto.UserDto;
 import com.epam.likarnya.exception.EntityNotFoundException;
 import com.epam.likarnya.model.User;
 import com.epam.likarnya.repository.UserRepository;
@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -34,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     @Override
-    public List<NurseDTO> getNurses() {
+    public List<NurseDto> getNurses() {
         return repository.getNurses();
     }
 
@@ -47,18 +46,18 @@ public class UserServiceImpl implements UserService {
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     @Override
-    public List<UserDTO> findDoctorsWithCountOfPatients() {
+    public List<UserDto> findDoctorsWithCountOfPatients() {
         return repository.getDoctorsWithCountOfPatients();
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     @Override
-    public List<UserDTO> findDoctorsWithCountOfPatientsByCategoryId(Long id) {
+    public List<UserDto> findDoctorsWithCountOfPatientsByCategoryId(Long id) {
         return repository.getDoctorsWithCountOfPatientsByCategoryId(id);
     }
 
     @Override
-    public List<UserDTO> getDoctorsByCategory(String category) {
+    public List<UserDto> getDoctorsByCategory(String category) {
         return repository.getDoctorsByCategory(category);
     }
 

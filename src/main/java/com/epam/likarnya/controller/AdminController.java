@@ -1,8 +1,8 @@
 package com.epam.likarnya.controller;
 
-import com.epam.likarnya.dto.NurseDTO;
+import com.epam.likarnya.dto.NurseDto;
 import com.epam.likarnya.dto.TreatmentPatientDto;
-import com.epam.likarnya.dto.UserDTO;
+import com.epam.likarnya.dto.UserDto;
 import com.epam.likarnya.model.Category;
 import com.epam.likarnya.model.Patient;
 import com.epam.likarnya.repository.UserRepository;
@@ -39,7 +39,7 @@ public class AdminController {
 
     @GetMapping(value = "/admin/nurses")
     public String listNurses(Model model) {
-        List<NurseDTO> nurses = userService.getNurses();
+        List<NurseDto> nurses = userService.getNurses();
         model.addAttribute("nurses", nurses);
         return "/admin/listNurses";
     }
@@ -49,7 +49,7 @@ public class AdminController {
         List<Category> categories = categoryService.getAll();
         model.addAttribute("cat", new String());
         model.addAttribute("categories", categories);
-        List<UserDTO> doctorsList = new ArrayList<>();
+        List<UserDto> doctorsList = new ArrayList<>();
 
         if (category == null) {
             doctorsList = userService.findDoctorsWithCountOfPatients();
@@ -66,55 +66,47 @@ public class AdminController {
         return getString(model, sort, doctorsList);
     }
 
-    private String getString(Model model, String sort, List<UserDTO> doctorsList) {
+    private String getString(Model model, String sort, List<UserDto> doctorsList) {
         if (sort != null && doctorsList.size() != 0) {
             if (!sort.isEmpty()) {
                 if (sort.equals("ASC-NAME")) {
                     doctorsList = doctorsList.stream()
-                            .filter(c -> c != null)
-                            .sorted(Comparator.comparing(UserDTO::getFirstName))
+                            .sorted(Comparator.comparing(UserDto::getFirstName))
                             .collect(Collectors.toList());
                 }
                 if (sort.equals("DESC-NAME")) {
                     doctorsList = doctorsList.stream()
-                            .filter(c -> c != null)
-                            .sorted(Comparator.comparing(UserDTO::getFirstName).reversed())
+                            .sorted(Comparator.comparing(UserDto::getFirstName).reversed())
                             .collect(Collectors.toList());
                 }
                 if (sort.equals("ASC")) {
                     doctorsList = doctorsList.stream()
-                            .filter(c -> c != null)
-                            .sorted(Comparator.comparing(UserDTO::getLastName))
+                            .sorted(Comparator.comparing(UserDto::getLastName))
                             .collect(Collectors.toList());
                 }
                 if (sort.equals("DESC")) {
                     doctorsList = doctorsList.stream()
-                            .filter(c -> c != null)
-                            .sorted(Comparator.comparing(UserDTO::getLastName).reversed())
+                            .sorted(Comparator.comparing(UserDto::getLastName).reversed())
                             .collect(Collectors.toList());
                 }
                 if (sort.equals("DECREASE")) {
                     doctorsList = doctorsList.stream()
-                            .filter(c -> c.getCountOfPatients() != null)
-                            .sorted(Comparator.comparing(UserDTO::getCountOfPatients).reversed())
+                            .sorted(Comparator.comparing(UserDto::getCountOfPatients).reversed())
                             .collect(Collectors.toList());
                 }
                 if (sort.equals("INCREASE")) {
                     doctorsList = doctorsList.stream()
-                            .filter(c -> c.getCountOfPatients() != null)
-                            .sorted(Comparator.comparing(UserDTO::getCountOfPatients))
+                            .sorted(Comparator.comparing(UserDto::getCountOfPatients))
                             .collect(Collectors.toList());
                 }
                 if (sort.equals("CAT-ASC")) {
                     doctorsList = doctorsList.stream()
-                            .filter(c -> c != null)
-                            .sorted(Comparator.comparing(UserDTO::getCategory))
+                            .sorted(Comparator.comparing(UserDto::getCategory))
                             .collect(Collectors.toList());
                 }
                 if (sort.equals("CAT-DESC")) {
                     doctorsList = doctorsList.stream()
-                            .filter(c -> c != null)
-                            .sorted(Comparator.comparing(UserDTO::getCategory).reversed())
+                            .sorted(Comparator.comparing(UserDto::getCategory).reversed())
                             .collect(Collectors.toList());
                 }
             }
@@ -141,37 +133,31 @@ public class AdminController {
             if (!sort.isEmpty()) {
                 if (sort.equals("ASC-NAME")) {
                     patients = patients.stream()
-                            .filter(c -> c != null)
                             .sorted(Comparator.comparing(Patient::getFirstName))
                             .collect(Collectors.toList());
                 }
                 if (sort.equals("DESC-NAME")) {
                     patients = patients.stream()
-                            .filter(c -> c != null)
                             .sorted(Comparator.comparing(Patient::getFirstName).reversed())
                             .collect(Collectors.toList());
                 }
                 if (sort.equals("ASC")) {
                     patients = patients.stream()
-                            .filter(c -> c != null)
                             .sorted(Comparator.comparing(Patient::getLastName))
                             .collect(Collectors.toList());
                 }
                 if (sort.equals("DESC")) {
                     patients = patients.stream()
-                            .filter(c -> c != null)
                             .sorted(Comparator.comparing(Patient::getLastName).reversed())
                             .collect(Collectors.toList());
                 }
                 if (sort.equals("DECREASE")) {
                     patients = patients.stream()
-                            .filter(c -> c != null)
                             .sorted(Comparator.comparing(Patient::getDateOfBirth).reversed())
                             .collect(Collectors.toList());
                 }
                 if (sort.equals("INCREASE")) {
                     patients = patients.stream()
-                            .filter(c -> c != null)
                             .sorted(Comparator.comparing(Patient::getDateOfBirth))
                             .collect(Collectors.toList());
                 }

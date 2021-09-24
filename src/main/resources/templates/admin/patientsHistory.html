@@ -39,8 +39,8 @@
                 <td th:text="${patient.appointmentStatus}"/>
                 <td th:text="${patient.doctorCategory + ' - ' + patient.doctorFirstName + ' ' + patient.doctorLastName}"/>
                 <td th:text="${patient.roleOfExecutor + ' - ' + patient.getNameOfExecutor() + ' ' + patient.getLastNameOfExecutor()}"/>
-                <td th:text="${patient.dateOfAdmission}"/>
-                <td th:text="${patient.getDateOfDischarge()}"/>
+                <td th:text="${#temporals.format(patient.dateOfAdmission, 'dd-MM-yyyy HH:mm')}"/>
+                <td th:text="${#temporals.format(patient.dateOfDischarge, 'dd-MM-yyyy HH:mm')}"/>
             </tr>
         </table>
         <div class="pagination-div">

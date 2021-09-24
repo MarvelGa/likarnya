@@ -1,8 +1,8 @@
 package com.epam.likarnya.controller;
 
-import com.epam.likarnya.dto.NurseDTO;
+import com.epam.likarnya.dto.NurseDto;
 import com.epam.likarnya.dto.TreatmentPatientDto;
-import com.epam.likarnya.dto.UserDTO;
+import com.epam.likarnya.dto.UserDto;
 import com.epam.likarnya.model.Category;
 import com.epam.likarnya.model.Patient;
 import com.epam.likarnya.model.Treatment;
@@ -253,8 +253,8 @@ public class AdminControllerTest {
         verify(patientService, times(1)).getHistory(pageable);
     }
 
-    private NurseDTO getNurse() {
-        NurseDTO nurseDTO = new NurseDTO() {
+    private NurseDto getNurse() {
+        NurseDto nurseDTO = new NurseDto() {
             @Override
             public Long getId() {
                 return 1L;
@@ -278,8 +278,8 @@ public class AdminControllerTest {
         return nurseDTO;
     }
 
-    private UserDTO getDoctors() {
-        UserDTO doctor = new UserDTO() {
+    private UserDto getDoctors() {
+        UserDto doctor = new UserDto() {
             @Override
             public Long getId() {
                 return 5L;

@@ -1,9 +1,8 @@
 package com.epam.likarnya.dto;
 
-public interface PatientDataDTO {
-
-
+public interface PatientDataDto {
     Long getId();
+
     String getFirstName();
 
     String getLastName();

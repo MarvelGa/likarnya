@@ -1,6 +1,6 @@
 package com.epam.likarnya.controller;
 
-import com.epam.likarnya.dto.UserDTO;
+import com.epam.likarnya.dto.UserDto;
 import com.epam.likarnya.model.*;
 import com.epam.likarnya.service.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -202,8 +202,8 @@ public class MedicalCardControllerTest {
                 .andExpect(status().isFound());
     }
 
-    private UserDTO getDoctors() {
-        UserDTO doctor = new UserDTO() {
+    private UserDto getDoctors() {
+        UserDto doctor = new UserDto() {
             @Override
             public Long getId() {
                 return 5L;

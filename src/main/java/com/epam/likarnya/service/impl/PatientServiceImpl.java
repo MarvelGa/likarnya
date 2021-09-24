@@ -1,6 +1,6 @@
 package com.epam.likarnya.service.impl;
 
-import com.epam.likarnya.dto.PatientDataDTO;
+import com.epam.likarnya.dto.PatientDataDto;
 import com.epam.likarnya.dto.TreatmentPatientDto;
 import com.epam.likarnya.exception.BadRequestException;
 import com.epam.likarnya.exception.EntityNotFoundException;
@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -41,11 +40,6 @@ public class PatientServiceImpl implements PatientService {
         return repository.save(patient);
     }
 
-//    @Override
-//    public List<Patient> getPatients() {
-//        return Lists.newArrayList (repository.findAll()) ;
-//    }
-
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public Page<Patient> getPatients(Pageable pageable) {
@@ -57,11 +51,6 @@ public class PatientServiceImpl implements PatientService {
     public Patient findById(Long id) {
         return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("Patient by id = %s was not found", id)));
     }
-
-//    @Override
-//    public List<Patient> getPatientForDiagnosis(Long doctorId) {
-//        return repository.getPatientsForDiagnosis(doctorId);
-//    }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     @Override
@@ -80,12 +69,6 @@ public class PatientServiceImpl implements PatientService {
         return repository.patientsHistoryByDoctorId(doctorId, pageable);
     }
 
-//    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
-//    @Override
-//    public List<TreatmentPatientDto> getHistoryByDoctorId(Long doctorId) {
-//        return repository.patientsHistoryByDoctorId(doctorId);
-//    }
-
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     @Override
     public List<TreatmentPatientDto> getPatientsForTreatmentByNurse() {
@@ -96,12 +79,6 @@ public class PatientServiceImpl implements PatientService {
     public Page<TreatmentPatientDto> getNurseTreatmentHistoryById(Long id, Pageable pageable) {
         return repository.getNurseTreatmentHistoryById(id, pageable);
     }
-
-//    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
-//    @Override
-//    public List<TreatmentPatientDto> getNurseTreatmentHistoryById(Long id) {
-//        return repository.getNurseTreatmentHistoryById(id);
-//    }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     @Override
@@ -123,10 +100,10 @@ public class PatientServiceImpl implements PatientService {
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     @Override
-    public List<PatientDataDTO> getPatientsForDiagnosis(User user) {
-        if (user!=null){
+    public List<PatientDataDto> getPatientsForDiagnosis(User user) {
+        if (user != null) {
             return repository.getPatientsForDiagnosis(user.getId());
         }
-         throw new BadRequestException("Access not allowed!");
+        throw new BadRequestException("Access not allowed!");
     }
 }
