@@ -22,6 +22,7 @@ To Run the application:
 3) You should insert initial data for "likarnya202117" DB, the data.sql in located in the root
 of the app in "db" folder.
 4) Enter as Admin by email - adminTest@gmail.com and password "TTTttt555";
+5) Go to http://localhost:8081/likarnya/login
   
 
 
