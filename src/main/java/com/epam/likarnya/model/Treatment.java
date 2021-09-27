@@ -35,12 +35,10 @@ public class Treatment {
     private AppointmentStatus appointmentStatus = AppointmentStatus.NOT_EXECUTED;
 
     @EqualsAndHashCode.Exclude
-    @CreatedDate
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @EqualsAndHashCode.Exclude
-    @LastModifiedDate
     @Column(name = "changed")
     private LocalDateTime changed;
 

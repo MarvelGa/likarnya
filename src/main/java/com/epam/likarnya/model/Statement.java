@@ -17,7 +17,6 @@ import java.util.List;
 @Builder
 @Table(name ="statements")
 @Entity
-@EntityListeners(AuditingEntityListener.class)
 public class Statement {
     public enum PatientStatus {
         NEW, DIAGNOSED ,DISCHARGED
@@ -38,12 +37,10 @@ public class Statement {
     private PatientStatus patientStatus = PatientStatus.NEW;
 
     @EqualsAndHashCode.Exclude
-    @CreatedDate
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @EqualsAndHashCode.Exclude
-    @LastModifiedDate
     @Column(name = "changed")
     private LocalDateTime changed;
 

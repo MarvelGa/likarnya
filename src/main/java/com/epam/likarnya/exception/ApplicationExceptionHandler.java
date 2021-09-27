@@ -24,14 +24,13 @@ public class ApplicationExceptionHandler {
 
     @ExceptionHandler (BadRequestException.class)
     public ModelAndView handleBadRequestException (BadRequestException ex){
-        log.error("EntityNotFoundException : ", ex.getMessage());
+        log.error("BadRequestException : ", ex.getMessage());
         ModelAndView model = new ModelAndView("error/errorPage");
         model.addObject("info",ex.getMessage());
         return model;
     }
 
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(value = INTERNAL_SERVER_ERROR)
     public ModelAndView globalException(Exception ex) {
         log.error(GLOBAL_EXCEPTION_MESSAGE, ex);
         ModelAndView model = new ModelAndView("error/errorPage");

@@ -33,6 +33,7 @@ public class LoginController {
 
     @GetMapping(value = "/login")
     public String loginForm(Model model) {
+        log.info("**/login");
         return "loginPage";
     }
 
@@ -40,6 +41,7 @@ public class LoginController {
     public String errorLoginForm(Principal principal, Model model) {
         if (principal == null) {
             String errorMessage = "Wrong login or password";
+            log.error("**/login-error = " + errorMessage);
             model.addAttribute("errorMessage", errorMessage);
         }
         return "loginPage";
@@ -49,6 +51,7 @@ public class LoginController {
     public void loginPageRedirect(Principal principal, HttpServletRequest request, HttpServletResponse response, Authentication authResult, HttpSession session, Model model) throws IOException {
         var currentUser = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByEmail(principal.getName());
+        log.info("**/success " + principal.getName());
         String role = authResult.getAuthorities().toString();
         if (role.contains("ROLE_ADMIN")) {
             session.setAttribute("user", user);

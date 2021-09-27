@@ -10,13 +10,8 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface PatientService {
-    Page<Patient> getPatientsWithOutMedicCard(Pageable pageable);
-
-    Page<Patient> getDischargedPatients(Pageable pageable);
 
     Patient createOrUpdate(Patient patient);
-
-    Page<Patient> getPatients(Pageable pageable);
 
     Patient findById(Long id);
 

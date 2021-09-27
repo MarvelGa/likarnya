@@ -15,16 +15,49 @@ import java.util.List;
 @Repository
 public interface PatientRepository extends CrudRepository<Patient, Long>, PagingAndSortingRepository<Patient, Long> {
 
-    @Query(value = "SELECT p.id AS id, p.first_name AS firstName, p.last_name AS lastName, p.birth_day as dateOfBirth, p.gender AS gender, mc.complaints as complaints FROM patients p, statements st, medical_cards mc WHERE p.id=st.patient_id AND mc.statement_id =st.id AND st.patient_status='NEW' AND p.id IN (SELECT st.patient_id FROM statements st, medical_cards mc, users u WHERE st.id=mc.statement_id AND mc.doctor_id=u.id AND st.patient_status='NEW' AND u.id=:doctorId)", nativeQuery = true)
+    @Query(value = "SELECT p.id AS id," +
+            " p.first_name AS firstName," +
+            " p.last_name AS lastName," +
+            " p.birth_day as dateOfBirth," +
+            " p.gender AS gender," +
+            " mc.complaints as complaints" +
+            " FROM patients p, statements st, medical_cards mc WHERE p.id=st.patient_id AND mc.statement_id =st.id AND st.patient_status='NEW'" +
+            " AND p.id IN (SELECT st.patient_id FROM statements st, medical_cards mc, users u WHERE st.id=mc.statement_id AND mc.doctor_id=u.id AND st.patient_status='NEW' AND u.id=:doctorId)", nativeQuery = true)
     List<PatientDataDto> getPatientsForDiagnosis(Long doctorId);
 
-    @Query(value = "SELECT p.id AS id, p.first_name AS firstName, p.last_name AS lastName, p.birth_day as dateOfBirth, p.gender AS gender, mc.complaints as complaints, mc.diagnosis AS diagnosis, tr.appointment AS appointment, tr.appointment_status AS appointmentStatus, u.first_name AS doctorFirstName, u.last_name AS doctorLastName, c.title AS doctorCategory FROM patients p, statements st, medical_cards mc, treatments tr, users u, categories c WHERE c.id=u.category_id AND u.id=mc.doctor_id AND p.id=st.patient_id AND mc.id=tr.m_card_id AND mc.statement_id =st.id AND p.id NOT IN (SELECT st.patient_id FROM statements st WHERE st.patient_status='DISCHARGED') AND p.id IN (SELECT st.patient_id FROM statements st, medical_cards mc, users u, treatments tr WHERE mc.id=tr.m_card_id AND st.id=mc.statement_id AND mc.doctor_id=u.id AND tr.appointment_status='NOT_EXECUTED' AND st.patient_status='DIAGNOSED' AND u.id=:doctorId)", nativeQuery = true)
+    @Query(value = "SELECT p.id AS id," +
+            " p.first_name AS firstName," +
+            " p.last_name AS lastName," +
+            " p.birth_day as dateOfBirth," +
+            " p.gender AS gender," +
+            " mc.complaints as complaints," +
+            " mc.diagnosis AS diagnosis," +
+            " tr.appointment AS appointment," +
+            " tr.appointment_status AS appointmentStatus," +
+            " u.first_name AS doctorFirstName," +
+            " u.last_name AS doctorLastName," +
+            " c.title AS doctorCategory" +
+            " FROM patients p, statements st, medical_cards mc, treatments tr, users u, categories c WHERE c.id=u.category_id AND u.id=mc.doctor_id AND p.id=st.patient_id AND mc.id=tr.m_card_id AND mc.statement_id =st.id AND p.id NOT IN (SELECT st.patient_id FROM statements st WHERE st.patient_status='DISCHARGED') AND p.id IN (SELECT st.patient_id FROM statements st, medical_cards mc, users u, treatments tr WHERE mc.id=tr.m_card_id AND st.id=mc.statement_id AND mc.doctor_id=u.id AND tr.appointment_status='NOT_EXECUTED' AND st.patient_status='DIAGNOSED' AND u.id=:doctorId)", nativeQuery = true)
     List<TreatmentPatientDto> patientsForTreatment(Long doctorId);
 
-    @Query(value = "SELECT p.id AS id, p.first_name AS firstName, p.last_name AS lastName, p.birth_day as dateOfBirth, p.gender AS gender, mc.complaints as complaints, mc.diagnosis AS diagnosis, tr.appointment AS appointment, tr.appointment_status AS appointmentStatus, u.first_name AS doctorFirstName, u.last_name AS doctorLastName, c.title AS doctorCategory, tr.id AS treatmentId, st.id AS statementId FROM patients p, statements st, medical_cards mc, treatments tr, users u, categories c WHERE c.id=u.category_id AND u.id=mc.doctor_id AND p.id=st.patient_id AND mc.id=tr.m_card_id AND mc.statement_id =st.id AND p.id IN (SELECT st.patient_id FROM statements st, medical_cards mc, users u, treatments tr, patients p WHERE p.id=st.patient_id AND mc.id=tr.m_card_id AND st.id=mc.statement_id AND mc.doctor_id=u.id AND tr.appointment_status='NOT_EXECUTED' AND st.patient_status='DIAGNOSED' AND u.id=:doctorId AND p.id=:patientId)", nativeQuery = true)
+    @Query(value = "SELECT p.id AS id," +
+            " p.first_name AS firstName," +
+            " p.last_name AS lastName," +
+            " p.birth_day as dateOfBirth," +
+            " p.gender AS gender," +
+            " mc.complaints as complaints," +
+            " mc.diagnosis AS diagnosis," +
+            " tr.appointment AS appointment," +
+            " tr.appointment_status AS appointmentStatus," +
+            " u.first_name AS doctorFirstName," +
+            " u.last_name AS doctorLastName," +
+            " c.title AS doctorCategory," +
+            " tr.id AS treatmentId," +
+            " st.id AS statementId" +
+            " FROM patients p, statements st, medical_cards mc, treatments tr, users u, categories c WHERE c.id=u.category_id AND u.id=mc.doctor_id AND p.id=st.patient_id AND mc.id=tr.m_card_id AND mc.statement_id =st.id AND p.id IN (SELECT st.patient_id FROM statements st, medical_cards mc, users u, treatments tr, patients p WHERE p.id=st.patient_id AND mc.id=tr.m_card_id AND st.id=mc.statement_id AND mc.doctor_id=u.id AND tr.appointment_status='NOT_EXECUTED' AND st.patient_status='DIAGNOSED' AND u.id=:doctorId AND p.id=:patientId)", nativeQuery = true)
     TreatmentPatientDto patientForTreatment(Long doctorId, Long patientId);
 
-    @Query(value=" SELECT p.id AS id,\n" +
+    @Query(value = " SELECT p.id AS id,\n" +
             " p.first_name AS firstName,\n" +
             " p.last_name AS lastName,\n" +
             " p.birth_day as dateOfBirth,\n" +
@@ -45,24 +78,17 @@ public interface PatientRepository extends CrudRepository<Patient, Long>, Paging
             " WHERE c.id=u.category_id AND u.id=mc.doctor_id AND p.id=st.patient_id AND mc.id=tr.m_card_id AND mc.statement_id =st.id\n" +
             " AND p.id IN (SELECT st.patient_id FROM statements st, medical_cards mc, users u, treatments tr \n" +
             " WHERE mc.id=tr.m_card_id AND st.id=mc.statement_id AND mc.doctor_id=u.id AND tr.appointment_status='EXECUTED' AND st.patient_status='DISCHARGED' AND u.id=:doctorId)",
-             countQuery =" SELECT count(p.id)\n" +
-                     " FROM patients p, statements st, medical_cards mc, treatments tr, users u, categories c \n" +
-                     " WHERE c.id=u.category_id AND u.id=mc.doctor_id AND p.id=st.patient_id AND mc.id=tr.m_card_id AND mc.statement_id =st.id\n" +
-                     " AND p.id IN (SELECT st.patient_id FROM statements st, medical_cards mc, users u, treatments tr \n" +
-                     " WHERE mc.id=tr.m_card_id AND st.id=mc.statement_id AND mc.doctor_id=u.id AND tr.appointment_status='EXECUTED' AND st.patient_status='DISCHARGED' AND u.id=:doctorId)",     nativeQuery = true)
+            countQuery = " SELECT count(p.id)\n" +
+                    " FROM patients p, statements st, medical_cards mc, treatments tr, users u, categories c \n" +
+                    " WHERE c.id=u.category_id AND u.id=mc.doctor_id AND p.id=st.patient_id AND mc.id=tr.m_card_id AND mc.statement_id =st.id\n" +
+                    " AND p.id IN (SELECT st.patient_id FROM statements st, medical_cards mc, users u, treatments tr \n" +
+                    " WHERE mc.id=tr.m_card_id AND st.id=mc.statement_id AND mc.doctor_id=u.id AND tr.appointment_status='EXECUTED' AND st.patient_status='DISCHARGED' AND u.id=:doctorId)", nativeQuery = true)
     Page<TreatmentPatientDto> patientsHistoryByDoctorId(Long doctorId, Pageable pageable);
-
-    @Query(value = "SELECT * FROM patients p WHERE p.id NOT IN (SELECT st.patient_id FROM statements st WHERE st.patient_status='NEW' OR st.patient_status='DISCHARGED' OR st.patient_status='DIAGNOSED')",countQuery = "SELECT count(id) FROM patients p WHERE p.id NOT IN (SELECT st.patient_id FROM statements st WHERE st.patient_status='NEW' OR st.patient_status='DISCHARGED' OR st.patient_status='DIAGNOSED')", nativeQuery = true)
-    Page<Patient> patientsWithOutMedicCard(Pageable pageable);
 
     @Query(value = "SELECT * FROM patients p WHERE p.id NOT IN (SELECT st.patient_id FROM statements st WHERE st.patient_status='NEW' OR st.patient_status='DISCHARGED' OR st.patient_status='DIAGNOSED')", nativeQuery = true)
     List<Patient> patientsWithOutMedicCard();
 
-
-    @Query(value = " SELECT * FROM patients p WHERE p.id NOT IN (SELECT st.patient_id FROM statements st WHERE st.patient_status='NEW' OR st.patient_status='DIAGNOSED') AND p.id IN(SELECT st.patient_id FROM statements st WHERE st.patient_status='DISCHARGED') ORDER BY ?#{#pageable}", nativeQuery = true)
-    Page<Patient> dischargedPatients(Pageable pageable);
-
-    @Query(value=" SELECT p.id AS id,\n" +
+    @Query(value = " SELECT p.id AS id,\n" +
             " p.first_name AS firstName,\n" +
             " p.last_name AS lastName,\n" +
             " p.birth_day as dateOfBirth,\n" +
@@ -84,7 +110,7 @@ public interface PatientRepository extends CrudRepository<Patient, Long>, Paging
     List<TreatmentPatientDto> getPatientsForTreatmentByNurse();
 
 
-    @Query(value=" SELECT p.id AS id,\n" +
+    @Query(value = " SELECT p.id AS id,\n" +
             " p.first_name AS firstName,\n" +
             " p.last_name AS lastName,\n" +
             " p.birth_day as dateOfBirth,\n" +
@@ -105,7 +131,7 @@ public interface PatientRepository extends CrudRepository<Patient, Long>, Paging
             " AND mc.doctor_id=u.id AND tr.appointment_status='NOT_EXECUTED' AND st.patient_status='DIAGNOSED' AND (tr.appointment='DRUG' OR tr.appointment='PROCEDURE') AND p.id=:patientId);", nativeQuery = true)
     TreatmentPatientDto getPatientByIdForTreatmentByNurse(Long patientId);
 
-    @Query(value ="SELECT p.id AS id,\n" +
+    @Query(value = "SELECT p.id AS id,\n" +
             " p.first_name AS firstName,\n" +
             " p.last_name AS lastName,\n" +
             " p.birth_day as dateOfBirth,\n" +
@@ -126,7 +152,7 @@ public interface PatientRepository extends CrudRepository<Patient, Long>, Paging
             " WHERE c.id=u.category_id AND u.id=mc.doctor_id AND p.id=st.patient_id AND mc.id=tr.m_card_id AND mc.statement_id =st.id\n" +
             " AND p.id IN (SELECT st.patient_id FROM statements st, medical_cards mc, users u, treatments tr \n" +
             " WHERE mc.id=tr.m_card_id AND st.id=mc.statement_id AND mc.doctor_id=u.id AND tr.appointment_status='EXECUTED' AND st.patient_status='DISCHARGED' AND tr.executor_id=:nurseId)",
-            countQuery="SELECT count(p.id) FROM patients p, statements st, medical_cards mc, treatments tr, users u, categories c \n" +
+            countQuery = "SELECT count(p.id) FROM patients p, statements st, medical_cards mc, treatments tr, users u, categories c \n" +
                     " WHERE c.id=u.category_id AND u.id=mc.doctor_id AND p.id=st.patient_id AND mc.id=tr.m_card_id AND mc.statement_id =st.id\n" +
                     " AND p.id IN (SELECT st.patient_id FROM statements st, medical_cards mc, users u, treatments tr \n" +
                     " WHERE mc.id=tr.m_card_id AND st.id=mc.statement_id AND mc.doctor_id=u.id AND tr.appointment_status='EXECUTED' AND st.patient_status='DISCHARGED' AND tr.executor_id=:nurseId)",
@@ -154,7 +180,7 @@ public interface PatientRepository extends CrudRepository<Patient, Long>, Paging
             " WHERE c.id=u.category_id AND u.id=mc.doctor_id AND p.id=st.patient_id AND mc.id=tr.m_card_id AND mc.statement_id =st.id\n" +
             " AND p.id IN (SELECT st.patient_id FROM statements st, medical_cards mc, users u, treatments tr \n" +
             " WHERE mc.id=tr.m_card_id AND st.id=mc.statement_id AND mc.doctor_id=u.id AND tr.appointment_status='EXECUTED' AND st.patient_status='DISCHARGED')",
-            countQuery="SELECT count(p.id) FROM patients p, statements st, medical_cards mc, treatments tr, users u, categories c \n" +
+            countQuery = "SELECT count(p.id) FROM patients p, statements st, medical_cards mc, treatments tr, users u, categories c \n" +
                     " WHERE c.id=u.category_id AND u.id=mc.doctor_id AND p.id=st.patient_id AND mc.id=tr.m_card_id AND mc.statement_id =st.id\n" +
                     " AND p.id IN (SELECT st.patient_id FROM statements st, medical_cards mc, users u, treatments tr \n" +
                     " WHERE mc.id=tr.m_card_id AND st.id=mc.statement_id AND mc.doctor_id=u.id AND tr.appointment_status='EXECUTED' AND st.patient_status='DISCHARGED')",

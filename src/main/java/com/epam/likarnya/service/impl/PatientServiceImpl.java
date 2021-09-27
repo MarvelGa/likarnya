@@ -24,26 +24,8 @@ public class PatientServiceImpl implements PatientService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public Page<Patient> getPatientsWithOutMedicCard(Pageable pageable) {
-        return repository.patientsWithOutMedicCard(pageable);
-    }
-
-    @Transactional(propagation = Propagation.REQUIRED)
-    @Override
-    public Page<Patient> getDischargedPatients(Pageable pageable) {
-        return repository.dischargedPatients(pageable);
-    }
-
-    @Transactional(propagation = Propagation.REQUIRED)
-    @Override
     public Patient createOrUpdate(Patient patient) {
         return repository.save(patient);
-    }
-
-    @Transactional(propagation = Propagation.REQUIRED)
-    @Override
-    public Page<Patient> getPatients(Pageable pageable) {
-        return repository.findAll(pageable);
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
